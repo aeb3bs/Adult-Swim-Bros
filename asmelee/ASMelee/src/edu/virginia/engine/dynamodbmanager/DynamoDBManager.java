@@ -17,8 +17,8 @@ import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Sprite;
 
 public class DynamoDBManager {
-	public static final String AWS_ACCESS_KEY_ID="AKIAJULOHXH76XIXKCSQ";
-	public static final String AWS_SECRET_ACCESS_KEY="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";
+	public static final String AWS_ACCESS_KEY_ID="";
+	public static final String AWS_SECRET_ACCESS_KEY="";
 	private static int userId;
 	private static int enemyId;
 	private static DynamoDBManager instance = new DynamoDBManager();

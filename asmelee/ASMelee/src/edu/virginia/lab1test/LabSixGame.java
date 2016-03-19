@@ -65,15 +65,15 @@ public class LabSixGame extends Game{
 	public LabSixGame() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
 		super("Lab Two Test Game", 500, 425);
 		
-		Scanner scanner = new Scanner(System.in);
-		
-		System.out.println("What is your userId?");
-		int userId = scanner.nextInt();
-		DynamoDBManager.getInstance().setUserId(userId);
-		
-		System.out.println("What is your enemy's id?");
-		int enemyId = scanner.nextInt();
-		DynamoDBManager.getInstance().setEnemyId(enemyId);
+//		Scanner scanner = new Scanner(System.in);
+//		
+//		System.out.println("What is your userId?");
+//		int userId = scanner.nextInt();
+//		DynamoDBManager.getInstance().setUserId(userId);
+//		
+//		System.out.println("What is your enemy's id?");
+//		int enemyId = scanner.nextInt();
+//		DynamoDBManager.getInstance().setEnemyId(enemyId);
 		
 		ash1.setPosition(new Point(300,300));
 		coin1.setPosition(new Point(350,25));
