@@ -3,7 +3,6 @@ package edu.virginia.engine.display;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import edu.virginia.engine.dynamodbmanager.DynamoDBManager;
 import edu.virginia.engine.events.CharacterCollisionEvent;
 import edu.virginia.engine.events.PlatformCollisionEvent;
 import edu.virginia.main.Main;
@@ -69,7 +68,7 @@ public class Sprite extends DisplayObjectContainer {
 				   }
 
 				   public void run() {
-					   DynamoDBManager.getInstance().pushSpriteProperties(s);
+//					   DynamoDBManager.getInstance().pushSpriteProperties(s);
 				   }
 			}
 
@@ -87,7 +86,7 @@ public class Sprite extends DisplayObjectContainer {
 				   }
 
 				   public void run() {
-					   DynamoDBManager.getInstance().pullSpriteProperties(s);
+//					   DynamoDBManager.getInstance().pullSpriteProperties(s);
 				   }
 			}
 
