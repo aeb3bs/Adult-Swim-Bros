@@ -33,7 +33,7 @@ public class AnimatedSprite extends Sprite {
 	public ArrayList<BufferedImage>readSpriteSheet(int width, int height, int rows, int cols, String filename)
 	{
 		ArrayList<BufferedImage>spritesheetarray = new ArrayList<BufferedImage>();
-		BufferedImage spritesheet = DisplayObject.readImage("mario_sprite_sheet.png");
+		BufferedImage spritesheet = DisplayObject.readImage(filename);
 		for(int r=0;r<rows;r++)
 		{
 			for(int c=0;c<cols;c++)

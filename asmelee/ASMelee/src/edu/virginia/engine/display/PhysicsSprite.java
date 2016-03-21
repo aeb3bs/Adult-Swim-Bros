@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import edu.virginia.lab1test.LabSixGame;
+import edu.virginia.main.Main;
 
 
 public class PhysicsSprite extends AnimatedSprite {
@@ -92,12 +92,12 @@ public class PhysicsSprite extends AnimatedSprite {
 			
 			//update position and velocity due to gravity
 			int newX = (int) (this.getPosition().getX()+velocity_x*deltaT+(acceleration_x)/mass/2*Math.pow(deltaT, 2));
-			int newY = (int) (this.getPosition().getY()+velocity_y*deltaT+(LabSixGame.gravity+acceleration_y)/mass/2*Math.pow(deltaT, 2));
+			int newY = (int) (this.getPosition().getY()+velocity_y*deltaT+(Main.gravity+acceleration_y)/mass/2*Math.pow(deltaT, 2));
 			
 			Point newPosition = new Point(newX, newY);
 			this.setPosition(newPosition);
 			
-			velocity_y = velocity_y + (LabSixGame.gravity+acceleration_y)/mass * (deltaT);
+			velocity_y = velocity_y + (Main.gravity+acceleration_y)/mass * (deltaT);
 			velocity_x = velocity_x + (acceleration_x)/mass * (deltaT);
 			
 			acceleration_y = 0;

@@ -10,7 +10,7 @@ import edu.virginia.engine.tweening.Tween;
 import edu.virginia.engine.tweening.TweenTransitions;
 import edu.virginia.engine.tweening.TweenableParam;
 import edu.virginia.engine.tweening.TweenTransitions.transitiontype;
-import edu.virginia.lab1test.LabSixGame;
+import edu.virginia.main.Main;
 
 public class QuestManager implements IEventListener {
 	@Override
@@ -19,9 +19,9 @@ public class QuestManager implements IEventListener {
 		if(event.getSource() instanceof Coin)
 		{
 			Coin temp = (Coin) event.getSource();
-			LabSixGame.sm.StopMusic("Theme Song");
+			Main.sm.StopMusic("Theme Song");
 			try {
-				LabSixGame.sm.PlayMusic("Victory Song", false);
+				Main.sm.PlayMusic("Victory Song", false);
 			} catch (UnsupportedAudioFileException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

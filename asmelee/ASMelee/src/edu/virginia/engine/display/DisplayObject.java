@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import org.w3c.dom.css.Rect;
 
 import edu.virginia.engine.events.EventDispatcher;
-import edu.virginia.lab1test.LabSixGame;
+import edu.virginia.main.Main;
 
 /**
  * A very basic display object for a java based gaming engine
@@ -62,8 +62,8 @@ public class DisplayObject extends EventDispatcher {
 		hitbox.y = (int) this.getPosition().getY();
 		this.hitbox = hitbox;
 		
-		hitbox.height = (int) (this.getDisplayImage().getHeight()*this.getScaleY());
-		hitbox.width = (int) (this.getDisplayImage().getWidth()*this.getScaleX());
+		hitbox.height = (int) (this.getDisplayImage().getHeight()*Math.abs(this.getScaleY()));
+		hitbox.width = (int) (this.getDisplayImage().getWidth()*Math.abs(this.getScaleX()));
 	}
 	
 	public Point getGlobalPosition()
@@ -134,6 +134,7 @@ public class DisplayObject extends EventDispatcher {
 
 	public void setScaleX(double scaleX) {
 		this.scaleX = scaleX;
+		this.setDefaultHitbox();
 	}
 
 	public double getScaleY() {
@@ -142,6 +143,7 @@ public class DisplayObject extends EventDispatcher {
 
 	public void setScaleY(double scaleY) {
 		this.scaleY = scaleY;
+		this.setDefaultHitbox();
 	}
 
 	public double getRotation() {
@@ -244,7 +246,7 @@ public class DisplayObject extends EventDispatcher {
 	public static BufferedImage readImage(String imageName) {
 		BufferedImage image = null;
 		try {
-			URL url = LabSixGame.class.getResource("/"+imageName);
+			URL url = Main.class.getResource("/"+imageName);
 			String file = (url.getPath());
 			System.out.println(url);
 			image = ImageIO.read(new File(file));
@@ -303,7 +305,7 @@ public class DisplayObject extends EventDispatcher {
 			 *  This line when we need to draw the hitboxes and debug
 			 *  DEBUG HITBOX
 			 */
-			//g2d.drawRect(this.getHitboxGlobal().x, this.getHitboxGlobal().y, this.hitbox.width, this.hitbox.height);
+//			g2d.drawRect(this.getHitboxGlobal().x, this.getHitboxGlobal().y, this.hitbox.width, this.hitbox.height);
 		}
 	}
 

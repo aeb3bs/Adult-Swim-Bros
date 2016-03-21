@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import edu.virginia.engine.dynamodbmanager.DynamoDBManager;
-import edu.virginia.engine.events.CollisionEvent;
-import edu.virginia.lab1test.LabSixGame;
+import edu.virginia.engine.events.CharacterCollisionEvent;
+import edu.virginia.engine.events.PlatformCollisionEvent;
+import edu.virginia.main.Main;
 
 /**
  * Nothing in this class (yet) because there is nothing specific to a Sprite yet that a DisplayObject
@@ -32,19 +33,28 @@ public class Sprite extends DisplayObjectContainer {
 	@Override
 	public void update(ArrayList<String> pressedKeys) {
 		super.update(pressedKeys);
-		ArrayList<DisplayObject>allchildren = LabSixGame.getAllchildren();
+		ArrayList<DisplayObject>allchildren = Main.getAllchildren();
+		boolean character = (this instanceof Character);
 		for(DisplayObject o:allchildren)
 		{
 			if(!this.equals(o) && this.collidesWith(o))
 			{
-				CollisionEvent e = new CollisionEvent();
 				if(o instanceof Platform)
 				{
+					PlatformCollisionEvent e = new PlatformCollisionEvent();
 					e.setSource(this);
 					e.setPlatform((Platform)o);
 					Platform p = (Platform)o;
 					if(this.getPosition().getY()<p.getPosition().getY())
 						this.dispatchEvent(e);
+				}
+				else if(character && (o instanceof Character))
+				{
+					CharacterCollisionEvent e = new CharacterCollisionEvent();
+					e.setSource(this);
+					Character c = (Character)o;
+					e.setCharacter(c);
+					this.dispatchEvent(e);
 				}
 			}
 		}
@@ -63,8 +73,8 @@ public class Sprite extends DisplayObjectContainer {
 				   }
 			}
 
-		     Runnable r = new MyThread(this);
-		     new Thread(r).start();
+//		     Runnable r = new MyThread(this);
+//		     new Thread(r).start();
 			
 			this.lastUpdated = Calendar.getInstance().getTimeInMillis();
 		}
@@ -81,8 +91,9 @@ public class Sprite extends DisplayObjectContainer {
 				   }
 			}
 
-		     Runnable r = new MyThread(this);
-		     new Thread(r).start();
+//			Runnable r = new MyThread(this);
+//			new Thread(r).start();
+
 			this.lastUpdated = Calendar.getInstance().getTimeInMillis();
 		}
 	}

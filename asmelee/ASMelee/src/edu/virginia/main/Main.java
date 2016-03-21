@@ -1,10 +1,9 @@
-package edu.virginia.lab1test;
+package edu.virginia.main;
 
 import java.awt.Graphics;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -17,9 +16,11 @@ import edu.virginia.engine.display.Human;
 import edu.virginia.engine.display.Mario;
 import edu.virginia.engine.display.Platform;
 import edu.virginia.engine.display.SoundManager;
-import edu.virginia.engine.dynamodbmanager.DynamoDBManager;
-import edu.virginia.engine.events.CollisionEvent;
+import edu.virginia.engine.display.Stewie;
+import edu.virginia.engine.events.CharacterCollisionEvent;
+import edu.virginia.engine.events.CharacterCollisionManager;
 import edu.virginia.engine.events.PickedUpEvent;
+import edu.virginia.engine.events.PlatformCollisionEvent;
 import edu.virginia.engine.events.PlatformManager;
 import edu.virginia.engine.events.QuestManager;
 import edu.virginia.engine.tweening.Tween;
@@ -32,16 +33,17 @@ import edu.virginia.engine.tweening.TweenableParam;
  * Example game that utilizes our engine. We can create a simple prototype game with just a couple lines of code
  * although, for now, it won't be a very fun game :)
  * */
-public class LabSixGame extends Game{
+public class Main extends Game{
 	public static final double gravity = 4000.0;
 	/* Create a sprite object for our game. We'll use mario */
 	Human ash1 = new Human("Ash1", false);
 	Coin coin1 = new Coin("Coin1");
 	QuestManager myQuestManager = new QuestManager();
 	Mario mario1 = new Mario("Mario1", false);
-	Mario mario2 = new Mario("Mario2", true);
+	Stewie stewie1 = new Stewie("Stewie1", false);
 	DisplayObjectContainer mario_background = new DisplayObjectContainer("Background1");
 	PlatformManager myPlatformManager = new PlatformManager();
+	CharacterCollisionManager myCharacterCollisionManager = new CharacterCollisionManager();
 	public static SoundManager sm = new SoundManager();
 	
 	/* 
@@ -62,7 +64,7 @@ public class LabSixGame extends Game{
 	 * @throws IOException 
 	 * @throws UnsupportedAudioFileException 
 	 * */
-	public LabSixGame() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+	public Main() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
 		super("Lab Two Test Game", 500, 425);
 		
 //		Scanner scanner = new Scanner(System.in);
@@ -78,7 +80,7 @@ public class LabSixGame extends Game{
 		ash1.setPosition(new Point(300,300));
 		coin1.setPosition(new Point(350,25));
 		mario1.setPosition(new Point(300,300));
-		mario2.setPosition(new Point(100,300));
+		stewie1.setPosition(new Point(100,0));
 		mario_background.setPosition(new Point(0,0));
 		p1.setPosition(new Point(15,240));
 		p2.setPosition(new Point(275,180));
@@ -99,9 +101,8 @@ public class LabSixGame extends Game{
 		mario_background.setImage(DisplayObject.readImage("mario_background_1.png"));
 		
 		this.addChild(mario_background);
-//		this.addChild(ash1);
 		this.addChild(mario1);
-		this.addChild(mario2);
+		this.addChild(stewie1);
 		for(Platform p:platforms)
 		{
 			this.addChild(p);
@@ -109,10 +110,10 @@ public class LabSixGame extends Game{
 		this.addChild(coin1);
 		
 		
-		sm = new SoundManager();
-		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
-		sm.LoadMusic("Victory Song", "mario_victory.wav");
-		sm.PlayMusic("Theme Song", true);
+//		sm = new SoundManager();
+//		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
+//		sm.LoadMusic("Victory Song", "mario_victory.wav");
+//		sm.PlayMusic("Theme Song", true);
 		
 		Tween linearTween = new Tween(mario1, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
 		linearTween.animate(TweenableParam.ALPHA, 0.0, 1.0, 2500);
@@ -123,8 +124,12 @@ public class LabSixGame extends Game{
 		x2Tween.animate(TweenableParam.POSITIONY, 0, 300, 1500);
 		
 		coin1.addEventListener(myQuestManager, PickedUpEvent.COIN_PICKED_UP);
-		mario1.addEventListener(myPlatformManager, CollisionEvent.COLLISION);
-		mario2.addEventListener(myPlatformManager, CollisionEvent.COLLISION);
+		mario1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
+		stewie1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
+		stewie1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
+		
+		stewie1.setScaleX(.5);
+		stewie1.setScaleY(.5);
 	}
 	
 	/**
@@ -175,7 +180,7 @@ public class LabSixGame extends Game{
 	 * @throws LineUnavailableException 
 	 * */
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
-		LabSixGame game = new LabSixGame();
+		Main game = new Main();
 		game.start();
 
 	}
@@ -185,6 +190,6 @@ public class LabSixGame extends Game{
 	}
 
 	public static void setAllchildren(ArrayList<DisplayObject> allchildren) {
-		LabSixGame.allchildren = allchildren;
+		Main.allchildren = allchildren;
 	}
 }

@@ -2,10 +2,10 @@ package edu.virginia.engine.events;
 
 import edu.virginia.engine.display.Platform;
 
-public class CollisionEvent extends Event {
+public class PlatformCollisionEvent extends Event {
 	public static final String COLLISION = "Collision";
 	public Platform platform;
-	public CollisionEvent()
+	public PlatformCollisionEvent()
 	{
 		this.setEventType(COLLISION);
 	}
