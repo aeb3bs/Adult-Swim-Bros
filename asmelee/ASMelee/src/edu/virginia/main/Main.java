@@ -110,10 +110,10 @@ public class Main extends Game{
 		this.addChild(coin1);
 		
 		
-//		sm = new SoundManager();
-//		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
-//		sm.LoadMusic("Victory Song", "mario_victory.wav");
-//		sm.PlayMusic("Theme Song", true);
+		sm = new SoundManager();
+		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
+		sm.LoadMusic("Victory Song", "mario_victory.wav");
+		sm.PlayMusic("Theme Song", true);
 		
 		Tween linearTween = new Tween(mario1, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
 		linearTween.animate(TweenableParam.ALPHA, 0.0, 1.0, 2500);
