@@ -56,7 +56,7 @@ public class Stewie extends Character {
 						this.setSpeed(3);
 						break;
 				//jumping
-				case 3: this.setVelocity_y(-200);
+				case 3: this.setVelocity_y(-300);
 						this.jumping = true;
 				//melee attack
 				case 4: this.setLatency(10);

@@ -91,14 +91,16 @@ public class DisplayObject extends EventDispatcher {
 	public Rectangle getHitboxGlobal()
 	{
 		Rectangle hitbox = this.hitbox;
-		if (this.getGlobalPosition().getX() != null && this.getGlobalPosition().getY() != null){
+		if(hitbox != null)
+		{
 			hitbox.x = (int) this.getGlobalPosition().getX();
-		}
 			hitbox.y = (int) this.getGlobalPosition().getY();
-		else {
+			return hitbox;
+		}
+		else
+		{
 			return null;
 		}
-		return hitbox;
 	}
 
 	public boolean isVisible() {
@@ -176,13 +178,15 @@ public class DisplayObject extends EventDispatcher {
 	 * position OR the id and a buffered image and position
 	 */
 	public DisplayObject(String id) {
-		this.setPosition(new Point(0, 0));
+		this.setPosition(new Point(0,0));
+//		this.setDefaultHitbox();
 		this.setId(id);
 		setDefaults();
 	}
 
 	public DisplayObject(String id, String fileName) {
-		this.setPosition(new Point(0, 0));
+		this.setPosition(new Point(0,0));
+//		this.setDefaultHitbox();
 		this.setId(id);
 		this.setImage(fileName);
 		setDefaults();
@@ -311,7 +315,7 @@ public class DisplayObject extends EventDispatcher {
 			 *  This line when we need to draw the hitboxes and debug
 			 *  DEBUG HITBOX
 			 */
-			g2d.drawRect(this.getHitboxGlobal().x, this.getHitboxGlobal().y, this.hitbox.width, this.hitbox.height);
+//			g2d.drawRect(this.getHitboxGlobal().x, this.getHitboxGlobal().y, this.hitbox.width, this.hitbox.height);
 		}
 	}
 
