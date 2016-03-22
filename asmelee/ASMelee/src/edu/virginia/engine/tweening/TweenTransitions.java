@@ -37,7 +37,7 @@ public class TweenTransitions {
 	}
 	public double easeOut(double percentDone){
 		
-		System.out.println(1 - Math.pow(1-percentDone/100, 2));
+		//System.out.println(1 - Math.pow(1-percentDone/100, 2));
 		return 1 - Math.pow(1-percentDone/100, 2);
 	}
 }

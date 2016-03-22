@@ -106,9 +106,9 @@ public class Main extends Game{
 		this.addChild(stewie1);
 		
 		//healthBar
-		HealthBar healthBarMario = new HealthBar ("healthbarMario", false, 0, -10);
+		//HealthBar healthBarMario = new HealthBar ("healthbarMario", false, 0, -10);
 		
-		mario1.addChild(healthBarMario);
+		//mario1.addChild(healthBarMario);
 		
 		for(Platform p:platforms)
 		{
@@ -146,6 +146,27 @@ public class Main extends Game{
 	@Override
 	public void update(ArrayList<String> pressedKeys){
 		super.update(pressedKeys);
+		
+		//Evan Edit: in future need to iterate through list of characters
+		if (mario1.healthbar.getActualHealth() < mario1.healthbar.getVisibleHealth()){
+			mario1.healthbar.setVisibleHealth(mario1.healthbar.getVisibleHealth()-.5);
+		}
+		else if (mario1.healthbar.getActualHealth() != mario1.healthbar.getVisibleHealth()){
+			// make sure we don't go over
+			mario1.healthbar.setVisibleHealth(mario1.healthbar.getActualHealth());
+		}
+		else {
+			
+		}
+		if (mario1.healthbar.actualHealth > 0){
+			mario1.healthbar.greenHealthBar.setScaleX(mario1.healthbar.actualHealth/100);
+			mario1.healthbar.redHealthBar.setScaleX(mario1.healthbar.visibleHealth/100);
+		}
+		else {
+			// pure bug avoidance: setScaleX cannot be set to 0
+			mario1.healthbar.greenHealthBar.setScaleX(.01);
+			mario1.healthbar.redHealthBar.setScaleX(.01);
+		}
 		
 		//if ash is near coin, throw event
 		if(mario1 != null && coin1 != null)

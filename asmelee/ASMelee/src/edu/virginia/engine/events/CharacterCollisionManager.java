@@ -24,8 +24,14 @@ public class CharacterCollisionManager implements IEventListener {
 			/*
 			 * Add all the hitting code in this if statement
 			 */
+			// if character c is hitting other
 			if(c.getHitting())
 			{
+				// add code that depends on move
+				if(other.healthbar.actualHealth > 0){
+					System.out.println("Mario health is: " + (other.healthbar.getActualHealth()-5));
+					other.healthbar.setActualHealth(other.healthbar.getActualHealth()-5);
+				}
 				/*
 				 * if direction == 0, we are hitting other character from left
 				 * if direction == 1, we are hitting other character from right

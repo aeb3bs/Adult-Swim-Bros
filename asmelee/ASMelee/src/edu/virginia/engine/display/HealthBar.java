@@ -5,25 +5,29 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class HealthBar extends Sprite{
 	public int X;
 	public int Y;
 	public int width = 50;
 	public int height = 8;
-	private int actualHealth;
-	private int visibleHealth;
+	public double actualHealth = 100;
+	public double visibleHealth = 100;
+	Sprite outline;
+	public Sprite greenHealthBar;
+	public Sprite redHealthBar;
 	
-	public int getActualHealth() {
+	public double getActualHealth() {
 		return actualHealth;
 	}
-	public int getVisibleHealth() {
+	public double getVisibleHealth() {
 		return visibleHealth;
 	}
-	public void setActualHealth(int actualHealth) {
+	public void setActualHealth(double actualHealth) {
 		this.actualHealth = actualHealth;
 	}
-	public void setVisibleHealth(int visibleHealth) {
+	public void setVisibleHealth(double visibleHealth) {
 		this.visibleHealth = visibleHealth;
 	}
 	
@@ -37,8 +41,17 @@ public class HealthBar extends Sprite{
 		this.X = x;
 		this.Y = y;
 		
-		Sprite outline = new Sprite("outline", "HealthBarOutline.png", false);
-		outline.setPosition(new Point(0, 20));
+		outline = new Sprite("outline", "HealthBarOutline.png", false);
+		greenHealthBar = new Sprite("outline", "GreenHealthBar.png", false);
+		redHealthBar = new Sprite("outline", "RedHealthBar.png", false);
+		outline.setPosition(new Point(0, -20));
+		outline.setScaleX(.95);
+		greenHealthBar.setPosition(new Point(3, -18));
+		redHealthBar.setPosition(new Point(3, -18));
+		this.addChild(outline);
+		this.addChild(redHealthBar);
+		this.addChild(greenHealthBar);
+		
 	}
 	@Override
 	public void draw(Graphics g){
@@ -50,5 +63,11 @@ public class HealthBar extends Sprite{
 		g2d.fillRect(this.X, this.Y, this.width, this.height);*/
 		
 	}
+	/*@Override
+	public void update(ArrayList<String> pressedKeys){
+		super.update(pressedKeys);
+		//this.greenHealthBar.setScaleX(this.actualHealth/100);
+		//this.redHealthBar.setScaleX(this.visibleHealth/100);
+	}*/
 
 }

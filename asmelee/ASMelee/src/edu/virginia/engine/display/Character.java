@@ -6,9 +6,12 @@ public class Character extends PhysicsSprite {
 	boolean jumping;
 	boolean hitting;
 	int animationMode;
+	public HealthBar healthbar;
 	
 	public Character(String id, boolean onlineSprite) {
 		super(id, onlineSprite);
+		healthbar = new HealthBar ("healthbar", false, 0, -10);
+		this.addChild(healthbar);
 	}
 	
 	@Override
