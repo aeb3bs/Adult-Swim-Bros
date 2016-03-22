@@ -12,6 +12,17 @@ public class TweenJuggler {
 	private static TweenJuggler instance = new TweenJuggler();
 	public HashSet<DisplayObject>tweenobjects = new HashSet<DisplayObject>();
 	public static TweenEventManager tem = new TweenEventManager();
+	public void clearTweens(DisplayObject o)
+	{
+		for(int index=tweens.size()-1;index>=0;index--)
+		{
+			if(tweens.get(index).equals(o))
+			{
+				tweens.remove(index);
+			}
+		}
+		tweenobjects.remove(o);
+	}
 	public HashSet<DisplayObject>getTweenObjects()
 	{
 		return tweenobjects;

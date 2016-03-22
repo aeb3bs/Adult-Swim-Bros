@@ -18,10 +18,10 @@ public class HealthBar extends Sprite{
 	public Sprite greenHealthBar;
 	public Sprite redHealthBar;
 	
-	public double getActualHealth() {
+	public Double getActualHealth() {
 		return actualHealth;
 	}
-	public double getVisibleHealth() {
+	public Double getVisibleHealth() {
 		return visibleHealth;
 	}
 	public void setActualHealth(double actualHealth) {

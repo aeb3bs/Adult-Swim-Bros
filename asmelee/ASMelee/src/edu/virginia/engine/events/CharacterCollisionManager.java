@@ -8,6 +8,7 @@ import edu.virginia.engine.display.Stewie;
 import edu.virginia.main.Main;
 import edu.virginia.engine.display.Character;
 import edu.virginia.engine.tweening.Tween;
+import edu.virginia.engine.tweening.TweenJuggler;
 import edu.virginia.engine.tweening.TweenTransitions;
 import edu.virginia.engine.tweening.TweenableParam;
 import edu.virginia.engine.tweening.TweenTransitions.transitiontype;
@@ -66,8 +67,15 @@ public class CharacterCollisionManager implements IEventListener {
 					}
 					
 					newY = originalY - 500;
-					linearTween.animate(TweenableParam.POSITIONX, originalX, newX, 1500);
-					linearTween.animate(TweenableParam.POSITIONY, originalY, newX, 1500);
+					
+					/*
+					 * Clear any other tweens acting upon object
+					 */
+					TweenJuggler.getInstance().clearTweens(other);
+					
+					Tween deathTween = new Tween(other, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
+					deathTween.animate(TweenableParam.POSITIONX, originalY, newX, 1500);
+					deathTween.animate(TweenableParam.POSITIONY, originalY, newY, 1500);
 				}
 			}
 		}
