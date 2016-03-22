@@ -27,11 +27,6 @@ public class CharacterCollisionManager implements IEventListener {
 			// if character c is hitting other
 			if(c.getHitting())
 			{
-				// add code that depends on move
-				if(other.healthbar.actualHealth > 0){
-					System.out.println("Mario health is: " + (other.healthbar.getActualHealth()-5));
-					other.healthbar.setActualHealth(other.healthbar.getActualHealth()-5);
-				}
 				/*
 				 * if direction == 0, we are hitting other character from left
 				 * if direction == 1, we are hitting other character from right
@@ -43,13 +38,37 @@ public class CharacterCollisionManager implements IEventListener {
 					direction = 1;
 				Tween linearTween = new Tween(other, new TweenTransitions(transitiontype.easeOut), "easeOut");
 				int originalX = (int) other.getPosition().getX();
+				int originalY = (int) other.getPosition().getY();
 				
 				int newX = 0;
-				if(direction == 0)
-					newX = originalX + 100;
-				if(direction == 1)
-					newX = originalX - 100;
-				linearTween.animate(TweenableParam.POSITIONX, originalX, newX, 500);
+				int newY = 0;
+				
+				// add code that depends on move
+				if(other.healthbar.actualHealth > 0){
+					if(direction == 0)
+						newX = originalX + 100;
+					if(direction == 1)
+						newX = originalX - 100;
+					
+					linearTween.animate(TweenableParam.POSITIONX, originalX, newX, 500);
+					System.out.println("Mario health is: " + (other.healthbar.getActualHealth()-5));
+					other.healthbar.setActualHealth(other.healthbar.getActualHealth()-5);
+				}
+				else
+				{
+					if(direction == 0)
+					{
+						newX = originalX + 500;
+					}
+					if(direction == 1)
+					{
+						newX = originalX - 500;
+					}
+					
+					newY = originalY - 500;
+					linearTween.animate(TweenableParam.POSITIONX, originalX, newX, 1500);
+					linearTween.animate(TweenableParam.POSITIONY, originalY, newX, 1500);
+				}
 			}
 		}
 	}

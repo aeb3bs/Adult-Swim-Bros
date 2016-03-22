@@ -105,11 +105,6 @@ public class Main extends Game{
 		this.addChild(mario1);
 		this.addChild(stewie1);
 		
-		//healthBar
-		//HealthBar healthBarMario = new HealthBar ("healthbarMario", false, 0, -10);
-		
-		//mario1.addChild(healthBarMario);
-		
 		for(Platform p:platforms)
 		{
 			this.addChild(p);
