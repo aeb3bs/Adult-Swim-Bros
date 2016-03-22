@@ -20,6 +20,10 @@ public class CharacterCollisionManager implements IEventListener {
 			CharacterCollisionEvent ce = (CharacterCollisionEvent)event;
 			Character c = (Character) event.getSource();
 			Character other = ce.character;
+			
+			/*
+			 * Add all the hitting code in this if statement
+			 */
 			if(c.getHitting())
 			{
 				/*
@@ -31,7 +35,7 @@ public class CharacterCollisionManager implements IEventListener {
 					direction = 0;
 				else
 					direction = 1;
-				Tween linearTween = new Tween(other, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
+				Tween linearTween = new Tween(other, new TweenTransitions(transitiontype.easeOut), "easeOut");
 				int originalX = (int) other.getPosition().getX();
 				
 				int newX = 0;

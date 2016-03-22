@@ -59,7 +59,7 @@ public class Stewie extends Character {
 				case 3: this.setVelocity_y(-200);
 						this.jumping = true;
 				//melee attack
-				case 4: this.setLatency(30);
+				case 4: this.setLatency(10);
 						this.hitting = true;
 			}
 		}

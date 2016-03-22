@@ -23,6 +23,7 @@ public class Mario extends Character {
 		this.setImages(images);
 		
 		this.jumping = false;
+		
 	}
 	
 	public void animate(int mode)

@@ -12,6 +12,7 @@ import edu.virginia.engine.display.Coin;
 import edu.virginia.engine.display.DisplayObject;
 import edu.virginia.engine.display.DisplayObjectContainer;
 import edu.virginia.engine.display.Game;
+import edu.virginia.engine.display.HealthBar;
 import edu.virginia.engine.display.Human;
 import edu.virginia.engine.display.Mario;
 import edu.virginia.engine.display.Platform;
@@ -103,6 +104,12 @@ public class Main extends Game{
 		this.addChild(mario_background);
 		this.addChild(mario1);
 		this.addChild(stewie1);
+		
+		//healthBar
+		HealthBar healthBarMario = new HealthBar ("healthbarMario", false, 0, -10);
+		
+		mario1.addChild(healthBarMario);
+		
 		for(Platform p:platforms)
 		{
 			this.addChild(p);

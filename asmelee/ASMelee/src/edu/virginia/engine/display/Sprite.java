@@ -36,7 +36,7 @@ public class Sprite extends DisplayObjectContainer {
 		boolean character = (this instanceof Character);
 		for(DisplayObject o:allchildren)
 		{
-			if(!this.equals(o) && this.collidesWith(o))
+			if(this.getHitboxGlobal() != null && o.getHitboxGlobal() != null && !this.equals(o) && this.collidesWith(o))
 			{
 				if(o instanceof Platform)
 				{
