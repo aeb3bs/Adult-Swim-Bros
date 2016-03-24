@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
@@ -50,9 +52,17 @@ public class DisplayObject extends EventDispatcher {
 	float alpha;
 	
 	Rectangle hitbox;
+	ArrayList<Rectangle> hitboxes;
+	HashMap<BufferedImage, ArrayList<Rectangle>> boxMap = new HashMap<BufferedImage, ArrayList<Rectangle>>();
 	public boolean collidesWith(DisplayObject other)
 	{
-		return this.getHitboxGlobal().intersects(other.getHitboxGlobal());
+		if(boxMap.size() == 0 || other.boxMap.size() ==0)
+			return this.getHitboxGlobal().intersects(other.getHitboxGlobal());//This is sorta just a bandaid, may need to re-eval later
+		for(Rectangle h: hitboxes)
+			for(Rectangle g: other.hitboxes)
+				if(this.getHitboxGlobal(h).intersects(other.getHitboxGlobal(h)))
+					return true;
+		return false;
 	}
 	
 	public void setDefaultHitbox()
@@ -87,10 +97,13 @@ public class DisplayObject extends EventDispatcher {
 	{
 		return this.hitbox;
 	}
-	
 	public Rectangle getHitboxGlobal()
 	{
-		Rectangle hitbox = this.hitbox;
+		return this.getHitboxGlobal(hitbox);
+	}
+	public Rectangle getHitboxGlobal(Rectangle curHitbox)
+	{
+		Rectangle hitbox = curHitbox;
 		if(hitbox != null)
 		{
 			hitbox.x = (int) this.getGlobalPosition().getX();
@@ -239,13 +252,39 @@ public class DisplayObject extends EventDispatcher {
 		if (imageName == null) {
 			return;
 		}
+		
 		displayImage = readImage(imageName);
 		if (displayImage == null) {
 			System.err.println("[DisplayObject.setImage] ERROR: " + imageName + " does not exist!");
 		}
-		
-		if(hitbox == null)
+		ArrayList<Rectangle> allHboxes = new ArrayList<Rectangle>();
+		try {
+			URL url = Main.class.getResource("/"+imageName.subSequence(0, imageName.length() -3) + "txt");
+			String file = (url.getPath());
+			System.out.println(url);
+			Scanner sc = new Scanner(new File(file));
+			
+			while(sc.hasNextLine())
+			{
+				String[] hbox = sc.nextLine().split(" ");
+				Rectangle tmp = new Rectangle(
+						Integer.parseInt(hbox[0]),
+						Integer.parseInt(hbox[1]),
+						Integer.parseInt(hbox[2]),
+						Integer.parseInt(hbox[3]));
+				allHboxes.add(tmp);
+			}
+			
+		} catch (Exception  e) {
+			//System.out.println("[Error in DisplayObject.java:readImage] Could not read image hitboxes " + imageName);
+			//e.printStackTrace();
+		}
+		if(hitbox == null){
 			this.setDefaultHitbox();
+			allHboxes.add(hitbox);
+			
+		}
+		boxMap.put(displayImage, allHboxes);
 	}
 
 
@@ -271,8 +310,10 @@ public class DisplayObject extends EventDispatcher {
 		if(image == null) return;
 		displayImage = image;
 		
-		if(hitbox == null)
+		if(hitbox == null || !boxMap.containsKey(image))
 			this.setDefaultHitbox();
+		else
+			hitboxes = boxMap.get(image);
 	}
 
 
