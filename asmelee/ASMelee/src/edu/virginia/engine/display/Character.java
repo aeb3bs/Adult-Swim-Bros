@@ -14,6 +14,22 @@ public class Character extends PhysicsSprite {
 		this.addChild(healthbar);
 	}
 	
+	public int getAnimationMode() {
+		return animationMode;
+	}
+
+	public void setAnimationMode(int animationMode) {
+		this.animationMode = animationMode;
+	}
+	
+	public boolean isJumping() {
+		return jumping;
+	}
+
+	public void setJumping(boolean jumping) {
+		this.jumping = jumping;
+	}
+	
 	@Override
 	public void resetAnimation()
 	{

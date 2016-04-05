@@ -2,6 +2,7 @@ package edu.virginia.main;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -44,7 +45,7 @@ public class Main extends Game{
 	QuestManager myQuestManager = new QuestManager();
 	Mario mario1 = new Mario("Mario1", false);
 	Stewie stewie1 = new Stewie("Stewie1", false);
-//	Peter peter1 = new Peter("Peter1", false);
+	Peter peter1 = new Peter("Peter1", false);
 	DisplayObjectContainer mario_background = new DisplayObjectContainer("Background1");
 	PlatformManager myPlatformManager = new PlatformManager();
 	CharacterCollisionManager myCharacterCollisionManager = new CharacterCollisionManager();
@@ -86,7 +87,7 @@ public class Main extends Game{
 		coin1.setPosition(new Point(350,25));
 		mario1.setPosition(new Point(300,300));
 		stewie1.setPosition(new Point(100,0));
-//		peter1.setPosition(new Point(100,0));
+		peter1.setPosition(new Point(100,0));
 		mario_background.setPosition(new Point(0,0));
 		p1.setPosition(new Point(15,240));
 		p2.setPosition(new Point(275,180));
@@ -108,8 +109,8 @@ public class Main extends Game{
 		
 		this.addChild(mario_background);
 		this.addChild(mario1);
-		this.addChild(stewie1);
-//		this.addChild(peter1);
+//		this.addChild(stewie1);
+		this.addChild(peter1);
 		
 		for(Platform p:platforms)
 		{
@@ -135,12 +136,16 @@ public class Main extends Game{
 		mario1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		stewie1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		stewie1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
+		peter1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
+		peter1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
 		
 		//mario1 reacts to death
 		mario1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
 		
 		stewie1.setScaleX(.5);
 		stewie1.setScaleY(.5);
+		peter1.setScaleX(.5);
+		peter1.setScaleY(.5);
 	}
 	
 	/**
@@ -228,7 +233,13 @@ public class Main extends Game{
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
 		Main game = new Main();
 		game.start();
-
+		
+		//code to generate code for new character constructor
+//		for(int index=9; index<15;index++)
+//		{
+//			System.out.println("BufferedImage d"+index+" = DisplayObject.readImage(\"peter_griffin_melee_"+(index-8)+"" +
+//					".png\");\nimages.add(d"+index+");");
+//		}
 	}
 
 	public static ArrayList<DisplayObject> getAllchildren() {

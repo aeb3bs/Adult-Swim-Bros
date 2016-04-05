@@ -65,22 +65,6 @@ public class Stewie extends Character {
 		}
 		this.setAnimationMode(mode);
 	}
-
-	public boolean isJumping() {
-		return jumping;
-	}
-
-	public void setJumping(boolean jumping) {
-		this.jumping = jumping;
-	}
-
-	public int getAnimationMode() {
-		return animationMode;
-	}
-
-	public void setAnimationMode(int animationMode) {
-		this.animationMode = animationMode;
-	}
 	
 	@Override
 	public void update(ArrayList<String> pressedKeys)
