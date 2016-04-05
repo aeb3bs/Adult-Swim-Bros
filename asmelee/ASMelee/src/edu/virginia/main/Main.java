@@ -20,6 +20,8 @@ import edu.virginia.engine.display.SoundManager;
 import edu.virginia.engine.display.Stewie;
 import edu.virginia.engine.events.CharacterCollisionEvent;
 import edu.virginia.engine.events.CharacterCollisionManager;
+import edu.virginia.engine.events.CharacterDeathEvent;
+import edu.virginia.engine.events.CharacterDeathManager;
 import edu.virginia.engine.events.PickedUpEvent;
 import edu.virginia.engine.events.PlatformCollisionEvent;
 import edu.virginia.engine.events.PlatformManager;
@@ -46,6 +48,7 @@ public class Main extends Game{
 	PlatformManager myPlatformManager = new PlatformManager();
 	CharacterCollisionManager myCharacterCollisionManager = new CharacterCollisionManager();
 	public static SoundManager sm = new SoundManager();
+	CharacterDeathManager myCharacterDeathManager = new CharacterDeathManager();
 	
 	/* 
 	 * platforms
@@ -135,6 +138,9 @@ public class Main extends Game{
 		stewie1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		stewie1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
 		
+		//mario1 reacts to death
+		mario1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
+		
 		stewie1.setScaleX(.5);
 		stewie1.setScaleY(.5);
 	}
@@ -166,6 +172,9 @@ public class Main extends Game{
 			// pure bug avoidance: setScaleX cannot be set to 0
 			mario1.healthbar.greenHealthBar.setScaleX(.01);
 			mario1.healthbar.redHealthBar.setScaleX(.01);
+			//dispatch mario's death -> 1 character left
+			mario1.dispatchEvent(new CharacterDeathEvent(1));
+			mario1.removeEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
 		}
 		
 		//if ash is near coin, throw event
