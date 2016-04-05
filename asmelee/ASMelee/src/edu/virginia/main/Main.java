@@ -108,11 +108,6 @@ public class Main extends Game{
 		this.addChild(mario1);
 		this.addChild(stewie1);
 		
-		//healthBar
-		//HealthBar healthBarMario = new HealthBar ("healthbarMario", false, 0, -10);
-		
-		//mario1.addChild(healthBarMario);
-		
 		for(Platform p:platforms)
 		{
 			this.addChild(p);
@@ -153,28 +148,39 @@ public class Main extends Game{
 	public void update(ArrayList<String> pressedKeys){
 		super.update(pressedKeys);
 		
-		//Evan Edit: in future need to iterate through list of characters
-		if (mario1.healthbar.getActualHealth() < mario1.healthbar.getVisibleHealth()){
-			mario1.healthbar.setVisibleHealth(mario1.healthbar.getVisibleHealth()-.5);
-		}
-		else if (mario1.healthbar.getActualHealth() != mario1.healthbar.getVisibleHealth()){
-			// make sure we don't go over
-			mario1.healthbar.setVisibleHealth(mario1.healthbar.getActualHealth());
-		}
-		else {
+		if(mario1 != null && mario1.healthbar != null)
+		{
+			Double actualHealth = mario1.healthbar.getActualHealth();
+			Double visibleHealth = mario1.healthbar.getVisibleHealth();
 			
-		}
-		if (mario1.healthbar.actualHealth > 0){
-			mario1.healthbar.greenHealthBar.setScaleX(mario1.healthbar.actualHealth/100);
-			mario1.healthbar.redHealthBar.setScaleX(mario1.healthbar.visibleHealth/100);
-		}
-		else {
-			// pure bug avoidance: setScaleX cannot be set to 0
-			mario1.healthbar.greenHealthBar.setScaleX(.01);
-			mario1.healthbar.redHealthBar.setScaleX(.01);
-			//dispatch mario's death -> 1 character left
-			mario1.dispatchEvent(new CharacterDeathEvent(1));
-			mario1.removeEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
+		
+			if(actualHealth != null && visibleHealth != null)
+			{
+				//Evan Edit: in future need to iterate through list of characters
+				if (actualHealth < visibleHealth){
+					mario1.healthbar.setVisibleHealth(visibleHealth-.5);
+				}
+				else if (actualHealth != visibleHealth){
+					// make sure we don't go over
+					mario1.healthbar.setVisibleHealth(actualHealth);
+				}
+				else {
+					
+				}
+				if (mario1.healthbar.actualHealth > 0){
+					mario1.healthbar.greenHealthBar.setScaleX(mario1.healthbar.actualHealth/100);
+					mario1.healthbar.redHealthBar.setScaleX(mario1.healthbar.visibleHealth/100);
+				}
+				else {
+					// pure bug avoidance: setScaleX cannot be set to 0
+					mario1.healthbar.greenHealthBar.setScaleX(.01);
+					mario1.healthbar.redHealthBar.setScaleX(.01);
+					//dispatch mario's death -> 1 character left
+					mario1.dispatchEvent(new CharacterDeathEvent(1));
+					mario1.removeEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
+				}
+			}
+
 		}
 		
 		//if ash is near coin, throw event
