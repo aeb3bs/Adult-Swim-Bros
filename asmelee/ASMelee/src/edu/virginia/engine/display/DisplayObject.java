@@ -27,7 +27,7 @@ import edu.virginia.main.Main;
 public class DisplayObject extends EventDispatcher {
 	
 	/* used for accessing parent */
-	private DisplayObject parent;
+	private DisplayObjectContainer parent;
 
 	/* All DisplayObject have a unique id */
 	private String id;
@@ -58,6 +58,8 @@ public class DisplayObject extends EventDispatcher {
 	{
 		if(boxMap.size() == 0 || other.boxMap.size() ==0)
 			return this.getHitboxGlobal().intersects(other.getHitboxGlobal());//This is sorta just a bandaid, may need to re-eval later
+		hitboxes = boxMap.get(this.displayImage);
+		other.hitboxes = other.boxMap.get(other.displayImage);
 		for(Rectangle h: hitboxes)
 			for(Rectangle g: other.hitboxes)
 				if(this.getHitboxGlobal(h).intersects(other.getHitboxGlobal(h)))
@@ -120,11 +122,11 @@ public class DisplayObject extends EventDispatcher {
 		return visible;
 	}
 	
-	public DisplayObject getParent() {
+	public DisplayObjectContainer getParent() {
 		return parent;
 	}
 
-	public void setParent(DisplayObject parent) {
+	public void setParent(DisplayObjectContainer parent) {
 		this.parent = parent;
 	}
 

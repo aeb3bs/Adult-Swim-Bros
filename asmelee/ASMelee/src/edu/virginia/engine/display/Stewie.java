@@ -115,8 +115,9 @@ public class Stewie extends Character {
 			String keyw = KeyEvent.getKeyText(KeyEvent.VK_W);
 			
 			String space = KeyEvent.getKeyText(KeyEvent.VK_SPACE);
-			
+
 			String enter = KeyEvent.getKeyText(KeyEvent.VK_ENTER);
+			String shift = KeyEvent.getKeyText(KeyEvent.VK_SHIFT);
 			
 			if(key.equals(right) || key.equals(keyd))
 			{	
@@ -231,6 +232,26 @@ public class Stewie extends Character {
 					
 					this.setDefaultHitbox();
 				}
+			}
+			else if(key.equals(shift))// Ranged Attack
+			{
+				if(!hitting)
+				{
+					/*this.animate(4);
+					
+					this.setStartIndex(5);
+					this.setCurrentFrame(5);
+					this.setEndIndex(7);
+					
+					BufferedImage currentImage = this.getImage();
+					this.setImage(currentImage);*/
+					new RangedAttack(this);
+					this.setDefaultHitbox();
+				}
+			}
+			for(DisplayObjectContainer d: children)
+			{
+				d.update(pressedKeys);
 			}
 		}
 	}

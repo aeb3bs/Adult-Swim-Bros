@@ -27,6 +27,11 @@ public class HealthBar extends Sprite{
 	public void setActualHealth(double actualHealth) {
 		this.actualHealth = actualHealth;
 	}
+	public void decreaseHealth(double subtractedHealth)
+	{
+		this.actualHealth-=subtractedHealth;
+		this.visibleHealth-=subtractedHealth;
+	}
 	public void setVisibleHealth(double visibleHealth) {
 		this.visibleHealth = visibleHealth;
 	}

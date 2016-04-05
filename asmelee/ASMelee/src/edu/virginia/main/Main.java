@@ -27,6 +27,8 @@ import edu.virginia.engine.events.PickedUpEvent;
 import edu.virginia.engine.events.PlatformCollisionEvent;
 import edu.virginia.engine.events.PlatformManager;
 import edu.virginia.engine.events.QuestManager;
+import edu.virginia.engine.events.RangedCollisionEvent;
+import edu.virginia.engine.events.RangedCollisionManager;
 import edu.virginia.engine.tweening.Tween;
 import edu.virginia.engine.tweening.TweenJuggler;
 import edu.virginia.engine.tweening.TweenTransitions;
@@ -49,6 +51,7 @@ public class Main extends Game{
 	DisplayObjectContainer mario_background = new DisplayObjectContainer("Background1");
 	PlatformManager myPlatformManager = new PlatformManager();
 	CharacterCollisionManager myCharacterCollisionManager = new CharacterCollisionManager();
+	RangedCollisionManager myRangedCollisionManager = new RangedCollisionManager();
 	public static SoundManager sm = new SoundManager();
 	CharacterDeathManager myCharacterDeathManager = new CharacterDeathManager();
 	
@@ -122,7 +125,7 @@ public class Main extends Game{
 		sm = new SoundManager();
 		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
 		sm.LoadMusic("Victory Song", "mario_victory.wav");
-		sm.PlayMusic("Theme Song", true);
+		//sm.PlayMusic("Theme Song", true);
 		
 		Tween linearTween = new Tween(mario1, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
 		linearTween.animate(TweenableParam.ALPHA, 0.0, 1.0, 2500);
@@ -134,10 +137,13 @@ public class Main extends Game{
 		
 		coin1.addEventListener(myQuestManager, PickedUpEvent.COIN_PICKED_UP);
 		mario1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
+		mario1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
 		stewie1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		stewie1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
+		stewie1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
 		peter1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		peter1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
+		peter1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
 		
 		//mario1 reacts to death
 		mario1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
@@ -205,6 +211,11 @@ public class Main extends Game{
 		}
 		
 		TweenJuggler.getInstance().nextFrame();
+		
+		/*for(DisplayObjectContainer d: children)
+		{
+			d.update(pressedKeys);
+		}*/
 	}
 	
 	/**
@@ -217,7 +228,7 @@ public class Main extends Game{
 	}
 	
 	@Override
-	public void addChild(DisplayObject o)
+	public void addChild(DisplayObjectContainer o)
 	{
 		super.addChild(o);
 		getAllchildren().add(o);
