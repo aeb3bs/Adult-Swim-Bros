@@ -12,9 +12,9 @@ import edu.virginia.engine.display.Coin;
 import edu.virginia.engine.display.DisplayObject;
 import edu.virginia.engine.display.DisplayObjectContainer;
 import edu.virginia.engine.display.Game;
-import edu.virginia.engine.display.HealthBar;
 import edu.virginia.engine.display.Human;
 import edu.virginia.engine.display.Mario;
+import edu.virginia.engine.display.Peter;
 import edu.virginia.engine.display.Platform;
 import edu.virginia.engine.display.SoundManager;
 import edu.virginia.engine.display.Stewie;
@@ -42,6 +42,7 @@ public class Main extends Game{
 	QuestManager myQuestManager = new QuestManager();
 	Mario mario1 = new Mario("Mario1", false);
 	Stewie stewie1 = new Stewie("Stewie1", false);
+//	Peter peter1 = new Peter("Peter1", false);
 	DisplayObjectContainer mario_background = new DisplayObjectContainer("Background1");
 	PlatformManager myPlatformManager = new PlatformManager();
 	CharacterCollisionManager myCharacterCollisionManager = new CharacterCollisionManager();
@@ -82,6 +83,7 @@ public class Main extends Game{
 		coin1.setPosition(new Point(350,25));
 		mario1.setPosition(new Point(300,300));
 		stewie1.setPosition(new Point(100,0));
+//		peter1.setPosition(new Point(100,0));
 		mario_background.setPosition(new Point(0,0));
 		p1.setPosition(new Point(15,240));
 		p2.setPosition(new Point(275,180));
@@ -104,6 +106,7 @@ public class Main extends Game{
 		this.addChild(mario_background);
 		this.addChild(mario1);
 		this.addChild(stewie1);
+//		this.addChild(peter1);
 		
 		for(Platform p:platforms)
 		{
