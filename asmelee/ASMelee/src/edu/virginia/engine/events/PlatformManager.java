@@ -6,6 +6,7 @@ import edu.virginia.engine.display.Mario;
 import edu.virginia.engine.display.PhysicsSprite;
 import edu.virginia.engine.display.Stewie;
 import edu.virginia.main.Main;
+import edu.virginia.engine.display.Character;
 
 public class PlatformManager implements IEventListener {
 	@Override
@@ -35,7 +36,7 @@ public class PlatformManager implements IEventListener {
 					}
 					m.setJumping(false);
 				}
-				else if(event.getSource() instanceof Stewie)
+				else if(event.getSource() instanceof Character)
 				{
 					/*
 					 * This code is to realign stewie if he falls to far into a platform
@@ -49,14 +50,15 @@ public class PlatformManager implements IEventListener {
 						ps.setPosition(p);
 					}
 					
-					Stewie stew = (Stewie)ps;
+					
+					Character c = (Character)ps;
 					ps.setVelocity_y(0);
 					ps.setAcceleration_y(-Main.gravity);
-					if(stew.getAnimationMode()==3)
+					if(c.getAnimationMode()==3)
 					{
-						stew.setAnimationMode(0);
+						c.setAnimationMode(0);
 					}
-					stew.setJumping(false);
+					c.setJumping(false);
 				}
 				else
 				{

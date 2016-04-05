@@ -9,34 +9,50 @@ import java.util.Stack;
 
 import edu.virginia.engine.tweening.TweenJuggler;
 
-public class Stewie extends Character {
-	public Stewie(String id, boolean onlineSprite) {
+public class Peter extends Character {
+	public Peter(String id, boolean onlineSprite) {
 		super(id, onlineSprite);
 		this.setCurrentFrame(0);
 		this.setStartIndex(0);
-		this.setEndIndex(3);
+		this.setEndIndex(7);
 		this.setLatency(10);
 		this.setAnimationMode(0);
 		this.jumping = false;
 		this.hitting = false;
 		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();
-		BufferedImage d1 = DisplayObject.readImage("stewie_walking_1.png");
+		BufferedImage d1 = DisplayObject.readImage("peter_griffin_standing.png");
 		images.add(d1);
-		BufferedImage d2 = DisplayObject.readImage("stewie_walking_2.png");
+		BufferedImage d2 = DisplayObject.readImage("peter_griffin_walking_1.png");
 		images.add(d2);
-		BufferedImage d3 = DisplayObject.readImage("stewie_walking_3.png");
+		BufferedImage d3 = DisplayObject.readImage("peter_griffin_walking_2.png");
 		images.add(d3);
-		BufferedImage d4 = DisplayObject.readImage("stewie_walking_4.png");
+		BufferedImage d4 = DisplayObject.readImage("peter_griffin_walking_3.png");
 		images.add(d4);
-		BufferedImage d5 = DisplayObject.readImage("stewie_jumping.png");
+		BufferedImage d5 = DisplayObject.readImage("peter_griffin_walking_4.png");
 		images.add(d5);
-		BufferedImage d6 = DisplayObject.readImage("stewie_melee_1.png");
+		BufferedImage d6 = DisplayObject.readImage("peter_griffin_walking_5.png");
 		images.add(d6);
-		BufferedImage d7 = DisplayObject.readImage("stewie_melee_2.png");
+		BufferedImage d7 = DisplayObject.readImage("peter_griffin_walking_6.png");
 		images.add(d7);
-		BufferedImage d8 = DisplayObject.readImage("stewie_melee_3.png");
+		BufferedImage d8 = DisplayObject.readImage("peter_griffin_walking_7.png");
 		images.add(d8);
+		BufferedImage d9 = DisplayObject.readImage("peter_griffin_melee_1.png");
+		images.add(d9);
+		BufferedImage d10 = DisplayObject.readImage("peter_griffin_melee_2.png");
+		images.add(d10);
+		BufferedImage d11 = DisplayObject.readImage("peter_griffin_melee_3.png");
+		images.add(d11);
+		BufferedImage d12 = DisplayObject.readImage("peter_griffin_melee_4.png");
+		images.add(d12);
+		BufferedImage d13 = DisplayObject.readImage("peter_griffin_melee_5.png");
+		images.add(d13);
+		BufferedImage d14 = DisplayObject.readImage("peter_griffin_melee_6.png");
+		images.add(d14);
+
+		
+		
+		
 		
 		this.setImages(images);
 	}
@@ -65,6 +81,22 @@ public class Stewie extends Character {
 		}
 		this.setAnimationMode(mode);
 	}
+
+	public boolean isJumping() {
+		return jumping;
+	}
+
+	public void setJumping(boolean jumping) {
+		this.jumping = jumping;
+	}
+
+	public int getAnimationMode() {
+		return animationMode;
+	}
+
+	public void setAnimationMode(int animationMode) {
+		this.animationMode = animationMode;
+	}
 	
 	@Override
 	public void update(ArrayList<String> pressedKeys)
@@ -80,7 +112,7 @@ public class Stewie extends Character {
 		{
 			this.setStartIndex(0);
 			this.setCurrentFrame(0);
-			this.setEndIndex(3);
+			this.setEndIndex(7);
 			BufferedImage image = this.getImage();
 			this.setImage(image);
 		}
@@ -131,7 +163,7 @@ public class Stewie extends Character {
 					this.animate(2);
 				}
 				
-				this.setEndIndex(3);
+				this.setEndIndex(7);
 				//need to change direction instead of movement
 				if(this.getStartIndex() != 0 || this.getScaleX() < 0)
 				{
@@ -178,7 +210,7 @@ public class Stewie extends Character {
 					this.animate(2);
 				}
 				
-				this.setEndIndex(3);
+				this.setEndIndex(7);
 				//need to change direction instead of movement
 				if(this.getStartIndex() != 0 || this.getScaleX() > 0)
 				{
@@ -222,9 +254,9 @@ public class Stewie extends Character {
 				{
 					this.animate(4);
 					
-					this.setStartIndex(5);
-					this.setCurrentFrame(5);
-					this.setEndIndex(7);
+					this.setStartIndex(8);
+					this.setCurrentFrame(8);
+					this.setEndIndex(13);
 					
 					BufferedImage currentImage = this.getImage();
 					this.setImage(currentImage);
