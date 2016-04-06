@@ -124,18 +124,10 @@ public class Main extends Game{
 		}
 		this.addChild(coin1);
 		
-		
-<<<<<<< HEAD
 //		sm = new SoundManager();
 //		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
 //		sm.LoadMusic("Victory Song", "mario_victory.wav");
 //		sm.PlayMusic("Theme Song", true);
-=======
-		sm = new SoundManager();
-		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
-		sm.LoadMusic("Victory Song", "mario_victory.wav");
-		//sm.PlayMusic("Theme Song", true);
->>>>>>> 5fa3468cea51154cf699cc08b68700bbdb1c8d56
 		
 		Tween linearTween = new Tween(mario1, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
 		linearTween.animate(TweenableParam.ALPHA, 0.0, 1.0, 2500);
@@ -236,13 +228,9 @@ public class Main extends Game{
 	@Override
 	public void draw(Graphics g){
 		super.draw(g);
-	}
-	
-	@Override
-	public void addChild(DisplayObjectContainer o)
-	{
-		super.addChild(o);
-		getAllchildren().add(o);
+//		for(DisplayObject o: Main.getAllchildren())
+//			if(o.getHitbox()!=null)
+//				g.drawRect(o.getHitboxGlobal().x, o.getHitboxGlobal().y, o.getHitbox().width, o.getHitbox().height);
 	}
 
 	/**

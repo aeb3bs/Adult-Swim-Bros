@@ -10,7 +10,7 @@ import java.util.Stack;
 import edu.virginia.engine.tweening.TweenJuggler;
 
 public class Stewie extends Character {
-	Sprite laser;
+	Laser laser;
 	public Stewie(String id, boolean onlineSprite) {
 		super(id, onlineSprite);
 		this.setCurrentFrame(0);
@@ -21,7 +21,8 @@ public class Stewie extends Character {
 		this.jumping = false;
 		this.hitting = false;
 		
-		laser = new Sprite("laser", "StewieLaser.png", false); // used for Special
+		laser = new Laser("laser", "StewieLaser.png", false); // used for Special
+		laser.owner = this;
 		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();
 		BufferedImage d1 = DisplayObject.readImage("stewie_walking_1.png");
@@ -259,6 +260,8 @@ public class Stewie extends Character {
 					
 					
 					this.addChild(laser);
+					int width = (int) (this.getUnscaledWidth() * this.getScaleX());
+					int height = (int) (this.getUnscaledHeight() * this.getScaleY());
 					laser.setPosition(new Point(55, 42));
 					laser.setDefaultHitbox();
 				}

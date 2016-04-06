@@ -51,7 +51,7 @@ public class DisplayObject extends EventDispatcher {
 	//defines how transparent to draw this object.
 	float alpha;
 	
-	Rectangle hitbox;
+	protected Rectangle hitbox;
 	ArrayList<Rectangle> hitboxes;
 	HashMap<BufferedImage, ArrayList<Rectangle>> boxMap = new HashMap<BufferedImage, ArrayList<Rectangle>>();
 	public boolean collidesWith(DisplayObject other)
@@ -89,8 +89,8 @@ public class DisplayObject extends EventDispatcher {
 			Point parentPosition = new Point();
 			parentPosition.x = (int) this.getParent().getGlobalPosition().getX();
 			parentPosition.y = (int) this.getParent().getGlobalPosition().getY();
-			parentPosition.x += this.getPosition().x;
-			parentPosition.y += this.getPosition().y;
+			parentPosition.x += this.getPosition().x * this.getParent().getScaleX();
+			parentPosition.y += this.getPosition().y * this.getParent().getScaleY();
 			return parentPosition;
 		}
 	}
@@ -194,7 +194,6 @@ public class DisplayObject extends EventDispatcher {
 	 */
 	public DisplayObject(String id) {
 		this.setPosition(new Point(0,0));
-//		this.setDefaultHitbox();
 		this.setId(id);
 		setDefaults();
 	}
@@ -358,7 +357,6 @@ public class DisplayObject extends EventDispatcher {
 			 *  This line when we need to draw the hitboxes and debug
 			 *  DEBUG HITBOX
 			 */
-//			g2d.drawRect(this.getHitboxGlobal().x, this.getHitboxGlobal().y, this.hitbox.width, this.hitbox.height);
 		}
 	}
 

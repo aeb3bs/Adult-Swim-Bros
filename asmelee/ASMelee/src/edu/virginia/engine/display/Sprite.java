@@ -37,11 +37,11 @@ public class Sprite extends DisplayObjectContainer {
 		ArrayList<DisplayObject>allchildren = Main.getAllchildren();
 		boolean character = (this instanceof Character);
 		boolean projectile = (this instanceof RangedAttack);
-		boolean stewieSpecial = (this instanceof Stewie);
+		boolean stewieSpecial = (this instanceof Laser);
 		for(DisplayObject o:allchildren)
 		{
 			if(this.getHitboxGlobal() != null && o.getHitboxGlobal() != null && !this.equals(o) && this.collidesWith(o))
-			{
+			{	
 				if(o instanceof Platform)
 				{
 					PlatformCollisionEvent e = new PlatformCollisionEvent();
@@ -68,12 +68,17 @@ public class Sprite extends DisplayObjectContainer {
 					e.setRangedAttack((RangedAttack) this);
 					o.dispatchEvent(e);
 				}
-				else if(stewieSpecial && (o instanceof Character)){
-					SpecialStewieCollisionEvent e = new SpecialStewieCollisionEvent();
-					Character c = (Character)o;
-					e.setSource(c);
-					o.dispatchEvent(e);
-					
+				else if(stewieSpecial && (o instanceof Character))
+				{
+					Laser temp = (Laser)this;
+					if(!temp.owner.equals(o))
+					{
+						System.out.println(o.getId());
+						SpecialStewieCollisionEvent e = new SpecialStewieCollisionEvent();
+						Character c = (Character)o;
+						e.setSource(c);
+						o.dispatchEvent(e);
+					}
 				}
 			}
 		}
