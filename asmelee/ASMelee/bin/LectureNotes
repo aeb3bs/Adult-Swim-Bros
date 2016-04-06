@@ -1,0 +1,21 @@
+TweenableParams
+scalex
+x
+y
+alpha
+
+Tween Param
+start
+time
+update()
+startval
+endval
+constraints
+param
+transition
+
+tween
+object
+List<param>
+update()
+isComplete()
