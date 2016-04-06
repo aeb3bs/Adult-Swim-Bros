@@ -20,6 +20,7 @@ public class Peter extends Character {
 		this.jumping = false;
 		this.hitting = false;
 		this.specialing = false;
+		this.shooting = false;
 		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();
 		BufferedImage d1 = DisplayObject.readImage("peter_griffin_standing.png");
@@ -96,13 +97,14 @@ public class Peter extends Character {
 				case 4: this.setLatency(10);
 						this.hitting = true;
 						break;
-				//special_attack_down
-				case 5: this.setLatency(10);
-						this.specialing = true;
+						//ranged attack
+				case 5: //this.setLatency(10);
+						this.shooting = true;
 						break;
-				//special_attack_up
+				//special_attack
 				case 6: this.setLatency(100);
 						this.specialing = true;
+						this.shooting=false;// this makes melee act as a reload, temporary until we can wait until animation finishes to do it
 						break;
 			}
 		}
@@ -179,6 +181,7 @@ public class Peter extends Character {
 			String enter = KeyEvent.getKeyText(KeyEvent.VK_ENTER);
 			//special
 			String backspace = KeyEvent.getKeyText(KeyEvent.VK_BACK_SPACE);
+			String shift = KeyEvent.getKeyText(KeyEvent.VK_SHIFT);
 			
 			if(key.equals(right) || key.equals(keyd))
 			{	
@@ -308,6 +311,24 @@ public class Peter extends Character {
 					this.setImage(currentImage);
 					
 					this.setDefaultHitbox();
+				}
+			}
+			else if(key.equals(shift))// Ranged Attack
+			{
+				if(!shooting)
+				{
+					/*this.animate(4);
+					
+					this.setStartIndex(5);
+					this.setCurrentFrame(5);
+					this.setEndIndex(7);
+					
+					BufferedImage currentImage = this.getImage();
+					this.setImage(currentImage);*/
+					
+					this.animate(5);
+					new RangedAttack(this);
+					//this.setDefaultHitbox();
 				}
 			}
 		}

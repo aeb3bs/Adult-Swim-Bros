@@ -5,6 +5,8 @@ import java.util.Calendar;
 
 import edu.virginia.engine.events.CharacterCollisionEvent;
 import edu.virginia.engine.events.PlatformCollisionEvent;
+import edu.virginia.engine.events.RangedCollisionEvent;
+import edu.virginia.engine.events.SpecialStewieCollisionEvent;
 import edu.virginia.main.Main;
 
 /**
@@ -34,6 +36,8 @@ public class Sprite extends DisplayObjectContainer {
 		super.update(pressedKeys);
 		ArrayList<DisplayObject>allchildren = Main.getAllchildren();
 		boolean character = (this instanceof Character);
+		boolean projectile = (this instanceof RangedAttack);
+		boolean stewieSpecial = (this instanceof Stewie);
 		for(DisplayObject o:allchildren)
 		{
 			if(this.getHitboxGlobal() != null && o.getHitboxGlobal() != null && !this.equals(o) && this.collidesWith(o))
@@ -54,6 +58,22 @@ public class Sprite extends DisplayObjectContainer {
 					Character c = (Character)o;
 					e.setCharacter(c);
 					this.dispatchEvent(e);
+				}
+				else if(projectile && (o instanceof Character))
+				{
+					//System.out.println("collided "+o.getId());
+					RangedCollisionEvent e = new RangedCollisionEvent();
+					Character c = (Character)o;
+					e.setSource(c);
+					e.setRangedAttack((RangedAttack) this);
+					o.dispatchEvent(e);
+				}
+				else if(stewieSpecial && (o instanceof Character)){
+					SpecialStewieCollisionEvent e = new SpecialStewieCollisionEvent();
+					Character c = (Character)o;
+					e.setSource(c);
+					o.dispatchEvent(e);
+					
 				}
 			}
 		}

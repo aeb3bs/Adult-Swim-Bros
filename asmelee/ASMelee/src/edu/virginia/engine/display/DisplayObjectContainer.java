@@ -6,23 +6,23 @@ import java.util.ArrayList;
 
 public class DisplayObjectContainer extends DisplayObject {
 
-	protected ArrayList<DisplayObject>children;
+	protected ArrayList<DisplayObjectContainer>children;
 	
 	public DisplayObjectContainer(String id) {
 		super(id);
-		children = new ArrayList<DisplayObject>();
+		children = new ArrayList<DisplayObjectContainer>();
 	}
 	
 	public DisplayObjectContainer(String id, String fileName) {
 		super(id, fileName);
-		children = new ArrayList<DisplayObject>();
+		children = new ArrayList<DisplayObjectContainer>();
 	}
 
-	public ArrayList<DisplayObject> getChildren() {
+	public ArrayList<DisplayObjectContainer> getChildren() {
 		return children;
 	}
 
-	public void setChildren(ArrayList<DisplayObject> children) {
+	public void setChildren(ArrayList<DisplayObjectContainer> children) {
 		this.children = children;
 		for(DisplayObject o:children)
 		{
@@ -30,13 +30,13 @@ public class DisplayObjectContainer extends DisplayObject {
 		}
 	}
 	
-	public void addChild(DisplayObject o)
+	public void addChild(DisplayObjectContainer o)
 	{
 		children.add(o);
 		o.setParent(this);
 	}
 	
-	public void addChildAtIndex(int index, DisplayObject o)
+	public void addChildAtIndex(int index, DisplayObjectContainer o)
 	{
 		children.add(index, o);
 		o.setParent(this);
@@ -91,9 +91,11 @@ public class DisplayObjectContainer extends DisplayObject {
 	}
 	
 	@Override
-	protected void update(ArrayList<String> pressedKeys) {
+	public void update(ArrayList<String> pressedKeys) {
 		super.update(pressedKeys);
-		for(DisplayObject o: this.children)
+		ArrayList<DisplayObjectContainer> tmp = new ArrayList<DisplayObjectContainer>();
+		tmp.addAll(this.children);
+		for(DisplayObjectContainer o: tmp)
 		{
 			o.update(pressedKeys);
 		}

@@ -10,6 +10,7 @@ import java.util.Stack;
 import edu.virginia.engine.tweening.TweenJuggler;
 
 public class Stewie extends Character {
+	Sprite laser;
 	public Stewie(String id, boolean onlineSprite) {
 		super(id, onlineSprite);
 		this.setCurrentFrame(0);
@@ -19,6 +20,8 @@ public class Stewie extends Character {
 		this.setAnimationMode(0);
 		this.jumping = false;
 		this.hitting = false;
+		
+		laser = new Sprite("laser", "StewieLaser.png", false); // used for Special
 		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();
 		BufferedImage d1 = DisplayObject.readImage("stewie_walking_1.png");
@@ -37,7 +40,16 @@ public class Stewie extends Character {
 		images.add(d7);
 		BufferedImage d8 = DisplayObject.readImage("stewie_melee_3.png");
 		images.add(d8);
-		
+		BufferedImage d9 = DisplayObject.readImage("StewieSpecial1.png");
+		images.add(d9);
+		BufferedImage d10 = DisplayObject.readImage("StewieSpecial2.png");
+		images.add(d10);
+		BufferedImage d11 = DisplayObject.readImage("StewieSpecial3.png");
+		images.add(d11);
+		BufferedImage d12 = DisplayObject.readImage("StewieSpecial4.png");
+		images.add(d12);
+		BufferedImage d13 = DisplayObject.readImage("StewieLaser.png");
+		images.add(d13);
 		this.setImages(images);
 	}
 	
@@ -117,8 +129,9 @@ public class Stewie extends Character {
 			String keyw = KeyEvent.getKeyText(KeyEvent.VK_W);
 			
 			String space = KeyEvent.getKeyText(KeyEvent.VK_SPACE);
-			
+
 			String enter = KeyEvent.getKeyText(KeyEvent.VK_ENTER);
+			String shift = KeyEvent.getKeyText(KeyEvent.VK_SHIFT);
 			
 			if(key.equals(right) || key.equals(keyd))
 			{	
@@ -204,7 +217,7 @@ public class Stewie extends Character {
 					this.setImage(currentImage);
 				}
 			}
-			else if(key.equals(space))
+			else if(key.equals(keyw))
 			{
 				if(!jumping)
 				{
@@ -233,6 +246,44 @@ public class Stewie extends Character {
 					
 					this.setDefaultHitbox();
 				}
+			}
+			else if(key.equals(space)){ // Special Attack
+				if(!hitting){
+					this.animate(4);
+					this.setStartIndex(8);
+					this.setCurrentFrame(8);
+					this.setEndIndex(11);
+					
+					BufferedImage currentImage = this.getImage();
+					this.setImage(currentImage);
+					
+					
+					this.addChild(laser);
+					laser.setPosition(new Point(55, 42));
+					laser.setDefaultHitbox();
+				}
+			
+			}
+			else if(key.equals(shift))// Ranged Attack
+			{
+				if(!hitting)
+				{
+					/*this.animate(4);
+					
+					this.setStartIndex(5);
+					this.setCurrentFrame(5);
+					this.setEndIndex(7);
+					
+					BufferedImage currentImage = this.getImage();
+					this.setImage(currentImage);*/
+					new RangedAttack(this);
+					//this.setDefaultHitbox();
+				}
+			}
+
+			for(DisplayObjectContainer d: children)
+			{
+				d.update(pressedKeys);
 			}
 		}
 	}
