@@ -119,10 +119,10 @@ public class Main extends Game{
 		this.addChild(coin1);
 		
 		
-		sm = new SoundManager();
-		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
-		sm.LoadMusic("Victory Song", "mario_victory.wav");
-		sm.PlayMusic("Theme Song", true);
+//		sm = new SoundManager();
+//		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
+//		sm.LoadMusic("Victory Song", "mario_victory.wav");
+//		sm.PlayMusic("Theme Song", true);
 		
 		Tween linearTween = new Tween(mario1, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
 		linearTween.animate(TweenableParam.ALPHA, 0.0, 1.0, 2500);
@@ -235,9 +235,9 @@ public class Main extends Game{
 		game.start();
 		
 		//code to generate code for new character constructor
-//		for(int index=9; index<15;index++)
+//		for(int index=15; index<23;index++)
 //		{
-//			System.out.println("BufferedImage d"+index+" = DisplayObject.readImage(\"peter_griffin_melee_"+(index-8)+"" +
+//			System.out.println("BufferedImage d"+index+" = DisplayObject.readImage(\"peter_griffin_special_"+(index-14)+"" +
 //					".png\");\nimages.add(d"+index+");");
 //		}
 	}

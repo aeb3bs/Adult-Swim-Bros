@@ -19,6 +19,7 @@ public class Peter extends Character {
 		this.setAnimationMode(0);
 		this.jumping = false;
 		this.hitting = false;
+		this.specialing = false;
 		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();
 		BufferedImage d1 = DisplayObject.readImage("peter_griffin_standing.png");
@@ -49,6 +50,22 @@ public class Peter extends Character {
 		images.add(d13);
 		BufferedImage d14 = DisplayObject.readImage("peter_griffin_melee_6.png");
 		images.add(d14);
+		BufferedImage d15 = DisplayObject.readImage("peter_griffin_special_1.png");
+		images.add(d15);
+		BufferedImage d16 = DisplayObject.readImage("peter_griffin_special_2.png");
+		images.add(d16);
+		BufferedImage d17 = DisplayObject.readImage("peter_griffin_special_3.png");
+		images.add(d17);
+		BufferedImage d18 = DisplayObject.readImage("peter_griffin_special_4.png");
+		images.add(d18);
+		BufferedImage d19 = DisplayObject.readImage("peter_griffin_special_5.png");
+		images.add(d19);
+		BufferedImage d20 = DisplayObject.readImage("peter_griffin_special_6.png");
+		images.add(d20);
+		BufferedImage d21 = DisplayObject.readImage("peter_griffin_special_7.png");
+		images.add(d21);
+		BufferedImage d22 = DisplayObject.readImage("peter_griffin_special_8.png");
+		images.add(d22);
 
 		
 		
@@ -74,9 +91,19 @@ public class Peter extends Character {
 				//jumping
 				case 3: this.setVelocity_y(-300);
 						this.jumping = true;
+						break;
 				//melee attack
 				case 4: this.setLatency(10);
 						this.hitting = true;
+						break;
+				//special_attack_down
+				case 5: this.setLatency(10);
+						this.specialing = true;
+						break;
+				//special_attack_up
+				case 6: this.setLatency(100);
+						this.specialing = true;
+						break;
 			}
 		}
 		this.setAnimationMode(mode);
@@ -146,9 +173,12 @@ public class Peter extends Character {
 			String keya = KeyEvent.getKeyText(KeyEvent.VK_A);
 			String keyw = KeyEvent.getKeyText(KeyEvent.VK_W);
 			
+			//jump
 			String space = KeyEvent.getKeyText(KeyEvent.VK_SPACE);
-			
+			//melee
 			String enter = KeyEvent.getKeyText(KeyEvent.VK_ENTER);
+			//special
+			String backspace = KeyEvent.getKeyText(KeyEvent.VK_BACK_SPACE);
 			
 			if(key.equals(right) || key.equals(keyd))
 			{	
@@ -257,6 +287,22 @@ public class Peter extends Character {
 					this.setStartIndex(8);
 					this.setCurrentFrame(8);
 					this.setEndIndex(13);
+					
+					BufferedImage currentImage = this.getImage();
+					this.setImage(currentImage);
+					
+					this.setDefaultHitbox();
+				}
+			}
+			else if(key.equals(backspace))
+			{
+				if(!specialing)
+				{
+					this.animate(5);
+					
+					this.setStartIndex(14);
+					this.setCurrentFrame(14);
+					this.setEndIndex(21);
 					
 					BufferedImage currentImage = this.getImage();
 					this.setImage(currentImage);
