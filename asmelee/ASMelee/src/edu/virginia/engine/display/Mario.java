@@ -223,4 +223,16 @@ public class Mario extends Character {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void meleeAttack() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void specialAttack() {
+		// TODO Auto-generated method stub
+		
+	}
 }

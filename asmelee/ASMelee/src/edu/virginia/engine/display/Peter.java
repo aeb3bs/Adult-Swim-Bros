@@ -267,7 +267,6 @@ public class Peter extends Character {
 		{
 			return;
 		}
-=
 		
 		if(specialing)//need to make this work in char update to
 		{
