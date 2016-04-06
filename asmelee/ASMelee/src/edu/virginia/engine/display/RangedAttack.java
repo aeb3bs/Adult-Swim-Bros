@@ -3,6 +3,8 @@ package edu.virginia.engine.display;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import edu.virginia.engine.controller.GamePad;
+
 public class RangedAttack extends AnimatedSprite{
 
 	public Character myCharacter;
@@ -35,9 +37,9 @@ public class RangedAttack extends AnimatedSprite{
 		}
 		this.setPosition(new Point((int)c.getGlobalPosition().x+xoffset,(int)c.getGlobalPosition().y));
 	}
-	public void update(ArrayList<String> pressedKeys)
+	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{
-		super.update(pressedKeys);
+		super.update(pressedKeys,controllers);
 		Point p=new Point();
 		p.setLocation(position.getX()+xSpeed, position.getY()+ySpeed);
 		this.setPosition(p);

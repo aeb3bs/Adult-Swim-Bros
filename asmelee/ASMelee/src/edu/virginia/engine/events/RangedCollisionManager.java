@@ -37,7 +37,7 @@ public class RangedCollisionManager implements IEventListener {
 			 * if direction == 1, we are hitting other character from right
 			 */
 			int direction = 0;
-			if(ra.getPosition().getX()<other.getPosition().getX())
+			if(ra.xSpeed >0)
 				direction = 0;
 			else
 				direction = 1;

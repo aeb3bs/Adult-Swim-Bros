@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.main.Main;
 
 
@@ -81,9 +82,9 @@ public class PhysicsSprite extends AnimatedSprite {
 	}
 
 	@Override
-	public void update(ArrayList<String> pressedKeys)
+	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{
-		super.update(pressedKeys);
+		super.update(pressedKeys,controllers);
 		
 		double deltaT = Calendar.getInstance().getTimeInMillis()-timeOfLastUpdate;
 		if(deltaT>deltaTime)

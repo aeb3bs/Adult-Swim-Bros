@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.tweening.TweenJuggler;
 import edu.virginia.main.Main;
 
@@ -95,14 +96,23 @@ public class Peter extends Character {
 				//running
 				case 2: this.setLatency(5);
 						this.setSpeed(3);
+						this.setStartIndex(0);
+						this.setCurrentFrame(0);
+						this.setEndIndex(7);
 						break;
 				//jumping
 				case 3: this.setVelocity_y(-300);
 						this.jumping = true;
+						this.setStartIndex(4);
+						this.setCurrentFrame(4);
+						this.setEndIndex(4);
 						break;
 				//melee attack
 				case 4: this.setLatency(10);
 						this.hitting = true;
+						this.setStartIndex(8);
+						this.setCurrentFrame(8);
+						this.setEndIndex(13);
 						break;
 						//ranged attack
 				case 5: this.setLatency(100);
@@ -112,9 +122,14 @@ public class Peter extends Character {
 				case 6: this.setLatency(10);
 						this.specialingdown = true;
 						this.specialing = true;
-						this.shooting=false;// this makes melee act as a reload, temporary until we can wait until animation finishes to do it
+						//this.shooting=false;// this makes melee act as a reload, temporary until we can wait until animation finishes to do it
+						this.setStartIndex(14);
+						this.setCurrentFrame(14);
+						this.setEndIndex(21);
 						break;
 			}
+			BufferedImage currentImage = this.getImage();
+			this.setImage(currentImage);
 		}
 		this.setAnimationMode(mode);
 	}
@@ -223,9 +238,9 @@ public class Peter extends Character {
 	}
 	
 	@Override
-	public void update(ArrayList<String> pressedKeys)
+	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{	
-		super.update(pressedKeys);
+		super.update(pressedKeys,controllers);
 		
 		if(TweenJuggler.getInstance().tweenobjects.contains(this)==true)
 		{
@@ -253,11 +268,12 @@ public class Peter extends Character {
 			return;
 		}
 		
-		if(specialing)
+		if(specialing)//need to make this work in char update to
 		{
 			return;
 		}
 		
+/*
 		Stack<String>keysPressed = new Stack<String>();
 		for(int index=0; index<pressedKeys.size();index++)
 			keysPressed.push(pressedKeys.get(index));
@@ -374,9 +390,7 @@ public class Peter extends Character {
 				{
 					this.animate(3);
 					
-					this.setStartIndex(4);
-					this.setCurrentFrame(4);
-					this.setEndIndex(4);
+					
 					
 					BufferedImage currentImage = this.getImage();
 					this.setImage(currentImage);
@@ -425,7 +439,7 @@ public class Peter extends Character {
 					this.setEndIndex(7);
 					
 					BufferedImage currentImage = this.getImage();
-					this.setImage(currentImage);*/
+					this.setImage(currentImage);
 					
 					this.animate(5);
 					new RangedAttack(this);
@@ -440,8 +454,9 @@ public class Peter extends Character {
 					//this.setDefaultHitbox();
 				}
 			}
-		}
+		}*/
 	}
+	
 	@Override 
 	public Rectangle getHitboxGlobal()
 	{
@@ -451,5 +466,45 @@ public class Peter extends Character {
 			h.x -= h.width;
 		}
 		return h;
+	}
+
+	@Override
+	public void rangedAttack() {
+		if(!shooting)
+		{
+			/*this.animate(4);
+			
+			this.setStartIndex(5);
+			this.setCurrentFrame(5);
+			this.setEndIndex(7);
+			
+			BufferedImage currentImage = this.getImage();
+			this.setImage(currentImage);*/
+			
+			this.animate(5);
+			new RangedAttack(this);
+			//this.setDefaultHitbox();
+		}
+	}
+
+	@Override
+	public void meleeAttack() {
+		if(!hitting)
+		{
+			this.animate(4);
+
+			this.setDefaultHitbox();
+		}		
+	}
+
+	@Override
+	public void specialAttack() {
+		if(!specialing)
+		{
+			this.animate(6);
+			
+			this.setDefaultHitbox();
+		}
+		
 	}
 }
