@@ -115,8 +115,8 @@ public class Main extends Game{
 		
 		this.addChild(mario_background);
 		this.addChild(mario1);
-		this.addChild(stewie1);
-		//this.addChild(peter1);
+//		this.addChild(stewie1);
+		this.addChild(peter1);
 		
 		for(Platform p:platforms)
 		{

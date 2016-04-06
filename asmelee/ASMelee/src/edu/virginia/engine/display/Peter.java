@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import edu.virginia.engine.tweening.TweenJuggler;
+import edu.virginia.main.Main;
 
 public class Peter extends Character {
+	boolean specialingdown;
+	boolean specialingup;
 	public Peter(String id, boolean onlineSprite) {
 		super(id, onlineSprite);
 		this.setCurrentFrame(0);
@@ -19,6 +22,8 @@ public class Peter extends Character {
 		this.setAnimationMode(0);
 		this.jumping = false;
 		this.hitting = false;
+		this.specialingdown = false;
+		this.specialingup = false;
 		this.specialing = false;
 		this.shooting = false;
 		
@@ -102,13 +107,101 @@ public class Peter extends Character {
 						this.shooting = true;
 						break;
 				//special_attack
-				case 6: this.setLatency(100);
+				case 6: this.setLatency(10);
+						this.specialingdown = true;
 						this.specialing = true;
 						this.shooting=false;// this makes melee act as a reload, temporary until we can wait until animation finishes to do it
 						break;
 			}
 		}
 		this.setAnimationMode(mode);
+	}
+	
+	@Override
+	public BufferedImage getImage()
+	{
+		if(this.currentFrame == 21 && specialingdown)
+		{
+			specialingup = true;
+			specialingdown = false;
+			this.setLatency(this.getLatency());
+			
+			ArrayList<Character>characters = new ArrayList<>();
+			for(DisplayObject o:Main.getAllchildren())
+			{
+				if(o instanceof Character && !o.equals(this))
+				{
+					characters.add((Character)o);
+				}
+			}
+			for(int index=characters.size()-1;index>=0;index--)
+			{
+				Character temp = characters.get(index);
+				if(!(Math.abs(temp.position.y-this.position.y)<=50))
+				{
+					characters.remove(index);
+				}
+			}
+			Character closestChar = null;
+			int minX = Integer.MAX_VALUE;
+			for(int index=0;index<characters.size();index++)
+			{
+				int delta = Math.abs(this.position.x-characters.get(index).position.x);
+				if(delta<minX)
+				{
+					closestChar = characters.get(index);
+					minX = delta;
+				}
+			}
+			
+			if(closestChar != null)
+			{
+				int width = (int) (closestChar.getUnscaledWidth() * closestChar.scaleX);
+				
+				if(closestChar.scaleX>0)
+				{
+					this.position.x = closestChar.position.x + width - 70;
+					this.scaleX = .5;
+				}
+				else
+				{
+					this.position.x = closestChar.position.x + width + 70;
+					this.scaleX = -.5;
+				}
+					
+			}
+			
+			return getImages().get(21);
+		}
+		else if(this.currentFrame == 14 && specialingup)
+		{
+			animate(1);
+			specialingup = false;
+			this.setCurrentFrame(0);
+			this.setStartIndex(0);
+			this.setEndIndex(7);
+			this.setAnimationMode(0);
+			this.resetAnimation();
+			this.specialing = false;
+		}
+		else if(specialingup)
+		{
+			BufferedImage currentImage = this.images.get(currentFrame);
+			
+			//next image
+			if(this.imagemap.get(currentImage)<=0)
+			{
+				currentFrame--;
+				if(this.getCurrentFrame()>this.getEndIndex())
+					this.resetAnimation();
+				currentImage = this.images.get(currentFrame);
+			}
+			
+			this.getImagemap().put(currentImage, this.getImagemap().get(currentImage)-1);
+			
+			return currentImage;
+		}
+		return super.getImage();
 	}
 
 	public boolean isJumping() {
@@ -145,14 +238,20 @@ public class Peter extends Character {
 			BufferedImage image = this.getImage();
 			this.setImage(image);
 		}
+			
 		
-		if(this.getAnimationMode()==4)
+		if(this.getAnimationMode()==4 || this.getAnimationMode()==6)
 		{
 			BufferedImage image = this.getImage();
 			this.setImage(image);
 		}
 		
 		if(onlineSprite)
+		{
+			return;
+		}
+		
+		if(specialing)
 		{
 			return;
 		}
@@ -299,9 +398,9 @@ public class Peter extends Character {
 			}
 			else if(key.equals(backspace))
 			{
-				if(!specialing)
+				if(!specialingdown && !specialingup)
 				{
-					this.animate(5);
+					this.animate(6);
 					
 					this.setStartIndex(14);
 					this.setCurrentFrame(14);

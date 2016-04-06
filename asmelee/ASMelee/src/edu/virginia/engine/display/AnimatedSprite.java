@@ -75,7 +75,7 @@ public class AnimatedSprite extends Sprite {
 		{
 			for(int index=0;index<images.size();index++)
 			{
-				imagemap.put(images.get(0), latency);
+				imagemap.put(images.get(index), latency);
 			}
 		}
 	}
