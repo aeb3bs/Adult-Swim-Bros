@@ -37,6 +37,7 @@ public class Character extends PhysicsSprite {
 	{
 		super.resetAnimation();
 		this.hitting = false;
+		this.shooting = false;
 		this.setStartIndex(0);
 		this.setCurrentFrame(0);
 		this.setEndIndex(0);
