@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.display.Coin;
 import edu.virginia.engine.display.DisplayObject;
 import edu.virginia.engine.display.DisplayObjectContainer;
@@ -114,9 +115,9 @@ public class Main extends Game{
 		mario_background.setImage(DisplayObject.readImage("mario_background_1.png"));
 		
 		this.addChild(mario_background);
-		this.addChild(mario1);
+		//this.addChild(mario1);
 		this.addChild(stewie1);
-		//this.addChild(peter1);
+		this.addChild(peter1);
 		
 		for(Platform p:platforms)
 		{
@@ -162,8 +163,8 @@ public class Main extends Game{
 	 * the set of keys (as strings) that are currently being pressed down
 	 * */
 	@Override
-	public void update(ArrayList<String> pressedKeys){
-		super.update(pressedKeys);
+	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers){
+		super.update(pressedKeys,controllers);
 		
 		if(mario1 != null && mario1.healthbar != null)
 		{

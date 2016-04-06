@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.tweening.TweenJuggler;
 
 public class Mario extends Character {
@@ -65,9 +66,9 @@ public class Mario extends Character {
 	}
 	
 	@Override
-	public void update(ArrayList<String> pressedKeys)
+	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{	
-		super.update(pressedKeys);
+		super.update(pressedKeys,controllers);
 		
 //		if(TweenJuggler.getInstance().tweenobjects.contains(this)==true)
 //		{
@@ -215,5 +216,11 @@ public class Mario extends Character {
 			h.x -= h.width;
 		}
 		return h;
+	}
+
+	@Override
+	public void rangedAttack() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -3,6 +3,7 @@ package edu.virginia.engine.display;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.events.IEventDispatcher;
 
 public class Coin extends AnimatedSprite {
@@ -28,7 +29,7 @@ public class Coin extends AnimatedSprite {
 	}
 	
 	@Override
-	public void update(ArrayList<String> pressedKeys) {
+	public void update(ArrayList<String> pressedKeys, ArrayList<GamePad> controllers) {
 		BufferedImage currentImage = this.getImage();
 		this.setImage(currentImage);
 	}
