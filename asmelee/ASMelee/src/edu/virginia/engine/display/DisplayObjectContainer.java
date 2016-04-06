@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import edu.virginia.main.Main;
+
 public class DisplayObjectContainer extends DisplayObject {
 
 	protected ArrayList<DisplayObjectContainer>children;
@@ -34,6 +36,7 @@ public class DisplayObjectContainer extends DisplayObject {
 	{
 		children.add(o);
 		o.setParent(this);
+		Main.getAllchildren().add(o);
 	}
 	
 	public void addChildAtIndex(int index, DisplayObjectContainer o)

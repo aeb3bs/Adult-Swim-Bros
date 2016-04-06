@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 public class Character extends PhysicsSprite {
 	boolean jumping;
 	boolean hitting;
+	boolean specialing;
 	boolean shooting;
 	int animationMode;
 	public HealthBar healthbar;

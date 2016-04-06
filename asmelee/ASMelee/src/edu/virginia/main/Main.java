@@ -29,6 +29,8 @@ import edu.virginia.engine.events.PlatformManager;
 import edu.virginia.engine.events.QuestManager;
 import edu.virginia.engine.events.RangedCollisionEvent;
 import edu.virginia.engine.events.RangedCollisionManager;
+import edu.virginia.engine.events.SpecialStewieCollisionEvent;
+import edu.virginia.engine.events.SpecialStewieCollisionManager;
 import edu.virginia.engine.tweening.Tween;
 import edu.virginia.engine.tweening.TweenJuggler;
 import edu.virginia.engine.tweening.TweenTransitions;
@@ -42,7 +44,7 @@ import edu.virginia.engine.tweening.TweenableParam;
 public class Main extends Game{
 	public static final double gravity = 4000.0;
 	/* Create a sprite object for our game. We'll use mario */
-	Human ash1 = new Human("Ash1", false);
+	//Human ash1 = new Human("Ash1", false);
 	Coin coin1 = new Coin("Coin1");
 	QuestManager myQuestManager = new QuestManager();
 	Mario mario1 = new Mario("Mario1", false);
@@ -54,6 +56,7 @@ public class Main extends Game{
 	RangedCollisionManager myRangedCollisionManager = new RangedCollisionManager();
 	public static SoundManager sm = new SoundManager();
 	CharacterDeathManager myCharacterDeathManager = new CharacterDeathManager();
+	SpecialStewieCollisionManager mySpecialStewieCollisionManager = new SpecialStewieCollisionManager();
 	
 	/* 
 	 * platforms
@@ -86,7 +89,7 @@ public class Main extends Game{
 //		int enemyId = scanner.nextInt();
 //		DynamoDBManager.getInstance().setEnemyId(enemyId);
 		
-		ash1.setPosition(new Point(300,300));
+		//ash1.setPosition(new Point(300,300));
 		coin1.setPosition(new Point(350,25));
 		mario1.setPosition(new Point(300,300));
 		stewie1.setPosition(new Point(100,0));
@@ -112,8 +115,8 @@ public class Main extends Game{
 		
 		this.addChild(mario_background);
 		this.addChild(mario1);
-//		this.addChild(stewie1);
-		this.addChild(peter1);
+		this.addChild(stewie1);
+		//this.addChild(peter1);
 		
 		for(Platform p:platforms)
 		{
@@ -121,11 +124,10 @@ public class Main extends Game{
 		}
 		this.addChild(coin1);
 		
-		
-		sm = new SoundManager();
-		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
-		sm.LoadMusic("Victory Song", "mario_victory.wav");
-		//sm.PlayMusic("Theme Song", true);
+//		sm = new SoundManager();
+//		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
+//		sm.LoadMusic("Victory Song", "mario_victory.wav");
+//		sm.PlayMusic("Theme Song", true);
 		
 		Tween linearTween = new Tween(mario1, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
 		linearTween.animate(TweenableParam.ALPHA, 0.0, 1.0, 2500);
@@ -141,6 +143,7 @@ public class Main extends Game{
 		stewie1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		stewie1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
 		stewie1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
+		stewie1.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
 		peter1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		peter1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
 		peter1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
@@ -225,13 +228,9 @@ public class Main extends Game{
 	@Override
 	public void draw(Graphics g){
 		super.draw(g);
-	}
-	
-	@Override
-	public void addChild(DisplayObjectContainer o)
-	{
-		super.addChild(o);
-		getAllchildren().add(o);
+//		for(DisplayObject o: Main.getAllchildren())
+//			if(o.getHitbox()!=null)
+//				g.drawRect(o.getHitboxGlobal().x, o.getHitboxGlobal().y, o.getHitbox().width, o.getHitbox().height);
 	}
 
 	/**
@@ -246,9 +245,9 @@ public class Main extends Game{
 		game.start();
 		
 		//code to generate code for new character constructor
-//		for(int index=9; index<15;index++)
+//		for(int index=15; index<23;index++)
 //		{
-//			System.out.println("BufferedImage d"+index+" = DisplayObject.readImage(\"peter_griffin_melee_"+(index-8)+"" +
+//			System.out.println("BufferedImage d"+index+" = DisplayObject.readImage(\"peter_griffin_special_"+(index-14)+"" +
 //					".png\");\nimages.add(d"+index+");");
 //		}
 	}
