@@ -101,7 +101,7 @@ public abstract class Character extends PhysicsSprite {
 			this.setImage(image);
 		}
 		
-		if(this.getAnimationMode()==4)
+		if(this.getAnimationMode()==4 || this.getAnimationMode()==5)
 		{
 			BufferedImage image = this.getImage();
 			this.setImage(image);
