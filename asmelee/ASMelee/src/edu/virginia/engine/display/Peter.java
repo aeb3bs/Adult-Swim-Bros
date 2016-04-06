@@ -73,6 +73,8 @@ public class Peter extends Character {
 		images.add(d21);
 		BufferedImage d22 = DisplayObject.readImage("peter_griffin_special_8.png");
 		images.add(d22);
+		BufferedImage d23 = DisplayObject.readImage("peter_griffin_range_1.png");
+		images.add(d23);
 
 		
 		
@@ -113,7 +115,7 @@ public class Peter extends Character {
 						this.setEndIndex(13);
 						break;
 						//ranged attack
-				case 5: //this.setLatency(10);
+				case 5: this.setLatency(100);
 						this.shooting = true;
 						break;
 				//special_attack
@@ -442,6 +444,14 @@ public class Peter extends Character {
 					
 					this.animate(5);
 					new RangedAttack(this);
+					
+					this.setStartIndex(22);
+					this.setCurrentFrame(22);
+					this.setEndIndex(22);
+					
+					BufferedImage currentImage = this.getImage();
+					this.setImage(currentImage);
+					
 					//this.setDefaultHitbox();
 				}
 			}

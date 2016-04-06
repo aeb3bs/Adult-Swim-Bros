@@ -17,7 +17,14 @@ public class RangedAttack extends AnimatedSprite{
 		super(c.getId()+"_projectile",false);
 		myCharacter = c;
 		c.getParent().addChild(this);
-		this.setImage("sample_ranged.png");
+		if((myCharacter instanceof Peter))
+		{
+			this.setImage("fart.png");
+		}
+		else
+		{
+			this.setImage("sample_ranged.png");
+		}
 		ySpeed = 0;
 		xSpeed = 1;
 		damage = 5;

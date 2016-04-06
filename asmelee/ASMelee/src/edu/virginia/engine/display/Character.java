@@ -50,10 +50,10 @@ public abstract class Character extends PhysicsSprite {
 	@Override
 	public void resetAnimation()
 	{
-		hitting=false;
-		shooting=false;
 		//special=true;
 		super.resetAnimation();
+		this.hitting = false;
+		this.shooting = false;
 		this.setStartIndex(0);
 		this.setCurrentFrame(0);
 		this.setEndIndex(0);
