@@ -27,7 +27,7 @@ import edu.virginia.main.Main;
 public class DisplayObject extends EventDispatcher {
 	
 	/* used for accessing parent */
-	private DisplayObject parent;
+	private DisplayObjectContainer parent;
 
 	/* All DisplayObject have a unique id */
 	private String id;
@@ -51,13 +51,15 @@ public class DisplayObject extends EventDispatcher {
 	//defines how transparent to draw this object.
 	float alpha;
 	
-	Rectangle hitbox;
+	protected Rectangle hitbox;
 	ArrayList<Rectangle> hitboxes;
 	HashMap<BufferedImage, ArrayList<Rectangle>> boxMap = new HashMap<BufferedImage, ArrayList<Rectangle>>();
 	public boolean collidesWith(DisplayObject other)
 	{
 		if(boxMap.size() == 0 || other.boxMap.size() ==0)
 			return this.getHitboxGlobal().intersects(other.getHitboxGlobal());//This is sorta just a bandaid, may need to re-eval later
+		hitboxes = boxMap.get(this.displayImage);
+		other.hitboxes = other.boxMap.get(other.displayImage);
 		for(Rectangle h: hitboxes)
 			for(Rectangle g: other.hitboxes)
 				if(this.getHitboxGlobal(h).intersects(other.getHitboxGlobal(h)))
@@ -87,8 +89,8 @@ public class DisplayObject extends EventDispatcher {
 			Point parentPosition = new Point();
 			parentPosition.x = (int) this.getParent().getGlobalPosition().getX();
 			parentPosition.y = (int) this.getParent().getGlobalPosition().getY();
-			parentPosition.x += this.getPosition().x;
-			parentPosition.y += this.getPosition().y;
+			parentPosition.x += this.getPosition().x * this.getParent().getScaleX();
+			parentPosition.y += this.getPosition().y * this.getParent().getScaleY();
 			return parentPosition;
 		}
 	}
@@ -120,11 +122,11 @@ public class DisplayObject extends EventDispatcher {
 		return visible;
 	}
 	
-	public DisplayObject getParent() {
+	public DisplayObjectContainer getParent() {
 		return parent;
 	}
 
-	public void setParent(DisplayObject parent) {
+	public void setParent(DisplayObjectContainer parent) {
 		this.parent = parent;
 	}
 
@@ -192,7 +194,6 @@ public class DisplayObject extends EventDispatcher {
 	 */
 	public DisplayObject(String id) {
 		this.setPosition(new Point(0,0));
-//		this.setDefaultHitbox();
 		this.setId(id);
 		setDefaults();
 	}
@@ -356,7 +357,6 @@ public class DisplayObject extends EventDispatcher {
 			 *  This line when we need to draw the hitboxes and debug
 			 *  DEBUG HITBOX
 			 */
-//			g2d.drawRect(this.getHitboxGlobal().x, this.getHitboxGlobal().y, this.hitbox.width, this.hitbox.height);
 		}
 	}
 
