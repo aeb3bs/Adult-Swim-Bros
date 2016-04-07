@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import edu.virginia.engine.controller.GamePad;
+import edu.virginia.engine.events.CharacterDeathEvent;
 import edu.virginia.engine.tweening.TweenJuggler;
+import edu.virginia.main.Main;
 
 public abstract class Character extends PhysicsSprite {
 	boolean jumping;
@@ -77,7 +79,41 @@ public abstract class Character extends PhysicsSprite {
 	@Override
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{	
-		super.update(pressedKeys,controllers);		
+		super.update(pressedKeys,controllers);	
+		
+		if(this.healthbar != null)
+		{
+			Double actualHealth = this.healthbar.getActualHealth();
+			Double visibleHealth = this.healthbar.getVisibleHealth();
+			
+		
+			if(actualHealth != null && visibleHealth != null)
+			{
+				if (actualHealth < visibleHealth){
+					this.healthbar.setVisibleHealth(visibleHealth-.5);
+				}
+				else if (actualHealth != visibleHealth){
+					// make sure we don't go over
+					this.healthbar.setVisibleHealth(actualHealth);
+				}
+				else {
+					
+				}
+				if (this.healthbar.actualHealth > 0){
+					this.healthbar.greenHealthBar.setScaleX(this.healthbar.actualHealth/100);
+					this.healthbar.redHealthBar.setScaleX(this.healthbar.visibleHealth/100);
+				}
+				else {
+					// pure bug avoidance: setScaleX cannot be set to 0
+					this.healthbar.greenHealthBar.setScaleX(.01);
+					this.healthbar.redHealthBar.setScaleX(.01);
+					//dispatch mario's death -> 1 character left
+					this.dispatchEvent(new CharacterDeathEvent(1));
+					this.removeEventListener(Main.myCharacterDeathManager, CharacterDeathEvent.DEATH);
+				}
+			}
+		}
+		
 		GamePad player1 = null;
 		try{
 		player1 = controllers.get(myControllerIndex);

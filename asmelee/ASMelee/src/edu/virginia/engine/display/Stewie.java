@@ -55,6 +55,12 @@ public class Stewie extends Character {
 		images.add(d12);
 		BufferedImage d13 = DisplayObject.readImage("StewieLaser.png");
 		images.add(d13);
+		BufferedImage d14 = DisplayObject.readImage("stewie_range_1.png");
+		images.add(d14);
+		BufferedImage d15 = DisplayObject.readImage("stewie_range_2.png");
+		images.add(d15);
+		BufferedImage d16 = DisplayObject.readImage("stewie_range_3.png");
+		images.add(d16);
 		this.setImages(images);
 	}
 	@Override
@@ -92,9 +98,9 @@ public class Stewie extends Character {
 				//ranged attack
 				case 5: this.setLatency(30);
 						this.shooting = true;
-						this.setStartIndex(5);
-						this.setCurrentFrame(5);
-						this.setEndIndex(7);
+						this.setStartIndex(13);
+						this.setCurrentFrame(13);
+						this.setEndIndex(15);
 						break;
 				case 6: this.setLatency(30);
 						this.specialing = true;

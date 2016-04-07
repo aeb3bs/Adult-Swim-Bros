@@ -17,9 +17,13 @@ public class RangedAttack extends AnimatedSprite{
 		super(c.getId()+"_projectile",false);
 		myCharacter = c;
 		c.getParent().addChild(this);
-		if((myCharacter instanceof Peter))
+		if(myCharacter instanceof Peter)
 		{
 			this.setImage("fart.png");
+		}
+		else if(myCharacter instanceof Stewie)
+		{
+			this.setImage("lightning_bolt.png");
 		}
 		else
 		{
@@ -33,9 +37,9 @@ public class RangedAttack extends AnimatedSprite{
 		if(c.getScaleX() < 0)
 		{
 			xSpeed *=-1;
-			xoffset*=3;
+			xoffset*=2;
 		}
-		this.setPosition(new Point((int)c.getGlobalPosition().x+xoffset,(int)c.getGlobalPosition().y));
+		this.setPosition(new Point((int)c.getGlobalPosition().x+xoffset,(int)c.getGlobalPosition().y+10));
 	}
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{

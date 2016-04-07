@@ -27,6 +27,7 @@ public class Peter extends Character {
 		this.specialingup = false;
 		this.specialing = false;
 		this.shooting = false;
+		myControllerIndex = 0;
 		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();
 		BufferedImage d1 = DisplayObject.readImage("peter_griffin_standing.png");
@@ -116,6 +117,11 @@ public class Peter extends Character {
 						break;
 						//ranged attack
 				case 5: this.setLatency(100);
+						this.setStartIndex(22);
+						this.setCurrentFrame(22);
+						this.setEndIndex(22);
+						BufferedImage currentImage = this.getImage();
+						this.setImage(currentImage);
 						this.shooting = true;
 						break;
 				//special_attack
