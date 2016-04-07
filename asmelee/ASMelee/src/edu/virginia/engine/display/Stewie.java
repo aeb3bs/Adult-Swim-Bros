@@ -23,6 +23,7 @@ public class Stewie extends Character {
 		this.hitting = false;
 		this.shooting = false;
 		myControllerIndex = 0;
+		specialCooldown = 100;
 		
 		laser = new Laser("laser", "StewieLaser.png", false); // used for Special
 		laser.owner = this;
@@ -88,12 +89,18 @@ public class Stewie extends Character {
 						this.setEndIndex(7);
 						//this.shooting = false;
 						break;
-						//ranged attack
+				//ranged attack
 				case 5: this.setLatency(30);
 						this.shooting = true;
 						this.setStartIndex(5);
 						this.setCurrentFrame(5);
 						this.setEndIndex(7);
+						break;
+				case 6: this.setLatency(30);
+						this.specialing = true;
+						this.setStartIndex(8);
+						this.setCurrentFrame(8);
+						this.setEndIndex(11);
 						break;
 			}
 			BufferedImage currentImage = this.getImage();
@@ -121,6 +128,41 @@ public class Stewie extends Character {
 	}
 	public void specialAttack()
 	{
+		if(!specialing)
+		{
+			this.animate(6);
+					}
+	}
+	public void updateSpecial(int time)
+	{
+		if(time == 3)
+		{
+			this.addChild(laser);
+			//if(this.getScaleX()<0)
+				
+			int width = (int) (this.getUnscaledWidth() * this.getScaleX());
+			int height = (int) (this.getUnscaledHeight() * this.getScaleY());
+			laser.setPosition(new Point(55, 35));
+			laser.setScaleY(5);
+			laser.setScaleX(1);
+			laser.setDefaultHitbox();
+			laser.setVisible(true);
+		}
+		else if(time == 50)
+		{
+			this.removeChild(laser);
+			laser.setVisible(false);
+		}
+		else {
+			//if(this.getScaleX()>0)
+				laser.setScaleX(time/3);
+			if(this.getScaleX()<0)//this is the hackiest shit ever
+			{
+				//laser.setPosition(new Point(laser.getPosition().x+5,laser.getPosition().y));
+				
+			}
+			//System.out.println(laser.hitbox.x + " " +laser.hitbox.width);
+		}
 		
 	}
 	/*

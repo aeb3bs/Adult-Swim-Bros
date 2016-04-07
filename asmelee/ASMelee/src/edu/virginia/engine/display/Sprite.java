@@ -74,10 +74,11 @@ public class Sprite extends DisplayObjectContainer {
 					Laser temp = (Laser)this;
 					if(!temp.owner.equals(o))
 					{
-						System.out.println(o.getId());
+						//System.out.println(o.getId());
 						SpecialStewieCollisionEvent e = new SpecialStewieCollisionEvent();
 						Character c = (Character)o;
 						e.setSource(c);
+						e.setDamager(this);
 						o.dispatchEvent(e);
 					}
 				}
