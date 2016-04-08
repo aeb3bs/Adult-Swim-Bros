@@ -22,7 +22,7 @@ public abstract class Character extends PhysicsSprite {
 	protected int myControllerIndex = -1;
 	protected int rangedCooldown = 80;
 	protected int meleeCooldown = 30;
-	protected int specialCooldown = 500;
+	protected int specialCooldown = 50;
 	protected int rCurCool =0;
 	protected int mCurCool =0;
 	protected int sCurCool =0;
@@ -56,6 +56,7 @@ public abstract class Character extends PhysicsSprite {
 		super.resetAnimation();
 		this.hitting = false;
 		this.shooting = false;
+		this.specialing = false;
 		this.setStartIndex(0);
 		this.setCurrentFrame(0);
 		this.setEndIndex(0);
@@ -137,7 +138,7 @@ public abstract class Character extends PhysicsSprite {
 			this.setImage(image);
 		}
 		
-		if(this.getAnimationMode()==4 || this.getAnimationMode()==5)
+		if(4<=this.getAnimationMode())
 		{
 			BufferedImage image = this.getImage();
 			this.setImage(image);
@@ -145,6 +146,12 @@ public abstract class Character extends PhysicsSprite {
 		
 		if(onlineSprite)
 		{
+			return;
+		}
+		//holds them in place for special attack andupdates with time
+		if(specialing)
+		{
+			updateSpecial(specialCooldown - sCurCool);
 			return;
 		}
 		
@@ -238,6 +245,11 @@ public abstract class Character extends PhysicsSprite {
 	public abstract void rangedAttack();
 	public abstract void meleeAttack();
 	public abstract void specialAttack();
+	//not needed, but if special is time dependent is useful
+	public void updateSpecial(int framesPassed)
+	{
+		
+	}
 	public void jump()
 	{
 		if(!jumping)

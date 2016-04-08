@@ -149,6 +149,7 @@ public class Main extends Game{
 		peter1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		peter1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
 		peter1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
+		peter1.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
 		
 		//mario1 reacts to death
 		stewie1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
