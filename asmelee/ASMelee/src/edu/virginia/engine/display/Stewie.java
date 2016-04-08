@@ -22,7 +22,7 @@ public class Stewie extends Character {
 		this.jumping = false;
 		this.hitting = false;
 		this.shooting = false;
-		myControllerIndex = -1;
+		myControllerIndex = 0;
 		
 		laser = new Laser("laser", "StewieLaser.png", false); // used for Special
 		laser.owner = this;
