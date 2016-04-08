@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.tweening.TweenJuggler;
 
 public class Stewie extends Character {
@@ -20,6 +21,9 @@ public class Stewie extends Character {
 		this.setAnimationMode(0);
 		this.jumping = false;
 		this.hitting = false;
+		this.shooting = false;
+		myControllerIndex = 0;
+		specialCooldown = 100;
 		
 		laser = new Laser("laser", "StewieLaser.png", false); // used for Special
 		laser.owner = this;
@@ -51,9 +55,15 @@ public class Stewie extends Character {
 		images.add(d12);
 		BufferedImage d13 = DisplayObject.readImage("StewieLaser.png");
 		images.add(d13);
+		BufferedImage d14 = DisplayObject.readImage("stewie_range_1.png");
+		images.add(d14);
+		BufferedImage d15 = DisplayObject.readImage("stewie_range_2.png");
+		images.add(d15);
+		BufferedImage d16 = DisplayObject.readImage("stewie_range_3.png");
+		images.add(d16);
 		this.setImages(images);
 	}
-	
+	@Override
 	public void animate(int mode)
 	{
 		if(this.getAnimationMode()!=mode)
@@ -63,29 +73,110 @@ public class Stewie extends Character {
 				//walking
 				case 1: this.setLatency(10);
 						this.setSpeed(1.5);
+						this.setEndIndex(3);
 						break;
 				//running
 				case 2: this.setLatency(5);
 						this.setSpeed(3);
+						this.setEndIndex(3);
 						break;
 				//jumping
 				case 3: this.setVelocity_y(-300);
 						this.jumping = true;
+						this.setStartIndex(4);
+						this.setCurrentFrame(4);
+						this.setEndIndex(4);
 						break;
 				//melee attack
 				case 4: this.setLatency(10);
 						this.hitting = true;
+						this.setStartIndex(5);
+						this.setCurrentFrame(5);
+						this.setEndIndex(7);
+						//this.shooting = false;
+						break;
+				//ranged attack
+				case 5: this.setLatency(30);
+						this.shooting = true;
+						this.setStartIndex(13);
+						this.setCurrentFrame(13);
+						this.setEndIndex(15);
+						break;
+				case 6: this.setLatency(30);
+						this.specialing = true;
+						this.setStartIndex(8);
+						this.setCurrentFrame(8);
+						this.setEndIndex(11);
 						break;
 			}
+			BufferedImage currentImage = this.getImage();
+			this.setImage(currentImage);
 		}
 		this.setAnimationMode(mode);
 	}
-	
 	@Override
-	public void update(ArrayList<String> pressedKeys)
-	{	
-		super.update(pressedKeys);
+	public void rangedAttack()
+	{
+		if(!shooting)
+		{
+			this.animate(5);
+			new RangedAttack(this);
+			//this.setDefaultHitbox();
+		}
+	}
+	public void meleeAttack()
+	{
+		if(!hitting)
+		{
+			this.animate(4);	
+			this.setDefaultHitbox();
+		}
+	}
+	public void specialAttack()
+	{
+		if(!specialing)
+		{
+			this.animate(6);
+					}
+	}
+	public void updateSpecial(int time)
+	{
+		if(time == 3)
+		{
+			this.addChild(laser);
+			//if(this.getScaleX()<0)
+				
+			int width = (int) (this.getUnscaledWidth() * this.getScaleX());
+			int height = (int) (this.getUnscaledHeight() * this.getScaleY());
+			laser.setPosition(new Point(55, 35));
+			laser.setScaleY(5);
+			laser.setScaleX(1);
+			laser.setDefaultHitbox();
+			laser.setVisible(true);
+		}
+		else if(time == 50)
+		{
+			this.removeChild(laser);
+			laser.setVisible(false);
+		}
+		else {
+			//if(this.getScaleX()>0)
+				laser.setScaleX(time/3);
+			if(this.getScaleX()<0)//this is the hackiest shit ever
+			{
+				//laser.setPosition(new Point(laser.getPosition().x+5,laser.getPosition().y));
+				
+			}
+			//System.out.println(laser.hitbox.x + " " +laser.hitbox.width);
+		}
 		
+	}
+	/*
+	@Override
+	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
+	{	
+		super.update(pressedKeys,controllers);
+		GamePad player1 = controllers.get(0);
 		if(TweenJuggler.getInstance().tweenobjects.contains(this)==true)
 		{
 			return;
@@ -115,6 +206,10 @@ public class Stewie extends Character {
 		for(int index=0; index<pressedKeys.size();index++)
 			keysPressed.push(pressedKeys.get(index));
 		
+		{//handles gamepad input
+			if(player1.isButtonPressed(player1.BUTTON_CIRCLE))
+				this.rangedAttack();
+		}
 		while(!keysPressed.empty())
 		{	
 			String key = keysPressed.pop();
@@ -269,27 +364,11 @@ public class Stewie extends Character {
 			}
 			else if(key.equals(shift))// Ranged Attack
 			{
-				if(!hitting)
-				{
-					/*this.animate(4);
-					
-					this.setStartIndex(5);
-					this.setCurrentFrame(5);
-					this.setEndIndex(7);
-					
-					BufferedImage currentImage = this.getImage();
-					this.setImage(currentImage);*/
-					new RangedAttack(this);
-					//this.setDefaultHitbox();
-				}
+				rangedAttack();
 			}
 
-			for(DisplayObjectContainer d: children)
-			{
-				d.update(pressedKeys);
-			}
 		}
-	}
+	}*/
 	@Override 
 	public Rectangle getHitboxGlobal()
 	{

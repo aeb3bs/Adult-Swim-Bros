@@ -3,6 +3,7 @@ package edu.virginia.engine.display;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.events.CharacterCollisionEvent;
 import edu.virginia.engine.events.PlatformCollisionEvent;
 import edu.virginia.engine.events.RangedCollisionEvent;
@@ -32,8 +33,8 @@ public class Sprite extends DisplayObjectContainer {
 	}
 	
 	@Override
-	public void update(ArrayList<String> pressedKeys) {
-		super.update(pressedKeys);
+	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers) {
+		super.update(pressedKeys,controllers);
 		ArrayList<DisplayObject>allchildren = Main.getAllchildren();
 		boolean character = (this instanceof Character);
 		boolean projectile = (this instanceof RangedAttack);
@@ -73,10 +74,11 @@ public class Sprite extends DisplayObjectContainer {
 					Laser temp = (Laser)this;
 					if(!temp.owner.equals(o))
 					{
-						System.out.println(o.getId());
+						//System.out.println(o.getId());
 						SpecialStewieCollisionEvent e = new SpecialStewieCollisionEvent();
 						Character c = (Character)o;
 						e.setSource(c);
+						e.setDamager(this);
 						o.dispatchEvent(e);
 					}
 				}

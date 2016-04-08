@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.display.Coin;
 import edu.virginia.engine.display.DisplayObject;
 import edu.virginia.engine.display.DisplayObjectContainer;
@@ -55,7 +56,7 @@ public class Main extends Game{
 	CharacterCollisionManager myCharacterCollisionManager = new CharacterCollisionManager();
 	RangedCollisionManager myRangedCollisionManager = new RangedCollisionManager();
 	public static SoundManager sm = new SoundManager();
-	CharacterDeathManager myCharacterDeathManager = new CharacterDeathManager();
+	public static CharacterDeathManager myCharacterDeathManager = new CharacterDeathManager();
 	SpecialStewieCollisionManager mySpecialStewieCollisionManager = new SpecialStewieCollisionManager();
 	
 	/* 
@@ -114,8 +115,9 @@ public class Main extends Game{
 		mario_background.setImage(DisplayObject.readImage("mario_background_1.png"));
 		
 		this.addChild(mario_background);
-		this.addChild(mario1);
-//		this.addChild(stewie1);
+		//this.addChild(mario1);
+		this.addChild(stewie1);
+
 		this.addChild(peter1);
 		
 		for(Platform p:platforms)
@@ -147,9 +149,11 @@ public class Main extends Game{
 		peter1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		peter1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
 		peter1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
+		peter1.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
 		
 		//mario1 reacts to death
-		mario1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
+		stewie1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
+		peter1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
 		
 		stewie1.setScaleX(.5);
 		stewie1.setScaleY(.5);
@@ -162,43 +166,43 @@ public class Main extends Game{
 	 * the set of keys (as strings) that are currently being pressed down
 	 * */
 	@Override
-	public void update(ArrayList<String> pressedKeys){
-		super.update(pressedKeys);
+	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers){
+		super.update(pressedKeys,controllers);
 		
-		if(mario1 != null && mario1.healthbar != null)
-		{
-			Double actualHealth = mario1.healthbar.getActualHealth();
-			Double visibleHealth = mario1.healthbar.getVisibleHealth();
-			
-		
-			if(actualHealth != null && visibleHealth != null)
-			{
-				//Evan Edit: in future need to iterate through list of characters
-				if (actualHealth < visibleHealth){
-					mario1.healthbar.setVisibleHealth(visibleHealth-.5);
-				}
-				else if (actualHealth != visibleHealth){
-					// make sure we don't go over
-					mario1.healthbar.setVisibleHealth(actualHealth);
-				}
-				else {
-					
-				}
-				if (mario1.healthbar.actualHealth > 0){
-					mario1.healthbar.greenHealthBar.setScaleX(mario1.healthbar.actualHealth/100);
-					mario1.healthbar.redHealthBar.setScaleX(mario1.healthbar.visibleHealth/100);
-				}
-				else {
-					// pure bug avoidance: setScaleX cannot be set to 0
-					mario1.healthbar.greenHealthBar.setScaleX(.01);
-					mario1.healthbar.redHealthBar.setScaleX(.01);
-					//dispatch mario's death -> 1 character left
-					mario1.dispatchEvent(new CharacterDeathEvent(1));
-					mario1.removeEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
-				}
-			}
-
-		}
+//		if(mario1 != null && mario1.healthbar != null)
+//		{
+//			Double actualHealth = mario1.healthbar.getActualHealth();
+//			Double visibleHealth = mario1.healthbar.getVisibleHealth();
+//			
+//		
+//			if(actualHealth != null && visibleHealth != null)
+//			{
+//				//Evan Edit: in future need to iterate through list of characters
+//				if (actualHealth < visibleHealth){
+//					mario1.healthbar.setVisibleHealth(visibleHealth-.5);
+//				}
+//				else if (actualHealth != visibleHealth){
+//					// make sure we don't go over
+//					mario1.healthbar.setVisibleHealth(actualHealth);
+//				}
+//				else {
+//					
+//				}
+//				if (mario1.healthbar.actualHealth > 0){
+//					mario1.healthbar.greenHealthBar.setScaleX(mario1.healthbar.actualHealth/100);
+//					mario1.healthbar.redHealthBar.setScaleX(mario1.healthbar.visibleHealth/100);
+//				}
+//				else {
+//					// pure bug avoidance: setScaleX cannot be set to 0
+//					mario1.healthbar.greenHealthBar.setScaleX(.01);
+//					mario1.healthbar.redHealthBar.setScaleX(.01);
+//					//dispatch mario's death -> 1 character left
+//					mario1.dispatchEvent(new CharacterDeathEvent(1));
+//					mario1.removeEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
+//				}
+//			}
+//
+//		}
 		
 		//if ash is near coin, throw event
 		if(mario1 != null && coin1 != null)

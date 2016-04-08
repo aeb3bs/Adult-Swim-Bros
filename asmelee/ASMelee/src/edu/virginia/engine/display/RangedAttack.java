@@ -3,6 +3,8 @@ package edu.virginia.engine.display;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import edu.virginia.engine.controller.GamePad;
+
 public class RangedAttack extends AnimatedSprite{
 
 	public Character myCharacter;
@@ -15,7 +17,18 @@ public class RangedAttack extends AnimatedSprite{
 		super(c.getId()+"_projectile",false);
 		myCharacter = c;
 		c.getParent().addChild(this);
-		this.setImage("sample_ranged.png");
+		if(myCharacter instanceof Peter)
+		{
+			this.setImage("fart.png");
+		}
+		else if(myCharacter instanceof Stewie)
+		{
+			this.setImage("lightning_bolt.png");
+		}
+		else
+		{
+			this.setImage("sample_ranged.png");
+		}
 		ySpeed = 0;
 		xSpeed = 1;
 		damage = 5;
@@ -24,13 +37,13 @@ public class RangedAttack extends AnimatedSprite{
 		if(c.getScaleX() < 0)
 		{
 			xSpeed *=-1;
-			xoffset*=3;
+			xoffset*=2;
 		}
-		this.setPosition(new Point((int)c.getGlobalPosition().x+xoffset,(int)c.getGlobalPosition().y));
+		this.setPosition(new Point((int)c.getGlobalPosition().x+xoffset,(int)c.getGlobalPosition().y+10));
 	}
-	public void update(ArrayList<String> pressedKeys)
+	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{
-		super.update(pressedKeys);
+		super.update(pressedKeys,controllers);
 		Point p=new Point();
 		p.setLocation(position.getX()+xSpeed, position.getY()+ySpeed);
 		this.setPosition(p);

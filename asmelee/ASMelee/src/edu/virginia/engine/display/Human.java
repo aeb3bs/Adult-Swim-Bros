@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.events.PickedUpEvent;
 
 public class Human extends AnimatedSprite {
@@ -69,9 +70,9 @@ public class Human extends AnimatedSprite {
 	}
 	
 	@Override
-	public void update(ArrayList<String> pressedKeys)
+	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{
-		super.update(pressedKeys);
+		super.update(pressedKeys,controllers);
 		
 		Stack<String>keysPressed = new Stack<String>();
 		for(int index=0; index<pressedKeys.size();index++)

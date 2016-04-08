@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.main.Main;
 
 public class DisplayObjectContainer extends DisplayObject {
@@ -94,13 +95,13 @@ public class DisplayObjectContainer extends DisplayObject {
 	}
 	
 	@Override
-	public void update(ArrayList<String> pressedKeys) {
-		super.update(pressedKeys);
+	public void update(ArrayList<String> pressedKeys, ArrayList<GamePad> controllers) {
+		super.update(pressedKeys, controllers);
 		ArrayList<DisplayObjectContainer> tmp = new ArrayList<DisplayObjectContainer>();
 		tmp.addAll(this.children);
 		for(DisplayObjectContainer o: tmp)
 		{
-			o.update(pressedKeys);
+			o.update(pressedKeys,controllers);
 		}
 	}
 	
