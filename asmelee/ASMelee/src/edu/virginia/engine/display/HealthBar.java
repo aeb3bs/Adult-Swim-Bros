@@ -39,6 +39,7 @@ public class HealthBar extends Sprite{
 	
 	public HealthBar(String id, boolean online){
 		super(id, online);
+		isOverlay = true;
 		
 	}
 	public HealthBar(String id, boolean online, int x, int y){
@@ -47,8 +48,11 @@ public class HealthBar extends Sprite{
 		this.Y = y;
 		
 		outline = new Sprite("outline", "HealthBarOutline.png", false);
+		outline.isOverlay = true;
 		greenHealthBar = new Sprite("outline", "GreenHealthBar.png", false);
+		greenHealthBar.isOverlay = true;
 		redHealthBar = new Sprite("outline", "RedHealthBar.png", false);
+		redHealthBar.isOverlay = true;
 		outline.setPosition(new Point(0, -20));
 		outline.setScaleX(.95);
 		greenHealthBar.setPosition(new Point(3, -18));
@@ -56,6 +60,7 @@ public class HealthBar extends Sprite{
 		this.addChild(outline);
 		this.addChild(redHealthBar);
 		this.addChild(greenHealthBar);
+		isOverlay = true;
 		
 	}
 	@Override

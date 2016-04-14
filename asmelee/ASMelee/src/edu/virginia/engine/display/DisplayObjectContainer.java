@@ -93,6 +93,17 @@ public class DisplayObjectContainer extends DisplayObject {
 			reverseTransformations(g2d);
 		}
 	}
+	@Override
+	public void drawBoundingBoxes(Graphics g)
+	{
+		super.drawBoundingBoxes(g);
+		//System.out.println("drawing bbox for: "+this.getId());
+		Graphics2D g2d = (Graphics2D) g;
+		for(DisplayObject o:children)
+		{
+			o.drawBoundingBoxes(g2d);
+		}
+	}
 	
 	@Override
 	public void update(ArrayList<String> pressedKeys, ArrayList<GamePad> controllers) {

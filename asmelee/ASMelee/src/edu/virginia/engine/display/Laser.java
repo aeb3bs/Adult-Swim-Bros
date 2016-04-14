@@ -9,7 +9,7 @@ public class Laser extends Sprite {
 		super(id, imageFileName, onlineSprite);
 		// TODO Auto-generated constructor stub
 		damage = 1;
-		knockback = 15;
-		ticks = 5;
+		knockback = 10;
+		ticks = 3;
 	}
 }

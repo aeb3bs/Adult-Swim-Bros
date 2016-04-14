@@ -63,7 +63,7 @@ public abstract class Character extends PhysicsSprite {
 		BufferedImage image = this.getImage();
 		this.setImage(image);
 		this.setAnimationMode(0);
-		this.setDefaultHitbox();
+		//this.setDefaultHitbox();
 	}
 	
 	public boolean getJumping()
@@ -203,11 +203,19 @@ public abstract class Character extends PhysicsSprite {
 			String enter = KeyEvent.getKeyText(KeyEvent.VK_ENTER);
 			String shift = KeyEvent.getKeyText(KeyEvent.VK_SHIFT);
 			
-			if(key.equals(right) || key.equals(keyd))
+			if(key.equals(keyd))
 			{	
 				move(false);
 			}
-			else if(key.equals(left) || key.equals(keya))
+			else if(key.equals(left))
+			{
+				this.setScaleX(this.getScaleX() +.1);
+			}
+			else if(key.equals(right))
+			{
+				this.setScaleX(this.getScaleX() -.1);
+			}
+			else if( key.equals(keya))
 			{
 				move(true);
 			}
@@ -237,6 +245,13 @@ public abstract class Character extends PhysicsSprite {
 					rCurCool = rangedCooldown;
 				}
 			}
+			else if(key.equals(down))
+			{
+				if(Main.freeMove)
+				{
+					this.setPosition(new Point(this.getPosition().x,this.getPosition().y+1));
+				}
+			}
 
 		}
 	}
@@ -254,6 +269,12 @@ public abstract class Character extends PhysicsSprite {
 	{
 		if(!jumping)
 		{
+			if(Main.freeMove)
+			{
+				this.setPosition(new Point(this.getPosition().x,this.getPosition().y-1));
+				System.out.println(this.getPosition().getY());
+				return;
+			}
 			this.animate(3);	
 			BufferedImage currentImage = this.getImage();
 			this.setImage(currentImage);
@@ -271,9 +292,9 @@ public abstract class Character extends PhysicsSprite {
 			this.setCurrentFrame(0);
 			if(dir*this.getScaleX()<0)
 			{
-				int width = (int) (this.getUnscaledWidth()*Math.abs(this.getScaleX()));
-				Point rescaledPosition = new Point((int)this.getPosition().getX()-width*dir, (int)this.getPosition().getY());
-				this.setPosition(rescaledPosition);
+				//int width = (int) (this.getUnscaledWidth()*Math.abs(this.getScaleX()));
+				//Point rescaledPosition = new Point((int)this.getPosition().getX()-width*dir, (int)this.getPosition().getY());
+				//this.setPosition(rescaledPosition);
 				this.setScaleX(.5*dir);//@TODO this shouldn't be a set number it should be by character
 			}
 		}

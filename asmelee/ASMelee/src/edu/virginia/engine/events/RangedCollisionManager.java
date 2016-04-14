@@ -21,12 +21,12 @@ public class RangedCollisionManager implements IEventListener {
 		{
 			RangedCollisionEvent ce = (RangedCollisionEvent)event;
 			Character other = (Character) event.getSource();
-			System.out.println("event thrown ");
+			//System.out.println("event thrown ");
 			 RangedAttack ra= ce.rangedAttack;
 			if(other.equals(ra.myCharacter))
 				return;
 
-			System.out.println("event continued ");
+			//System.out.println("event continued ");
 			/*
 			 * Add all the hitting code in this if statement
 			 */
@@ -56,7 +56,7 @@ public class RangedCollisionManager implements IEventListener {
 					newX = originalX - ra.knockback;
 				
 				linearTween.animate(TweenableParam.POSITIONX, originalX, newX, 500);
-				System.out.println("Mario health is: " + (other.healthbar.getActualHealth()-5));
+				//System.out.println("Mario health is: " + (other.healthbar.getActualHealth()-5));
 				ra.destroy(other);//destroys the object and deals damage to other
 			}
 			else
