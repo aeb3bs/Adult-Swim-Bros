@@ -17,21 +17,21 @@ public class SpecialStewieCollisionManager implements IEventListener {
 	public void handleEvent(Event event) {
 		if (event instanceof SpecialStewieCollisionEvent){
 			counter++;
-			//System.out.println("StewieSpecial");
+			System.out.println("StewieSpecial");
 			SpecialStewieCollisionEvent e = (SpecialStewieCollisionEvent)event;
 			Character other = (Character)e.getSource();
 			Laser ls = (Laser)e.target;
 			if(counter % ls.ticks ==0)
 			{
-				System.out.println(counter);
 				other.healthbar.decreaseHealth(ls.damage);
-				
+
+				System.out.println(counter);
 				/*
 				 * if direction == 0, we are hitting other character from left
 				 * if direction == 1, we are hitting other character from right
 				 */
 				int direction = 0;
-				if(ls.getPosition().getX()<other.getPosition().getX())
+				if(ls.getParent().getPosition().getX()<other.getPosition().getX())
 					direction = 0;
 				else
 					direction = 1;
@@ -51,7 +51,7 @@ public class SpecialStewieCollisionManager implements IEventListener {
 					
 					//linearTween.animate(TweenableParam.POSITIONX, originalX, newX, ls.knockback);
 					other.setPosition(new Point(newX,originalY));
-					System.out.println("Mario health is: " + (other.healthbar.getActualHealth()));
+					//System.out.println("Mario health is: " + (other.healthbar.getActualHealth()));
 					//other.healthbar.setActualHealth(other.healthbar.getActualHealth()-5);
 				}
 				else

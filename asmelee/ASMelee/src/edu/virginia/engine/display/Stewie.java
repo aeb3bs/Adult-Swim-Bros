@@ -96,7 +96,7 @@ public class Stewie extends Character {
 						//this.shooting = false;
 						break;
 				//ranged attack
-				case 5: this.setLatency(30);
+				case 5: this.setLatency(10);
 						this.shooting = true;
 						this.setStartIndex(13);
 						this.setCurrentFrame(13);
@@ -129,7 +129,7 @@ public class Stewie extends Character {
 		if(!hitting)
 		{
 			this.animate(4);	
-			this.setDefaultHitbox();
+			//this.setDefaultHitbox();
 		}
 	}
 	public void specialAttack()
@@ -137,7 +137,7 @@ public class Stewie extends Character {
 		if(!specialing)
 		{
 			this.animate(6);
-					}
+		}
 	}
 	public void updateSpecial(int time)
 	{
@@ -151,7 +151,7 @@ public class Stewie extends Character {
 			laser.setPosition(new Point(55, 35));
 			laser.setScaleY(5);
 			laser.setScaleX(1);
-			laser.setDefaultHitbox();
+			//laser.setDefaultHitbox();
 			laser.setVisible(true);
 		}
 		else if(time == 50)
@@ -369,7 +369,8 @@ public class Stewie extends Character {
 
 		}
 	}*/
-	@Override 
+	//@Override 
+	/*
 	public Rectangle getHitboxGlobal()
 	{
 		Rectangle h = super.getHitboxGlobal();
@@ -378,5 +379,5 @@ public class Stewie extends Character {
 			h.x -= h.width;
 		}
 		return h;
-	}
+	}*/
 }

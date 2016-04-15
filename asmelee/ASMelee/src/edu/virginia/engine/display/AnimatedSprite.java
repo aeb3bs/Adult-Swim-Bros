@@ -135,6 +135,7 @@ public class AnimatedSprite extends Sprite {
 		
 		this.getImagemap().put(currentImage, this.getImagemap().get(currentImage)-1);
 		
+		initBbox();
 		return currentImage;
 	}
 	

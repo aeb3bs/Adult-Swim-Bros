@@ -41,10 +41,12 @@ public class Sprite extends DisplayObjectContainer {
 		boolean stewieSpecial = (this instanceof Laser);
 		for(DisplayObject o:allchildren)
 		{
-			if(this.getHitboxGlobal() != null && o.getHitboxGlobal() != null && !this.equals(o) && this.collidesWith(o))
+			
+			if(/*this.getHitboxGlobal() != null && o.getHitboxGlobal() != null &&*/ !this.equals(o) && this.collidesWith(o))
 			{	
 				if(o instanceof Platform)
 				{
+					//System.out.println(this.getId() + " hit platform");
 					PlatformCollisionEvent e = new PlatformCollisionEvent();
 					e.setSource(this);
 					e.setPlatform((Platform)o);
