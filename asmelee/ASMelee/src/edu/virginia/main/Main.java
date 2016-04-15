@@ -19,6 +19,7 @@ import edu.virginia.engine.display.Mario;
 import edu.virginia.engine.display.Peter;
 import edu.virginia.engine.display.Platform;
 import edu.virginia.engine.display.SoundManager;
+import edu.virginia.engine.display.Stage;
 import edu.virginia.engine.display.Stewie;
 import edu.virginia.engine.events.CharacterCollisionEvent;
 import edu.virginia.engine.events.CharacterCollisionManager;
@@ -43,7 +44,10 @@ import edu.virginia.engine.tweening.TweenableParam;
  * although, for now, it won't be a very fun game :)
  * */
 public class Main extends Game{
+	public static final boolean freeMove =false;
 	public static final double gravity = 4000.0;
+	public static final int GAME_HEIGHT = 500;
+	public static final int GAME_WIDTH = 500;
 	/* Create a sprite object for our game. We'll use mario */
 	//Human ash1 = new Human("Ash1", false);
 	Coin coin1 = new Coin("Coin1");
@@ -51,23 +55,19 @@ public class Main extends Game{
 	Mario mario1 = new Mario("Mario1", false);
 	Stewie stewie1 = new Stewie("Stewie1", false);
 	Peter peter1 = new Peter("Peter1", false);
-	DisplayObjectContainer mario_background = new DisplayObjectContainer("Background1");
+	
 	PlatformManager myPlatformManager = new PlatformManager();
 	CharacterCollisionManager myCharacterCollisionManager = new CharacterCollisionManager();
 	RangedCollisionManager myRangedCollisionManager = new RangedCollisionManager();
 	public static SoundManager sm = new SoundManager();
 	public static CharacterDeathManager myCharacterDeathManager = new CharacterDeathManager();
 	SpecialStewieCollisionManager mySpecialStewieCollisionManager = new SpecialStewieCollisionManager();
+	Stage myStage = new Stage();
 	
 	/* 
-	 * platforms
+	 * platforms now in stage class
 	 */
-	ArrayList<Platform>platforms = new ArrayList<Platform>();
-	Platform p1 = new Platform("Platform1");
-	Platform p2 = new Platform("Platform2");
-	Platform p3 = new Platform("Platform3");
-	Platform p4 = new Platform("Platform4");
-	Platform ground = new Platform("Ground");
+	
 	
 	private static ArrayList<DisplayObject>allchildren = new ArrayList<DisplayObject>();
 	
@@ -78,7 +78,7 @@ public class Main extends Game{
 	 * @throws UnsupportedAudioFileException 
 	 * */
 	public Main() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
-		super("Lab Two Test Game", 500, 425);
+		super("Lab Two Test Game", GAME_WIDTH, GAME_HEIGHT);
 		
 //		Scanner scanner = new Scanner(System.in);
 //		
@@ -94,36 +94,18 @@ public class Main extends Game{
 		coin1.setPosition(new Point(350,25));
 		mario1.setPosition(new Point(300,300));
 		stewie1.setPosition(new Point(100,0));
+		stewie1.setPivotPoint(new Point(stewie1.getUnscaledWidth()/2,0));
 		peter1.setPosition(new Point(100,0));
-		mario_background.setPosition(new Point(0,0));
-		p1.setPosition(new Point(15,240));
-		p2.setPosition(new Point(275,180));
-		p3.setPosition(new Point(15,120));
-		p4.setPosition(new Point(275,60));
-		ground.setPosition(new Point(0,325));
-		
-		ground.setScaleX(2.5);
-		ground.setVisible(false);
-		ground.setDefaultHitbox();
-		
-		platforms.add(p1);
-		platforms.add(p2);
-		platforms.add(p3);
-		platforms.add(p4);
-		platforms.add(ground);
+		peter1.setPivotPoint(new Point(peter1.getUnscaledWidth()/2,0));
 
-		mario_background.setImage(DisplayObject.readImage("mario_background_1.png"));
-		
-		this.addChild(mario_background);
+		myStage.setUp();
+		this.addChild(myStage.background);
+		this.addChild(myStage);
+		//myStage.setScaleX(2);
 		//this.addChild(mario1);
 		this.addChild(stewie1);
 
 		this.addChild(peter1);
-		
-		for(Platform p:platforms)
-		{
-			this.addChild(p);
-		}
 		this.addChild(coin1);
 		
 //		sm = new SoundManager();
@@ -235,6 +217,7 @@ public class Main extends Game{
 //		for(DisplayObject o: Main.getAllchildren())
 //			if(o.getHitbox()!=null)
 //				g.drawRect(o.getHitboxGlobal().x, o.getHitboxGlobal().y, o.getHitbox().width, o.getHitbox().height);
+		this.drawBoundingBoxes(g);
 	}
 
 	/**

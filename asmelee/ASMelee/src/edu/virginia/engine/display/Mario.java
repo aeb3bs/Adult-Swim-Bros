@@ -207,6 +207,7 @@ public class Mario extends Character {
 //			}
 //		}
 	}
+	/*
 	@Override 
 	public Rectangle getHitboxGlobal()
 	{
@@ -217,7 +218,7 @@ public class Mario extends Character {
 		}
 		return h;
 	}
-
+*/
 	@Override
 	public void rangedAttack() {
 		// TODO Auto-generated method stub

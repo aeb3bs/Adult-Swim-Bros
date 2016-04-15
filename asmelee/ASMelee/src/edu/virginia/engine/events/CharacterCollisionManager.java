@@ -52,7 +52,7 @@ public class CharacterCollisionManager implements IEventListener {
 						newX = originalX - 100;
 					
 					linearTween.animate(TweenableParam.POSITIONX, originalX, newX, 500);
-					System.out.println("Mario health is: " + (other.healthbar.getActualHealth()-5));
+					//System.out.println("Mario health is: " + (other.healthbar.getActualHealth()-5));
 					other.healthbar.setActualHealth(other.healthbar.getActualHealth()-5);
 				}
 				else

@@ -116,7 +116,7 @@ public class Peter extends Character {
 						this.setEndIndex(13);
 						break;
 						//ranged attack
-				case 5: this.setLatency(100);
+				case 5: this.setLatency(80);
 						this.setStartIndex(22);
 						this.setCurrentFrame(22);
 						this.setEndIndex(22);
@@ -193,7 +193,6 @@ public class Peter extends Character {
 				}
 					
 			}
-			
 			return getImages().get(21);
 		}
 		else if(this.currentFrame == 14 && specialingup)
@@ -204,6 +203,8 @@ public class Peter extends Character {
 			this.setStartIndex(0);
 			this.setEndIndex(7);
 			this.setAnimationMode(0);
+			this.setPosition(new Point(this.getPosition().x, (int)(this.getPosition().y-
+					this.getUnscaledHeight()*this.getScaleY()*.75)));//keeps peter from flying through floors
 			this.resetAnimation();
 			this.specialing = false;
 		}
@@ -462,7 +463,7 @@ public class Peter extends Character {
 			}
 		}*/
 	}
-	
+	/*
 	@Override 
 	public Rectangle getHitboxGlobal()
 	{
@@ -473,7 +474,7 @@ public class Peter extends Character {
 		}
 		return h;
 	}
-
+*/
 	@Override
 	public void rangedAttack() {
 		if(!shooting)
@@ -499,7 +500,7 @@ public class Peter extends Character {
 		{
 			this.animate(4);
 
-			this.setDefaultHitbox();
+			//this.setDefaultHitbox();
 		}		
 	}
 
@@ -509,7 +510,7 @@ public class Peter extends Character {
 		{
 			this.animate(6);
 			
-			this.setDefaultHitbox();
+			//this.setDefaultHitbox();
 		}
 		
 	}
