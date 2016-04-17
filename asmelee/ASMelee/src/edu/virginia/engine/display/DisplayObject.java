@@ -149,8 +149,8 @@ public class DisplayObject extends EventDispatcher {
 
 	public DisplayObject(String id, String fileName) {
 		this.setId(id);
-		this.setImage(fileName);
 		pointTransform =new AffineTransform();
+		this.setImage(fileName);
 		initBbox();
 	}
 	public void updateBbox()
@@ -159,7 +159,8 @@ public class DisplayObject extends EventDispatcher {
 		Point p = new Point();
 		for(int i = 0;i<originalBbox.getNumPoints(); i++)
 		{
-			pointTransform.transform(originalBbox.getPoint(i), p);
+			pointTransform.transform(
+					originalBbox.getPoint(i), p);
 			bbox.addNextPoint(p.x, p.y);
 		}
 	}
@@ -277,7 +278,7 @@ public class DisplayObject extends EventDispatcher {
 		if (displayImage == null) {
 			System.err.println("[DisplayObject.setImage] ERROR: " + imageName + " does not exist!");
 		}
-		//initBbox();
+		initBbox();
 	}
 
 

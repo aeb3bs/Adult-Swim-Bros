@@ -19,7 +19,7 @@ public abstract class Character extends PhysicsSprite {
 	int animationMode;
 	public HealthBar healthbar;
 	protected double moveThreshold = .5;
-	protected int myControllerIndex = -1;
+	public int myControllerIndex = -1;
 	protected int rangedCooldown = 80;
 	protected int meleeCooldown = 30;
 	protected int specialCooldown = 50;
@@ -247,7 +247,7 @@ public abstract class Character extends PhysicsSprite {
 			}
 			else if(key.equals(down))
 			{
-				if(Main.freeMove)
+				if(Main.debugMode)
 				{
 					this.setPosition(new Point(this.getPosition().x,this.getPosition().y+1));
 				}
@@ -269,7 +269,7 @@ public abstract class Character extends PhysicsSprite {
 	{
 		if(!jumping)
 		{
-			if(Main.freeMove)
+			if(Main.debugMode)
 			{
 				this.setPosition(new Point(this.getPosition().x,this.getPosition().y-1));
 				System.out.println(this.getPosition().getY());

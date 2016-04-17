@@ -21,6 +21,7 @@ import edu.virginia.engine.display.Platform;
 import edu.virginia.engine.display.SoundManager;
 import edu.virginia.engine.display.Stage;
 import edu.virginia.engine.display.Stewie;
+import edu.virginia.engine.display.Character;
 import edu.virginia.engine.events.CharacterCollisionEvent;
 import edu.virginia.engine.events.CharacterCollisionManager;
 import edu.virginia.engine.events.CharacterDeathEvent;
@@ -44,7 +45,7 @@ import edu.virginia.engine.tweening.TweenableParam;
  * although, for now, it won't be a very fun game :)
  * */
 public class Main extends Game{
-	public static final boolean freeMove =false;
+	public static final boolean debugMode =false;
 	public static final double gravity = 4000.0;
 	public static final int GAME_HEIGHT = 500;
 	public static final int GAME_WIDTH = 500;
@@ -77,7 +78,7 @@ public class Main extends Game{
 	 * @throws IOException 
 	 * @throws UnsupportedAudioFileException 
 	 * */
-	public Main() throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+	public Main(String char1, String char2, String stage) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
 		super("Lab Two Test Game", GAME_WIDTH, GAME_HEIGHT);
 		
 //		Scanner scanner = new Scanner(System.in);
@@ -91,28 +92,72 @@ public class Main extends Game{
 //		DynamoDBManager.getInstance().setEnemyId(enemyId);
 		
 		//ash1.setPosition(new Point(300,300));
+		Character player1 = null,player2 = null;
+		switch(char1)
+		{
+		case "stewie":
+			player1 = new Stewie("stewie",false);
+			break;
+		case "peter":
+			player1 = new Peter("peter",false);
+		}
+		
+		switch(char2)
+		{
+		case "stewie":
+			player2 = new Stewie("stewie",false);
+			break;
+		case "peter":
+			player2 = new Peter("peter",false);
+		}
+		
+		player1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
+		player1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
+		player1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
+		player1.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
+		player1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
+		player1.myControllerIndex = -1;
+		player1.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
+		player1.setPosition(new Point(100,0));
+		player1.setScaleX(.5);
+		player1.setScaleY(.5);
+		
+		player2.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
+		player2.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
+		player2.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
+		player2.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
+		player2.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
+		player2.myControllerIndex = 0;
+		player2.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
+		player2.setPosition(new Point(100,0));
+		player1.setScaleX(.5);
+		player1.setScaleY(.5);
+		/*
 		coin1.setPosition(new Point(350,25));
 		mario1.setPosition(new Point(300,300));
 		stewie1.setPosition(new Point(100,0));
 		stewie1.setPivotPoint(new Point(stewie1.getUnscaledWidth()/2,0));
 		peter1.setPosition(new Point(100,0));
 		peter1.setPivotPoint(new Point(peter1.getUnscaledWidth()/2,0));
-
+*/
+		switch(stage)
+		{
+		case "mario_stage":
+			myStage = new Stage();
+			break;
+		}
 		myStage.setUp();
 		this.addChild(myStage.background);
 		this.addChild(myStage);
-		//myStage.setScaleX(2);
-		//this.addChild(mario1);
-		this.addChild(stewie1);
-
-		this.addChild(peter1);
-		this.addChild(coin1);
+		this.addChild(player1);
+		this.addChild(player2);
 		
 //		sm = new SoundManager();
 //		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
 //		sm.LoadMusic("Victory Song", "mario_victory.wav");
 //		sm.PlayMusic("Theme Song", true);
 		
+		/*
 		Tween linearTween = new Tween(mario1, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
 		linearTween.animate(TweenableParam.ALPHA, 0.0, 1.0, 2500);
 		linearTween.animate(TweenableParam.SCALEX, 0.0, 1.0, 1500);
@@ -141,6 +186,7 @@ public class Main extends Game{
 		stewie1.setScaleY(.5);
 		peter1.setScaleX(.5);
 		peter1.setScaleY(.5);
+		*/
 	}
 	
 	/**
@@ -228,7 +274,7 @@ public class Main extends Game{
 	 * @throws LineUnavailableException 
 	 * */
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
-		Main game = new Main();
+		Main game = new Main("stewie", "peter", "mario_stage");
 		game.start();
 		
 		//code to generate code for new character constructor
