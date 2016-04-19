@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.events.CharacterCollisionEvent;
+import edu.virginia.engine.events.SpecialTrooperCollisionEvent;
 import edu.virginia.engine.events.PlatformCollisionEvent;
 import edu.virginia.engine.events.RangedCollisionEvent;
 import edu.virginia.engine.events.SpecialStewieCollisionEvent;
@@ -39,6 +40,7 @@ public class Sprite extends DisplayObjectContainer {
 		boolean character = (this instanceof Character);
 		boolean projectile = (this instanceof RangedAttack);
 		boolean stewieSpecial = (this instanceof Laser);
+		boolean trooperSpecial = (this instanceof LightningTower);
 		for(DisplayObject o:allchildren)
 		{
 			
@@ -78,6 +80,19 @@ public class Sprite extends DisplayObjectContainer {
 					{
 						//System.out.println(o.getId());
 						SpecialStewieCollisionEvent e = new SpecialStewieCollisionEvent();
+						Character c = (Character)o;
+						e.setSource(c);
+						e.setDamager(this);
+						o.dispatchEvent(e);
+					}
+				}
+				else if(trooperSpecial && (o instanceof Character))
+				{
+					LightningTower temp = (LightningTower)this;
+					if(!temp.owner.equals(o))
+					{
+						//System.out.println(o.getId());
+						SpecialTrooperCollisionEvent e = new SpecialTrooperCollisionEvent();
 						Character c = (Character)o;
 						e.setSource(c);
 						e.setDamager(this);

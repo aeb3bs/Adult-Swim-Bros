@@ -17,6 +17,13 @@ public class RangedAttack extends AnimatedSprite{
 		super(c.getId()+"_projectile",false);
 		myCharacter = c;
 		c.getParent().addChild(this);
+		
+		ySpeed = 0;
+		xSpeed = 1;
+		damage = 5;
+		knockback = 50;
+		int xoffset =(int)(c.getUnscaledWidth()*c.getScaleX());
+		
 		if(myCharacter instanceof Peter)
 		{
 			this.setImage("fart.png");
@@ -25,15 +32,16 @@ public class RangedAttack extends AnimatedSprite{
 		{
 			this.setImage("lightning_bolt.png");
 		}
+		else if(myCharacter instanceof Trooper)
+		{
+			this.setImage("laser_missile.png");
+			xoffset += 30;
+		}
 		else
 		{
 			this.setImage("sample_ranged.png");
 		}
-		ySpeed = 0;
-		xSpeed = 1;
-		damage = 5;
-		knockback = 50;
-		int xoffset =(int)(c.getUnscaledWidth()*c.getScaleX());
+		
 		if(c.getScaleX() < 0)
 		{
 			xSpeed *=-1;

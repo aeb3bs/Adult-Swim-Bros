@@ -129,14 +129,14 @@ public abstract class Character extends PhysicsSprite {
 			return;
 		}
 		
-		if(this.getAnimationMode()==0)
-		{
-			this.setStartIndex(0);
-			this.setCurrentFrame(0);
-			this.setEndIndex(3);
-			BufferedImage image = this.getImage();
-			this.setImage(image);
-		}
+//		if(this.getAnimationMode()==0)
+//		{
+//			this.setStartIndex(0);
+//			this.setCurrentFrame(0);
+//			this.setEndIndex(3);
+//			BufferedImage image = this.getImage();
+//			this.setImage(image);
+//		}
 		
 		if(4<=this.getAnimationMode())
 		{
@@ -295,7 +295,7 @@ public abstract class Character extends PhysicsSprite {
 				//int width = (int) (this.getUnscaledWidth()*Math.abs(this.getScaleX()));
 				//Point rescaledPosition = new Point((int)this.getPosition().getX()-width*dir, (int)this.getPosition().getY());
 				//this.setPosition(rescaledPosition);
-				this.setScaleX(.5*dir);//@TODO this shouldn't be a set number it should be by character
+				this.setScaleX(Math.abs(this.getScaleX())*dir);//@TODO this shouldn't be a set number it should be by character
 			}
 		}
 		else
