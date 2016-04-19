@@ -2,7 +2,6 @@ package edu.virginia.main;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -10,18 +9,16 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import edu.virginia.engine.controller.GamePad;
+import edu.virginia.engine.display.Character;
 import edu.virginia.engine.display.Coin;
 import edu.virginia.engine.display.DisplayObject;
-import edu.virginia.engine.display.DisplayObjectContainer;
 import edu.virginia.engine.display.Game;
-import edu.virginia.engine.display.Human;
 import edu.virginia.engine.display.Mario;
 import edu.virginia.engine.display.Peter;
-import edu.virginia.engine.display.Platform;
 import edu.virginia.engine.display.SoundManager;
 import edu.virginia.engine.display.Stage;
 import edu.virginia.engine.display.Stewie;
-import edu.virginia.engine.display.Character;
+import edu.virginia.engine.display.Trooper;
 import edu.virginia.engine.events.CharacterCollisionEvent;
 import edu.virginia.engine.events.CharacterCollisionManager;
 import edu.virginia.engine.events.CharacterDeathEvent;
@@ -34,11 +31,9 @@ import edu.virginia.engine.events.RangedCollisionEvent;
 import edu.virginia.engine.events.RangedCollisionManager;
 import edu.virginia.engine.events.SpecialStewieCollisionEvent;
 import edu.virginia.engine.events.SpecialStewieCollisionManager;
-import edu.virginia.engine.tweening.Tween;
+import edu.virginia.engine.events.SpecialTrooperCollisionEvent;
+import edu.virginia.engine.events.SpecialTrooperCollisionManager;
 import edu.virginia.engine.tweening.TweenJuggler;
-import edu.virginia.engine.tweening.TweenTransitions;
-import edu.virginia.engine.tweening.TweenTransitions.transitiontype;
-import edu.virginia.engine.tweening.TweenableParam;
 
 /**
  * Example game that utilizes our engine. We can create a simple prototype game with just a couple lines of code
@@ -63,6 +58,7 @@ public class Main extends Game{
 	public static SoundManager sm = new SoundManager();
 	public static CharacterDeathManager myCharacterDeathManager = new CharacterDeathManager();
 	SpecialStewieCollisionManager mySpecialStewieCollisionManager = new SpecialStewieCollisionManager();
+	SpecialTrooperCollisionManager mySpecialTrooperCollisionManager = new SpecialTrooperCollisionManager();
 	Stage myStage = new Stage();
 	
 	/* 
@@ -97,41 +93,62 @@ public class Main extends Game{
 		{
 		case "stewie":
 			player1 = new Stewie("stewie",false);
+			player1.setScaleX(.5);
+			player1.setScaleY(.5);
 			break;
 		case "peter":
 			player1 = new Peter("peter",false);
+			player1.setScaleX(.5);
+			player1.setScaleY(.5);
+			break;
+		case "trooper":
+			player1 = new Trooper("trooper",false);
+			player1.setScaleX(.35);
+			player1.setScaleY(.35);
+			break;
 		}
 		
 		switch(char2)
 		{
 		case "stewie":
 			player2 = new Stewie("stewie",false);
+			player2.setScaleX(.5);
+			player2.setScaleY(.5);
 			break;
 		case "peter":
 			player2 = new Peter("peter",false);
+			player2.setScaleX(.5);
+			player2.setScaleY(.5);
+			break;
+		case "trooper":
+			player2 = new Trooper("trooper",false);
+			player2.setScaleX(.35);
+			player2.setScaleY(.35);
+			break;
 		}
 		
 		player1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		player1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
 		player1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
 		player1.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
+		player1.addEventListener(mySpecialTrooperCollisionManager, SpecialTrooperCollisionEvent.SPECIALTROOPER);
 		player1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
 		player1.myControllerIndex = -1;
 		player1.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
 		player1.setPosition(new Point(100,0));
-		player1.setScaleX(.5);
-		player1.setScaleY(.5);
+		
 		
 		player2.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		player2.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
 		player2.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
 		player2.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
+		player2.addEventListener(mySpecialTrooperCollisionManager, SpecialTrooperCollisionEvent.SPECIALTROOPER);
 		player2.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
 		player2.myControllerIndex = 0;
 		player2.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
 		player2.setPosition(new Point(100,0));
-		player1.setScaleX(.5);
-		player1.setScaleY(.5);
+		
+		
 		/*
 		coin1.setPosition(new Point(350,25));
 		mario1.setPosition(new Point(300,300));
@@ -274,14 +291,14 @@ public class Main extends Game{
 	 * @throws LineUnavailableException 
 	 * */
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
-		Main game = new Main("stewie", "peter", "mario_stage");
+		Main game = new Main("trooper", "peter", "mario_stage");
 		game.start();
 		
 		//code to generate code for new character constructor
-//		for(int index=15; index<23;index++)
+//		for(int index=1; index<=13;index++)
 //		{
-//			System.out.println("BufferedImage d"+index+" = DisplayObject.readImage(\"peter_griffin_special_"+(index-14)+"" +
-//					".png\");\nimages.add(d"+index+");");
+//			System.out.println("BufferedImage d"+(index+22)+" = DisplayObject.readImage(\"clone_trooper_melee_"+index+"" +
+//					".png\");\nimages.add(d"+(index+22)+");");
 //		}
 	}
 
