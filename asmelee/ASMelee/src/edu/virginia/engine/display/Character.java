@@ -14,8 +14,9 @@ import edu.virginia.main.Main;
 public abstract class Character extends PhysicsSprite {
 	boolean jumping;
 	boolean hitting;
-	boolean specialing;
+	public boolean specialing;
 	boolean shooting;
+	boolean faceLeft;
 	int animationMode;
 	public HealthBar healthbar;
 	protected double moveThreshold = .5;
@@ -23,9 +24,12 @@ public abstract class Character extends PhysicsSprite {
 	protected int rangedCooldown = 80;
 	protected int meleeCooldown = 30;
 	protected int specialCooldown = 50;
+	public boolean stopSpecial = false; // Used for Naruto's special
 	protected int rCurCool =0;
 	protected int mCurCool =0;
 	protected int sCurCool =0;
+	public double defaultScaleX = 1;
+	public double defaultScaleY = 1;
 	
 	public Character(String id, boolean onlineSprite) {
 		super(id, onlineSprite);
@@ -57,9 +61,9 @@ public abstract class Character extends PhysicsSprite {
 		this.hitting = false;
 		this.shooting = false;
 		this.specialing = false;
-		this.setStartIndex(0);
-		this.setCurrentFrame(0);
-		this.setEndIndex(0);
+		//this.setStartIndex(0);
+		//this.setCurrentFrame(0);
+		//this.setEndIndex(0);
 		BufferedImage image = this.getImage();
 		this.setImage(image);
 		this.setAnimationMode(0);
@@ -129,14 +133,6 @@ public abstract class Character extends PhysicsSprite {
 			return;
 		}
 		
-//		if(this.getAnimationMode()==0)
-//		{
-//			this.setStartIndex(0);
-//			this.setCurrentFrame(0);
-//			this.setEndIndex(3);
-//			BufferedImage image = this.getImage();
-//			this.setImage(image);
-//		}
 		
 		if(4<=this.getAnimationMode())
 		{
@@ -154,6 +150,7 @@ public abstract class Character extends PhysicsSprite {
 			updateSpecial(specialCooldown - sCurCool);
 			return;
 		}
+
 		
 		Stack<String>keysPressed = new Stack<String>();
 		for(int index=0; index<pressedKeys.size();index++)
@@ -231,7 +228,7 @@ public abstract class Character extends PhysicsSprite {
 				}
 			}
 			else if(key.equals(space)){ // Special Attack
-				if(sCurCool <=0)
+				if(sCurCool <=0 && !stopSpecial)
 				{
 					specialAttack();
 					sCurCool = specialCooldown;
@@ -283,19 +280,29 @@ public abstract class Character extends PhysicsSprite {
 	public void move(boolean leftKey)
 	{
 		int dir = (leftKey)?-1:1;
+		if (dir == -1){
+			faceLeft = true;
+		}
+		else{
+			faceLeft = false;
+		}
 		this.animate(2);
 		
 		//need to change direction instead of movement
-		if(this.getStartIndex() != 0 || (dir*this.getScaleX() < 0 /*&& leftKey == false*/))
+		//if(this.getStartIndex() != 0 || (dir*this.getScaleX() < 0 /*&& leftKey == false*/))
+		if(dir*this.getScaleX() < 0)
 		{
-			this.setStartIndex(0);
-			this.setCurrentFrame(0);
+			//this.setStartIndex(0);
+			//this.setCurrentFrame(0);
 			if(dir*this.getScaleX()<0)
 			{
 				//int width = (int) (this.getUnscaledWidth()*Math.abs(this.getScaleX()));
 				//Point rescaledPosition = new Point((int)this.getPosition().getX()-width*dir, (int)this.getPosition().getY());
 				//this.setPosition(rescaledPosition);
-				this.setScaleX(Math.abs(this.getScaleX())*dir);//@TODO this shouldn't be a set number it should be by character
+
+				this.setScaleX(this.defaultScaleX*dir);//@TODO this shouldn't be a set number it should be by character
+				this.setScaleY(this.defaultScaleY);
+
 			}
 		}
 		else

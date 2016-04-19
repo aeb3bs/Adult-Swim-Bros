@@ -13,7 +13,10 @@ import edu.virginia.engine.display.Character;
 import edu.virginia.engine.display.Coin;
 import edu.virginia.engine.display.DisplayObject;
 import edu.virginia.engine.display.Game;
+import edu.virginia.engine.display.Goku;
+import edu.virginia.engine.display.Human;
 import edu.virginia.engine.display.Mario;
+import edu.virginia.engine.display.Naruto;
 import edu.virginia.engine.display.Peter;
 import edu.virginia.engine.display.SoundManager;
 import edu.virginia.engine.display.Stage;
@@ -106,6 +109,11 @@ public class Main extends Game{
 			player1.setScaleX(.35);
 			player1.setScaleY(.35);
 			break;
+		case "goku":
+			player1 = new Goku("goku",false);
+			break;
+		case "naruto":
+			player1 = new Naruto("naruto", false);
 		}
 		
 		switch(char2)
@@ -136,7 +144,9 @@ public class Main extends Game{
 		player1.myControllerIndex = -1;
 		player1.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
 		player1.setPosition(new Point(100,0));
-		
+		player1.setScaleX(player1.defaultScaleX);
+		player1.setScaleY(player1.defaultScaleY);
+
 		
 		player2.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		player2.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
@@ -147,8 +157,9 @@ public class Main extends Game{
 		player2.myControllerIndex = 0;
 		player2.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
 		player2.setPosition(new Point(100,0));
-		
-		
+		player2.setScaleX(player2.defaultScaleX);
+		player2.setScaleY(player2.defaultScaleY);
+
 		/*
 		coin1.setPosition(new Point(350,25));
 		mario1.setPosition(new Point(300,300));
@@ -292,14 +303,9 @@ public class Main extends Game{
 	 * */
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
 		Main game = new Main("trooper", "peter", "mario_stage");
+
 		game.start();
 		
-		//code to generate code for new character constructor
-//		for(int index=1; index<=13;index++)
-//		{
-//			System.out.println("BufferedImage d"+(index+22)+" = DisplayObject.readImage(\"clone_trooper_melee_"+index+"" +
-//					".png\");\nimages.add(d"+(index+22)+");");
-//		}
 	}
 
 	public static ArrayList<DisplayObject> getAllchildren() {

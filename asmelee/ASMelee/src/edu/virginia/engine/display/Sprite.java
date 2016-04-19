@@ -86,6 +86,7 @@ public class Sprite extends DisplayObjectContainer {
 						o.dispatchEvent(e);
 					}
 				}
+
 				else if(trooperSpecial && (o instanceof Character))
 				{
 					LightningTower temp = (LightningTower)this;
@@ -99,6 +100,7 @@ public class Sprite extends DisplayObjectContainer {
 						o.dispatchEvent(e);
 					}
 				}
+
 			}
 		}
 		
