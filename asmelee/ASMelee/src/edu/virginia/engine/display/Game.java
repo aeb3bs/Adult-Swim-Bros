@@ -1,6 +1,7 @@
 package edu.virginia.engine.display;
 
 import java.awt.AlphaComposite;
+import java.awt.CardLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import edu.virginia.engine.controller.GamePad;
@@ -27,8 +29,9 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	private int FRAMES_PER_SEC = 60;
 
 	/* The main JFrame that holds this game */
-	private JFrame mainFrame;
-
+	//private JFrame mainFrame;
+	private JFrame gameFrame;
+	private JPanel cardPanel;
 	/* Timer that this game runs on */
 	private Timer gameTimer;
 	
@@ -38,10 +41,12 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	/* Connected Game Controllers */
 	private ArrayList<GamePad> controllers;
 
-	public Game(String gameId, int width, int height) {
+	public Game(JFrame thisFrame, String gameId, int width, int height) {
 		super(gameId);
-		
-		setUpMainFrame(gameId, width, height);
+		//mainFrame = thisFrame;
+		gameFrame = thisFrame;
+		cardPanel = ((JPanel)(gameFrame.getContentPane().getComponent(0)));
+		thisFrame.addKeyListener(this);
 		
 		setScenePanel(new GameScenePanel(this));
 		
@@ -72,21 +77,6 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		if(fps > 0) this.FRAMES_PER_SEC = fps;
 	}
 
-	public void setUpMainFrame(String gameId, int width, int height) {
-		this.mainFrame = new JFrame();
-		getMainFrame().setTitle(gameId);
-		getMainFrame().setResizable(false);
-		getMainFrame().setVisible(true);
-		getMainFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		getMainFrame().setBounds(0, 0, width, height);
-		getMainFrame().addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		getMainFrame().addKeyListener(this);
-	}
-
 	/**
 	 * Starts the game
 	 */
@@ -113,10 +103,15 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		}
 	}
 	
-	public void exitGame(){
+	public void exitGame(String winner){
 		stop();
-		this.mainFrame.setVisible(false);
-		this.mainFrame.dispose();
+		//this.mainFrame.setVisible(false);
+		//this.mainFrame.dispose();
+		int index = cardPanel.getComponentZOrder(scenePanel);
+		GameOverPanel tmp = (GameOverPanel)cardPanel.getComponent(index+1);
+		tmp.saveWinner(winner);
+		CardLayout a = (CardLayout)cardPanel.getLayout();
+		a.next( cardPanel);
 	}
 	
 	/**
@@ -124,9 +119,9 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	 * */
 	public void closeGame(){
 		this.stop();
-		if(this.getMainFrame() != null){
-			this.getMainFrame().setVisible(false);
-			this.getMainFrame().dispose();
+		if(this.gameFrame != null){
+			this.gameFrame.setVisible(false);
+			this.gameFrame.dispose();
 		}
 	}
 
@@ -187,16 +182,16 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		
 		super.draw(g);
 	}
-
+/*
 	public JFrame getMainFrame() {
 		return this.mainFrame;
 	}
-	
+	*/
 	public void setScenePanel(GameScenePanel scenePanel) {
 		this.scenePanel = scenePanel;
-		this.getMainFrame().add(this.scenePanel);
-		getMainFrame().setFocusable(true);
-		getMainFrame().requestFocusInWindow();
+		this.cardPanel.add(this.scenePanel);
+		gameFrame.setFocusable(true);
+		gameFrame.requestFocusInWindow();
 	}
 
 	public GameScenePanel getScenePanel() {

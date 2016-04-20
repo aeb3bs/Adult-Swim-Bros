@@ -1,18 +1,25 @@
 package edu.virginia.main;
 
+import java.awt.CardLayout;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.display.Character;
+import edu.virginia.engine.display.CharacterSelect;
 import edu.virginia.engine.display.Coin;
 import edu.virginia.engine.display.DisplayObject;
 import edu.virginia.engine.display.Game;
+import edu.virginia.engine.display.GameOverPanel;
 import edu.virginia.engine.display.Goku;
 import edu.virginia.engine.display.Human;
 import edu.virginia.engine.display.Mario;
@@ -79,78 +86,70 @@ public class Main extends Game{
 	 * @throws IOException 
 	 * @throws UnsupportedAudioFileException 
 	 * */
-	public Main(String char1, String char2, String stage) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
-		super("Lab Two Test Game", GAME_WIDTH, GAME_HEIGHT);
-		
-//		Scanner scanner = new Scanner(System.in);
-//		
-//		System.out.println("What is your userId?");
-//		int userId = scanner.nextInt();
-//		DynamoDBManager.getInstance().setUserId(userId);
-//		
-//		System.out.println("What is your enemy's id?");
-//		int enemyId = scanner.nextInt();
-//		DynamoDBManager.getInstance().setEnemyId(enemyId);
-		
-		//ash1.setPosition(new Point(300,300));
+	public Main(JFrame gameFrame, String char1, String char2, String stage) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+		super(gameFrame, "Lab Two Test Game", GAME_WIDTH, GAME_HEIGHT);
+	}
+	public void addPlayers(String char1, String char2, String stage)
+	{
+
 		Character player1 = null,player2 = null;
 		switch(char1)
 		{
-		case "stewie":
+		case "Stewie":
 			player1 = new Stewie("stewie",false);
 			player1.setScaleX(.5);
 			player1.setScaleY(.5);
 			break;
-		case "peter":
+		case "Peter":
 			player1 = new Peter("peter",false);
 			player1.setScaleX(.5);
 			player1.setScaleY(.5);
 			break;
-		case "trooper":
+		case "Trooper":
 			player1 = new Trooper("trooper",false);
 			player1.setScaleX(.35);
 			player1.setScaleY(.35);
 			break;
-		case "pikachu":
+		case "Pikachu":
 			player1 = new Pikachu("pikachu",false);
 			player1.setScaleX(1.0);
 			player1.setScaleY(1.0);
 			break;
-		case "goku":
+		case "Goku":
 			player1 = new Goku("goku",false);
 			break;
-		case "naruto":
+		case "Naruto":
 			player1 = new Naruto("naruto", false);
 			break;
 		}
 		
 		switch(char2)
 		{
-		case "stewie":
+		case "Stewie":
 			player2 = new Stewie("stewie",false);
 			player2.setScaleX(.5);
 			player2.setScaleY(.5);
 			break;
-		case "peter":
+		case "Peter":
 			player2 = new Peter("peter",false);
 			player2.setScaleX(.5);
 			player2.setScaleY(.5);
 			break;
-		case "trooper":
+		case "Trooper":
 			player2 = new Trooper("trooper",false);
 			player2.setScaleX(.35);
 			player2.setScaleY(.35);
 			break;
-		case "pikachu":
-			player1 = new Pikachu("pikachu",false);
-			player1.setScaleX(1.0);
-			player1.setScaleY(1.0);
+		case "Pikachu":
+			player2 = new Pikachu("pikachu",false);
+			player2.setScaleX(1.0);
+			player2.setScaleY(1.0);
 			break;
-		case "goku":
-			player1 = new Goku("goku",false);
+		case "Goku":
+			player2 = new Goku("goku",false);
 			break;
-		case "naruto":
-			player1 = new Naruto("naruto", false);
+		case "Naruto":
+			player2 = new Naruto("naruto", false);
 			break;
 		}
 		
@@ -178,18 +177,11 @@ public class Main extends Game{
 		player2.setPosition(new Point(100,0));
 		player2.setScaleX(player2.defaultScaleX);
 		player2.setScaleY(player2.defaultScaleY);
+this.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
 
-		/*
-		coin1.setPosition(new Point(350,25));
-		mario1.setPosition(new Point(300,300));
-		stewie1.setPosition(new Point(100,0));
-		stewie1.setPivotPoint(new Point(stewie1.getUnscaledWidth()/2,0));
-		peter1.setPosition(new Point(100,0));
-		peter1.setPivotPoint(new Point(peter1.getUnscaledWidth()/2,0));
-*/
 		switch(stage)
 		{
-		case "mario_stage":
+		case "Mario World":
 			myStage = new Stage();
 			break;
 		}
@@ -204,36 +196,7 @@ public class Main extends Game{
 //		sm.LoadMusic("Victory Song", "mario_victory.wav");
 //		sm.PlayMusic("Theme Song", true);
 		
-		/*
-		Tween linearTween = new Tween(mario1, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
-		linearTween.animate(TweenableParam.ALPHA, 0.0, 1.0, 2500);
-		linearTween.animate(TweenableParam.SCALEX, 0.0, 1.0, 1500);
-		linearTween.animate(TweenableParam.POSITIONX, -200, 300, 1500);
-		
-		Tween x2Tween = new Tween(mario1, new TweenTransitions(transitiontype.x2trans), "x2Tween");
-		x2Tween.animate(TweenableParam.POSITIONY, 0, 300, 1500);
-		
-		coin1.addEventListener(myQuestManager, PickedUpEvent.COIN_PICKED_UP);
-		mario1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
-		mario1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
-		stewie1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
-		stewie1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
-		stewie1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
-		stewie1.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
-		peter1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
-		peter1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
-		peter1.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
-		peter1.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
-		
-		//mario1 reacts to death
-		stewie1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
-		peter1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
-		
-		stewie1.setScaleX(.5);
-		stewie1.setScaleY(.5);
-		peter1.setScaleX(.5);
-		peter1.setScaleY(.5);
-		*/
+
 	}
 	
 	/**
@@ -244,41 +207,22 @@ public class Main extends Game{
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers){
 		super.update(pressedKeys,controllers);
 		
-//		if(mario1 != null && mario1.healthbar != null)
-//		{
-//			Double actualHealth = mario1.healthbar.getActualHealth();
-//			Double visibleHealth = mario1.healthbar.getVisibleHealth();
-//			
-//		
-//			if(actualHealth != null && visibleHealth != null)
-//			{
-//				//Evan Edit: in future need to iterate through list of characters
-//				if (actualHealth < visibleHealth){
-//					mario1.healthbar.setVisibleHealth(visibleHealth-.5);
-//				}
-//				else if (actualHealth != visibleHealth){
-//					// make sure we don't go over
-//					mario1.healthbar.setVisibleHealth(actualHealth);
-//				}
-//				else {
-//					
-//				}
-//				if (mario1.healthbar.actualHealth > 0){
-//					mario1.healthbar.greenHealthBar.setScaleX(mario1.healthbar.actualHealth/100);
-//					mario1.healthbar.redHealthBar.setScaleX(mario1.healthbar.visibleHealth/100);
-//				}
-//				else {
-//					// pure bug avoidance: setScaleX cannot be set to 0
-//					mario1.healthbar.greenHealthBar.setScaleX(.01);
-//					mario1.healthbar.redHealthBar.setScaleX(.01);
-//					//dispatch mario's death -> 1 character left
-//					mario1.dispatchEvent(new CharacterDeathEvent(1));
-//					mario1.removeEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
-//				}
-//			}
-//
-//		}
-		
+		//If all but one dead, return to character select screen
+		int allDead =0;
+		String winner = "";
+		for(DisplayObject d: this.getChildren())
+		{
+			if(d instanceof Character && ((Character)d).alive){
+					allDead++;
+					winner = d.getId();
+			}
+		}
+		if(allDead == 1)
+		{
+			this.removeAll();
+			//Do something here to show game is over
+			exitGame(winner);
+		}
 		//if ash is near coin, throw event
 		if(mario1 != null && coin1 != null)
 		{
@@ -321,11 +265,32 @@ public class Main extends Game{
 	 * @throws LineUnavailableException 
 	 * */
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
-		String[] characters = {"Pikachu", "Peter Griffin", "Stewie Griffin", "Clone Trooper", "Naruto", "Goku"};
-		String[] stages = {"Mario World"};
+		
 		String player1, player2, stage;
-		Main game = new Main("pikachu", "peter", "mario_stage");
-		game.start();
+		String gameId = "Adult Swim Smash";
+		
+		JFrame mainFrame = new JFrame();
+		mainFrame.setTitle(gameId);
+		mainFrame.setResizable(false);
+		mainFrame.setVisible(true);
+		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		mainFrame.setBounds(0, 0, Main.GAME_WIDTH, Main.GAME_HEIGHT);
+		mainFrame.setLayout(new CardLayout());
+		mainFrame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+		JPanel cards = new JPanel();
+		cards.setLayout(new CardLayout());
+		mainFrame.getContentPane().add(cards);
+		Main game = new Main(mainFrame,"pikachu", "peter", "mario_stage");
+		cards.add(new GameOverPanel(Main.GAME_WIDTH,Main.GAME_HEIGHT));
+		cards.add(new CharacterSelect(game, Main.GAME_WIDTH,Main.GAME_HEIGHT),"CharacterSelect");
+		mainFrame.setVisible(true);
+		CardLayout cardLayout = (CardLayout) cards.getLayout();
+		cardLayout.show(cards, "CharacterSelect");
+		//game.start();
 		
 		//code to generate code for new character constructor
 //		for(int index=1; index<=4;index++)
