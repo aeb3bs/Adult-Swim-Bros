@@ -42,18 +42,16 @@ public class PlatformManager implements IEventListener {
 					 * This code is to realign stewie if he falls to far into a platform
 					 */
 					//System.out.println("handling platform");
+					Character c = (Character) event.getSource();
 					int height = (int) Math.abs(ps.getImage().getHeight() * ps.getScaleY()); 
 					int difference = (int) Math.abs(cevent.platform.getPosition().getY()-(ps.getPosition().getY()+height));
-					if(difference > 2)
+					if(difference > 5)
 					{
-						int newY = (int) (cevent.platform.getPosition().getY()-ps.getImage().getHeight()*ps.getScaleY()+1);
+						int newY = (int) (cevent.platform.getPosition().getY()-c.getUnscaledHeight()*c.getScaleY());
 						Point p = new Point((int)ps.getPosition().getX(),newY);
 						ps.setPosition(p);
 						System.out.println("moving peter to " + p.toString());
 					}
-					
-					
-					Character c = (Character)ps;
 					ps.setVelocity_y(0);
 					ps.setAcceleration_y(-Main.gravity);
 					if(c.getAnimationMode()==3)

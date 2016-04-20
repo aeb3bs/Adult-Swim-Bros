@@ -84,6 +84,7 @@ public class Pikachu extends Character {
 						this.setStartIndex(0);
 						this.setCurrentFrame(0);
 						this.setEndIndex(3);
+						this.hitting = false;
 						break;
 				//jumping
 				case 3: this.setVelocity_y(-300);
@@ -148,26 +149,34 @@ public class Pikachu extends Character {
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{
 		super.update(pressedKeys, controllers);
-//		if(this.currentFrame==19)
-//		{
-//			LightningTower lightning_tower = new LightningTower("lightning_tower", false);
-//			lightning_tower.owner = this;
-//			
-//			lightning_tower.setScaleX(.25);
-//			lightning_tower.setScaleY(lightning_tower.getScaleY()*-1);
-//			
-//			int yoffset = (int) (this.getUnscaledHeight()*this.getScaleY());
-//			int xoffset = (int) (this.getUnscaledWidth()*this.getScaleX())+30;
-//			
-//			if(this.getScaleX()<0)
-//				xoffset+=14;
-//			
-//			Point p = new Point((int)this.getPosition().getX()+xoffset, (int)this.getPosition().getY()+yoffset);
-//			lightning_tower.setPosition(p);
-//			Tween linearTween = new Tween(lightning_tower, new TweenTransitions(transitiontype.lineartrans), "FadeOutLightning");
-//			linearTween.animate(TweenableParam.ALPHA, 1.0, 0.0,1500);
-//			
-//			this.getParent().addChild(lightning_tower);
-//		}
+		if(this.currentFrame==11)
+		{
+			LightningTower lightning_tower = new LightningTower("lightning_tower", false, this);
+			lightning_tower.owner = this;
+			
+			lightning_tower.setScaleX(.25);
+			lightning_tower.setScaleY(lightning_tower.getScaleY()*-1);
+			
+			int yoffset = (int) (this.getUnscaledHeight()*this.getScaleY());
+			int xoffset = (int) (this.getUnscaledWidth()*this.getScaleX());
+			
+			if(this.getScaleX()<0)
+			{
+				xoffset+=74;
+				yoffset-=30;
+			}
+			else
+			{
+				xoffset-=40;
+				yoffset-=30;
+			}
+			
+			Point p = new Point((int)this.getPosition().getX()+xoffset, (int)this.getPosition().getY()+yoffset);
+			lightning_tower.setPosition(p);
+			Tween linearTween = new Tween(lightning_tower, new TweenTransitions(transitiontype.lineartrans), "FadeOutLightning");
+			linearTween.animate(TweenableParam.ALPHA, 1.0, 0.0,1500);
+			
+			this.getParent().addChild(lightning_tower);
+		}
 	}
 }

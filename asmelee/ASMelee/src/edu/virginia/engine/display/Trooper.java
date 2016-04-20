@@ -21,6 +21,8 @@ public class Trooper extends Character {
 		this.jumping = false;
 		this.hitting = false;
 		this.shooting = false;
+		this.defaultScaleX = .35;
+		this.defaultScaleY = .35;
 		myControllerIndex = 0;
 		specialCooldown = 100;
 		
@@ -115,6 +117,7 @@ public class Trooper extends Character {
 				case 2: this.setLatency(5);
 						this.setSpeed(3);
 						this.setEndIndex(8);
+						this.hitting = false;
 						break;
 				//jumping
 				case 3: this.setVelocity_y(-300);
@@ -181,7 +184,7 @@ public class Trooper extends Character {
 		super.update(pressedKeys, controllers);
 		if(this.currentFrame==19)
 		{
-			LightningTower lightning_tower = new LightningTower("lightning_tower", false);
+			LightningTower lightning_tower = new LightningTower("lightning_tower", false, this);
 			lightning_tower.owner = this;
 			
 			lightning_tower.setScaleX(.25);

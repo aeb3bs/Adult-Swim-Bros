@@ -23,6 +23,7 @@ import edu.virginia.engine.display.SoundManager;
 import edu.virginia.engine.display.Stage;
 import edu.virginia.engine.display.Stewie;
 import edu.virginia.engine.display.Trooper;
+import edu.virginia.engine.display.Stage.stagetype;
 import edu.virginia.engine.events.CharacterCollisionEvent;
 import edu.virginia.engine.events.CharacterCollisionManager;
 import edu.virginia.engine.events.CharacterDeathEvent;
@@ -145,6 +146,12 @@ public class Main extends Game{
 			player1.setScaleX(1.0);
 			player1.setScaleY(1.0);
 			break;
+		case "goku":
+			player1 = new Goku("goku",false);
+			break;
+		case "naruto":
+			player1 = new Naruto("naruto", false);
+			break;
 		}
 		
 		player1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
@@ -186,7 +193,7 @@ public class Main extends Game{
 			myStage = new Stage();
 			break;
 		}
-		myStage.setUp();
+		myStage.setUp(stagetype.mariobackground);
 		this.addChild(myStage.background);
 		this.addChild(myStage);
 		this.addChild(player1);

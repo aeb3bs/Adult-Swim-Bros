@@ -50,6 +50,7 @@ public class RangedAttack extends AnimatedSprite{
 				this.setScaleX(this.getScaleX()*-1);
 				xoffset += 40;
 			}
+		}
 		else if(myCharacter instanceof Goku){
 			this.setImage("gokuProjectile.png");
 			//while(this.getCurrentFrame() < 13); // don't throw ranged until end of animation
@@ -74,7 +75,6 @@ public class RangedAttack extends AnimatedSprite{
 			xoffset*=2;
 		}
 		this.setPosition(new Point((int)c.getGlobalPosition().x+xoffset,(int)c.getGlobalPosition().y+10));
-		}
 	}
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{
