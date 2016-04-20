@@ -17,13 +17,15 @@ public class RangedAttack extends AnimatedSprite{
 		super(c.getId()+"_projectile",false);
 		myCharacter = c;
 		c.getParent().addChild(this);
-		
+
 		ySpeed = 0;
 		xSpeed = 1;
 		damage = 5;
 		knockback = 50;
+
 		int xoffset =(int)(c.getUnscaledWidth()*c.getScaleX());
 		
+
 		if(myCharacter instanceof Peter)
 		{
 			this.setImage("fart.png");
@@ -32,6 +34,7 @@ public class RangedAttack extends AnimatedSprite{
 		{
 			this.setImage("lightning_bolt.png");
 		}
+
 		else if(myCharacter instanceof Trooper)
 		{
 			this.setImage("laser_missile.png");
@@ -47,18 +50,31 @@ public class RangedAttack extends AnimatedSprite{
 				this.setScaleX(this.getScaleX()*-1);
 				xoffset += 40;
 			}
+		else if(myCharacter instanceof Goku){
+			this.setImage("gokuProjectile.png");
+			//while(this.getCurrentFrame() < 13); // don't throw ranged until end of animation
+		}
+		else if(myCharacter instanceof Naruto && myCharacter.shooting){
+			this.setImage("NarutoProjectile.png");
+			xSpeed = 2;
+		}
+		else if((myCharacter instanceof Naruto && myCharacter.specialing)){
+			this.setImage("NarutoBall1.png");
+			xSpeed = 0;
+			damage = 10;
 		}
 		else
 		{
 			this.setImage("sample_ranged.png");
 		}
-		
+
 		if(c.getScaleX() < 0)
 		{
 			xSpeed *=-1;
 			xoffset*=2;
 		}
 		this.setPosition(new Point((int)c.getGlobalPosition().x+xoffset,(int)c.getGlobalPosition().y+10));
+		}
 	}
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{
@@ -76,6 +92,9 @@ public class RangedAttack extends AnimatedSprite{
 		{
 			Character otherChar=(Character)o;
 			otherChar.healthbar.decreaseHealth(damage);
+			if(myCharacter instanceof Naruto) { // Naruto can use special again
+				myCharacter.stopSpecial = false;
+			}
 		}
 	}
 	public void setDamage(int dam)
