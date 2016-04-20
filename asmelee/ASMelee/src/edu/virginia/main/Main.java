@@ -314,6 +314,9 @@ public class Main extends Game{
 	 * @throws LineUnavailableException 
 	 * */
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+		String[] characters = {"Pikachu", "Peter Griffin", "Stewie Griffin", "Clone Trooper", "Naruto", "Goku"};
+		String[] stages = {"Mario World"};
+		String player1, player2, stage;
 		Main game = new Main("pikachu", "peter", "mario_stage");
 		game.start();
 		
