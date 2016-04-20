@@ -12,4 +12,9 @@ public class Platform extends DisplayObjectContainer {
 		BufferedImage image = DisplayObject.readImage("platform.png");
 		this.setImage(image);
 	}
+	public Platform(String id, String imagestr) {
+		super(id);
+		BufferedImage image = DisplayObject.readImage(imagestr);
+		this.setImage(image);
+	}
 }

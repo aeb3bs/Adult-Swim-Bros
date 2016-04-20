@@ -160,7 +160,7 @@ public class Main extends Game{
 		player1.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
 		player1.addEventListener(mySpecialTrooperCollisionManager, SpecialTrooperCollisionEvent.SPECIALTROOPER);
 		player1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
-		player1.myControllerIndex = -1;
+		player1.myControllerIndex = 0;
 		player1.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
 		player1.setPosition(new Point(100,0));
 		player1.setScaleX(player1.defaultScaleX);
@@ -173,7 +173,7 @@ public class Main extends Game{
 		player2.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
 		player2.addEventListener(mySpecialTrooperCollisionManager, SpecialTrooperCollisionEvent.SPECIALTROOPER);
 		player2.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
-		player2.myControllerIndex = 0;
+		player2.myControllerIndex = -1;
 		player2.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
 		player2.setPosition(new Point(100,0));
 		player2.setScaleX(player2.defaultScaleX);
@@ -193,7 +193,7 @@ public class Main extends Game{
 			myStage = new Stage();
 			break;
 		}
-		myStage.setUp(stagetype.mariobackground);
+		myStage.setUp(stagetype.starwarsbackground);
 		this.addChild(myStage.background);
 		this.addChild(myStage);
 		this.addChild(player1);
@@ -321,7 +321,7 @@ public class Main extends Game{
 	 * @throws LineUnavailableException 
 	 * */
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
-		Main game = new Main("pikachu", "peter", "mario_stage");
+		Main game = new Main("trooper", "peter", "mario_stage");
 		game.start();
 		
 		//code to generate code for new character constructor
