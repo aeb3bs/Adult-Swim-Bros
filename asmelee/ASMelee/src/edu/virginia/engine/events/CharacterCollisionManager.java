@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import edu.virginia.engine.display.Mario;
 import edu.virginia.engine.display.PhysicsSprite;
+import edu.virginia.engine.display.Pikachu;
 import edu.virginia.engine.display.Stewie;
 import edu.virginia.main.Main;
 import edu.virginia.engine.display.Character;
@@ -74,7 +75,7 @@ public class CharacterCollisionManager implements IEventListener {
 					TweenJuggler.getInstance().clearTweens(other);
 					
 					Tween deathTween = new Tween(other, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
-					deathTween.animate(TweenableParam.POSITIONX, originalY, newX, 1500);
+					deathTween.animate(TweenableParam.POSITIONX, originalX, newX, 1500);
 					deathTween.animate(TweenableParam.POSITIONY, originalY, newY, 1500);
 				}
 			}

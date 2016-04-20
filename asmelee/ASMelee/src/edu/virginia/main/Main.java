@@ -15,6 +15,7 @@ import edu.virginia.engine.display.DisplayObject;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Mario;
 import edu.virginia.engine.display.Peter;
+import edu.virginia.engine.display.Pikachu;
 import edu.virginia.engine.display.SoundManager;
 import edu.virginia.engine.display.Stage;
 import edu.virginia.engine.display.Stewie;
@@ -106,6 +107,11 @@ public class Main extends Game{
 			player1.setScaleX(.35);
 			player1.setScaleY(.35);
 			break;
+		case "pikachu":
+			player1 = new Pikachu("pikachu",false);
+			player1.setScaleX(1.0);
+			player1.setScaleY(1.0);
+			break;
 		}
 		
 		switch(char2)
@@ -124,6 +130,11 @@ public class Main extends Game{
 			player2 = new Trooper("trooper",false);
 			player2.setScaleX(.35);
 			player2.setScaleY(.35);
+			break;
+		case "pikachu":
+			player1 = new Pikachu("pikachu",false);
+			player1.setScaleX(1.0);
+			player1.setScaleY(1.0);
 			break;
 		}
 		
@@ -291,14 +302,14 @@ public class Main extends Game{
 	 * @throws LineUnavailableException 
 	 * */
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
-		Main game = new Main("trooper", "peter", "mario_stage");
+		Main game = new Main("pikachu", "peter", "mario_stage");
 		game.start();
 		
 		//code to generate code for new character constructor
-//		for(int index=1; index<=13;index++)
+//		for(int index=1; index<=4;index++)
 //		{
-//			System.out.println("BufferedImage d"+(index+22)+" = DisplayObject.readImage(\"clone_trooper_melee_"+index+"" +
-//					".png\");\nimages.add(d"+(index+22)+");");
+//			System.out.println("BufferedImage d"+(index+14)+" = DisplayObject.readImage(\"pikachu_jumping_"+index+"" +
+//					".png\");\nimages.add(d"+(index+14)+");");
 //		}
 	}
 

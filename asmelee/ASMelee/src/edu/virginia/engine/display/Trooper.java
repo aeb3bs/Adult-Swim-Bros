@@ -21,7 +21,7 @@ public class Trooper extends Character {
 		this.jumping = false;
 		this.hitting = false;
 		this.shooting = false;
-		myControllerIndex = -1;
+		myControllerIndex = 0;
 		specialCooldown = 100;
 		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();

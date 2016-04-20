@@ -37,6 +37,17 @@ public class RangedAttack extends AnimatedSprite{
 			this.setImage("laser_missile.png");
 			xoffset += 30;
 		}
+		else if(myCharacter instanceof Pikachu)
+		{
+			this.setImage("pikachu_thundershock.PNG");
+			this.setScaleX(.5);
+			this.setScaleY(.5);
+			if(myCharacter.getScaleX()<0)
+			{
+				this.setScaleX(this.getScaleX()*-1);
+				xoffset += 40;
+			}
+		}
 		else
 		{
 			this.setImage("sample_ranged.png");

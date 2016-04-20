@@ -27,7 +27,7 @@ public class Peter extends Character {
 		this.specialingup = false;
 		this.specialing = false;
 		this.shooting = false;
-		myControllerIndex = 0;
+		myControllerIndex = -1;
 		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();
 		BufferedImage d1 = DisplayObject.readImage("peter_griffin_standing.png");
