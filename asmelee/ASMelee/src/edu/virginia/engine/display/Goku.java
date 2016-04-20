@@ -125,6 +125,7 @@ public class Goku extends Character{
 						this.setCurrentFrame(0);
 						this.setStartIndex(0);
 						this.setEndIndex(1);
+						this.hitting = false;
 						break;
 				//jumping
 				case 3: this.setVelocity_y(-300);

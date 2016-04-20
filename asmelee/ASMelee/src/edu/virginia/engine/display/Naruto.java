@@ -153,6 +153,7 @@ public class Naruto extends Character{
 						this.setCurrentFrame(1);
 						this.setStartIndex(1);
 						this.setEndIndex(6);
+						this.hitting = false;
 						break;
 				//jumping
 				case 3: this.setVelocity_y(-300);
