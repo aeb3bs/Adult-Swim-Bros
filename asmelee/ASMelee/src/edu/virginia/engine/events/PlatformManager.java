@@ -50,7 +50,7 @@ public class PlatformManager implements IEventListener {
 						int newY = (int) (cevent.platform.getPosition().getY()-c.getUnscaledHeight()*c.getScaleY());
 						Point p = new Point((int)ps.getPosition().getX(),newY);
 						ps.setPosition(p);
-						System.out.println("moving peter to " + p.toString());
+						//System.out.println("moving peter to " + p.toString());
 					}
 					ps.setVelocity_y(0);
 					ps.setAcceleration_y(-Main.gravity);

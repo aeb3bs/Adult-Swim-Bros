@@ -30,6 +30,8 @@ public abstract class Character extends PhysicsSprite {
 	protected int sCurCool =0;
 	public double defaultScaleX = 1;
 	public double defaultScaleY = 1;
+	public boolean alive = true;
+	
 	
 	public Character(String id, boolean onlineSprite) {
 		super(id, onlineSprite);
@@ -61,9 +63,9 @@ public abstract class Character extends PhysicsSprite {
 		this.hitting = false;
 		this.shooting = false;
 		this.specialing = false;
-		//this.setStartIndex(0);
-		//this.setCurrentFrame(0);
-		//this.setEndIndex(0);
+		this.setStartIndex(0);
+		this.setCurrentFrame(0);
+		this.setEndIndex(0);
 		BufferedImage image = this.getImage();
 		this.setImage(image);
 		this.setAnimationMode(0);
@@ -112,6 +114,7 @@ public abstract class Character extends PhysicsSprite {
 					this.healthbar.greenHealthBar.setScaleX(.01);
 					this.healthbar.redHealthBar.setScaleX(.01);
 					//dispatch mario's death -> 1 character left
+					this.alive = false;
 					this.dispatchEvent(new CharacterDeathEvent(1));
 					this.removeEventListener(Main.myCharacterDeathManager, CharacterDeathEvent.DEATH);
 				}
