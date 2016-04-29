@@ -63,9 +63,9 @@ public abstract class Character extends PhysicsSprite {
 		this.hitting = false;
 		this.shooting = false;
 		this.specialing = false;
-		//this.setStartIndex(0);
-		//this.setCurrentFrame(0);
-		//this.setEndIndex(0);
+		this.setStartIndex(0);
+		this.setCurrentFrame(0);
+		this.setEndIndex(0);
 		BufferedImage image = this.getImage();
 		this.setImage(image);
 		this.setAnimationMode(0);

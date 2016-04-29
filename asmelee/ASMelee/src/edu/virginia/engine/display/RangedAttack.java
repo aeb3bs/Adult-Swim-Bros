@@ -72,8 +72,9 @@ public class RangedAttack extends AnimatedSprite{
 		if(c.getScaleX() < 0)
 		{
 			xSpeed *=-1;
-			xoffset*=2;
+			//xoffset*=2;
 		}
+		System.out.println(c.getScaleX() + " "+ xoffset);
 		this.setPosition(new Point((int)c.getGlobalPosition().x+xoffset,(int)c.getGlobalPosition().y+10));
 	}
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)

@@ -24,6 +24,8 @@ public class Stewie extends Character {
 		this.shooting = false;
 		myControllerIndex = -1;
 		specialCooldown = 100;
+		this.defaultScaleX = .5;
+		this.defaultScaleY = .5;
 		
 		laser = new Laser("laser", "StewieLaser.png", false); // used for Special
 		laser.owner = this;
@@ -141,6 +143,7 @@ public class Stewie extends Character {
 	}
 	public void updateSpecial(int time)
 	{
+		System.out.println(time);
 		if(time == 3)
 		{
 			this.addChild(laser);

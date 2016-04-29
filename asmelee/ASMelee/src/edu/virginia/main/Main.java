@@ -30,7 +30,7 @@ import edu.virginia.engine.display.SoundManager;
 import edu.virginia.engine.display.Stage;
 import edu.virginia.engine.display.Stewie;
 import edu.virginia.engine.display.Trooper;
-import edu.virginia.engine.display.Stage.stagetype;
+import edu.virginia.engine.display.StarWarsStage;
 import edu.virginia.engine.events.CharacterCollisionEvent;
 import edu.virginia.engine.events.CharacterCollisionManager;
 import edu.virginia.engine.events.CharacterDeathEvent;
@@ -54,8 +54,8 @@ import edu.virginia.engine.tweening.TweenJuggler;
 public class Main extends Game{
 	public static final boolean debugMode =false;
 	public static final double gravity = 4000.0;
-	public static final int GAME_HEIGHT = 500;
-	public static final int GAME_WIDTH = 500;
+	public static final int GAME_HEIGHT = 1000;
+	public static final int GAME_WIDTH = 1000;
 	/* Create a sprite object for our game. We'll use mario */
 	//Human ash1 = new Human("Ash1", false);
 	Coin coin1 = new Coin("Coin1");
@@ -97,23 +97,15 @@ public class Main extends Game{
 		{
 		case "Stewie":
 			player1 = new Stewie("stewie",false);
-			player1.setScaleX(.5);
-			player1.setScaleY(.5);
 			break;
 		case "Peter":
 			player1 = new Peter("peter",false);
-			player1.setScaleX(.5);
-			player1.setScaleY(.5);
 			break;
 		case "Trooper":
 			player1 = new Trooper("trooper",false);
-			player1.setScaleX(.35);
-			player1.setScaleY(.35);
 			break;
 		case "Pikachu":
 			player1 = new Pikachu("pikachu",false);
-			player1.setScaleX(1.0);
-			player1.setScaleY(1.0);
 			break;
 		case "Goku":
 			player1 = new Goku("goku",false);
@@ -127,23 +119,15 @@ public class Main extends Game{
 		{
 		case "Stewie":
 			player2 = new Stewie("stewie",false);
-			player2.setScaleX(.5);
-			player2.setScaleY(.5);
 			break;
 		case "Peter":
 			player2 = new Peter("peter",false);
-			player2.setScaleX(.5);
-			player2.setScaleY(.5);
 			break;
 		case "Trooper":
 			player2 = new Trooper("trooper",false);
-			player2.setScaleX(.35);
-			player2.setScaleY(.35);
 			break;
 		case "Pikachu":
 			player2 = new Pikachu("pikachu",false);
-			player2.setScaleX(1.0);
-			player2.setScaleY(1.0);
 			break;
 		case "Goku":
 			player2 = new Goku("goku",false);
@@ -177,15 +161,17 @@ public class Main extends Game{
 		player2.setPosition(new Point(100,0));
 		player2.setScaleX(player2.defaultScaleX);
 		player2.setScaleY(player2.defaultScaleY);
-this.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
 
 		switch(stage)
 		{
 		case "Mario World":
 			myStage = new Stage();
 			break;
+		case "Star Wars":
+			myStage = new StarWarsStage();
+			break;
 		}
-		myStage.setUp(stagetype.starwarsbackground);
+		myStage.setUp();
 		this.addChild(myStage.background);
 		this.addChild(myStage);
 		this.addChild(player1);

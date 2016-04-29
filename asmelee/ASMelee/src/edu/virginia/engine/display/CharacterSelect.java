@@ -14,13 +14,13 @@ import edu.virginia.main.Main;
 public class CharacterSelect extends JPanel implements ActionListener{
 
 	String[] characters = {"Pikachu", "Peter", "Stewie", "Trooper", "Naruto", "Goku"};
-	String[] stages = {"Mario World"};
+	String[] stages = {"Mario World", "Star Wars"};
 	JButton p1Select[] = new JButton[characters.length];
 	JButton p2Select[] = new JButton[characters.length];
 	JButton stageSelect[] = new JButton[stages.length];
 	JButton startButton;
 	JTextField p1Selection,p2Selection,stageSelection;
-	String player1, player2 = "Goku",stage = "Mario World";
+	String player1 = "Peter", player2 = "Stewie",stage = "Mario World";
 	Main myGame;
 	public CharacterSelect(Main game, int width, int height)
 	{
@@ -51,7 +51,7 @@ public class CharacterSelect extends JPanel implements ActionListener{
 			stageSelect[a].addActionListener(this);
 			add(stageSelect[a]);
 		}
-        stageSelection = new JTextField("Stage");
+        stageSelection = new JTextField("   Stage    ");
         
         startButton = new JButton("Start Match");
         startButton.addActionListener(this);
