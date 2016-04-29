@@ -321,7 +321,7 @@ public class Main extends Game{
 	 * @throws LineUnavailableException 
 	 * */
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
-		Main game = new Main("trooper", "peter", "mario_stage");
+		Main game = new Main("peter", "trooper", "mario_stage");
 		game.start();
 		
 		//code to generate code for new character constructor
