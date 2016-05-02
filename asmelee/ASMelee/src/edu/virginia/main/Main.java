@@ -54,7 +54,7 @@ import edu.virginia.engine.tweening.TweenJuggler;
 public class Main extends Game{
 	public static final boolean debugMode =false;
 	public static final double gravity = 4000.0;
-	public static final int GAME_HEIGHT = 1000;
+	public static final int GAME_HEIGHT = 800;
 	public static final int GAME_WIDTH = 1000;
 	/* Create a sprite object for our game. We'll use mario */
 	//Human ash1 = new Human("Ash1", false);

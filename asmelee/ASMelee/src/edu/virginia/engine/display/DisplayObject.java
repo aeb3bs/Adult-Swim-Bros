@@ -374,13 +374,13 @@ public class DisplayObject extends EventDispatcher {
 	public void drawBoundingBoxes(Graphics g)
 	{
 		//System.out.println("really drawing bounding box for: " + this.id);
-		if(this.visible == false)
-			return;
+		//if(this.visible == false)
+		//	return;
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawRect(0,0, originalBbox.getPoint(2).x - originalBbox.getPoint(0).x,
-        		originalBbox.getPoint(2).y - originalBbox.getPoint(0).y);
-		g2d.drawRect(bbox.getPoint(0).x, bbox.getPoint(0).y, bbox.getPoint(2).x - bbox.getPoint(0).x,
-        		bbox.getPoint(2).y - bbox.getPoint(0).y);
+		/*g2d.drawRect(0,0, originalBbox.getPoint(2).x - originalBbox.getPoint(0).x,
+        		originalBbox.getPoint(2).y - originalBbox.getPoint(0).y);*/
+		//g2d.drawRect(bbox.getPoint(0).x, bbox.getPoint(0).y, bbox.getPoint(2).x - bbox.getPoint(0).x,
+        //		bbox.getPoint(2).y - bbox.getPoint(0).y);
 		g2d.setColor(new Color(0,255,0));
 		g2d.drawPolygon(bbox.getXs(), bbox.getYs(), bbox.getNumPoints());
 	}
