@@ -251,6 +251,8 @@ public class Main extends Game{
 	 * @throws LineUnavailableException 
 	 * */
 	public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+//		Main game = new Main("peter", "trooper", "mario_stage");
+//		game.start();
 		
 		String player1, player2, stage;
 		String gameId = "Adult Swim Smash";
