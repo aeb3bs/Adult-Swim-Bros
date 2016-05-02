@@ -111,7 +111,6 @@ public abstract class Character extends PhysicsSprite {
 				else {
 					
 				}
-				System.out.println(this.getPosition().getY());
 				if (this.healthbar.actualHealth > 0){
 					this.healthbar.greenHealthBar.setScaleX(this.healthbar.actualHealth/100);
 					this.healthbar.redHealthBar.setScaleX(this.healthbar.visibleHealth/100);
@@ -161,7 +160,7 @@ public abstract class Character extends PhysicsSprite {
 			updateSpecial(specialCooldown - sCurCool);
 			return;
 		}
-
+		
 		
 		Stack<String>keysPressed = new Stack<String>();
 		for(int index=0; index<pressedKeys.size();index++)
@@ -280,7 +279,6 @@ public abstract class Character extends PhysicsSprite {
 			if(Main.debugMode)
 			{
 				this.setPosition(new Point(this.getPosition().x,this.getPosition().y-1));
-				System.out.println(this.getPosition().getY());
 				return;
 			}
 			this.animate(3);	

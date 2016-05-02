@@ -33,8 +33,6 @@ public class Stage extends DisplayObjectContainer{
 		Platform p5 = new Platform("Platform5");
 		Platform p6 = new Platform("Platform6");
 		Platform p7 = new Platform("Platform7");
-		Platform p8 = new Platform("Platform8");
-		Platform p9 = new Platform("Platform9");
 		Platform ground = new Platform("Ground");
 
 		p1.setPosition(new Point(75,300));
@@ -46,8 +44,6 @@ public class Stage extends DisplayObjectContainer{
 		
 		p6.setPosition(new Point(650,570));
 		p7.setPosition(new Point(300,570));
-		//p8.setPosition(new Point(100,700));
-		//p9.setPosition(new Point(475,700));
 
 		ground.setPosition(new Point(0,675));
 
@@ -62,7 +58,6 @@ public class Stage extends DisplayObjectContainer{
 		platforms.add(p5);
 		platforms.add(p6);
 		platforms.add(p7);
-		//platforms.add(p8);
 		platforms.add(ground);
 		
 		for(Platform p:platforms)

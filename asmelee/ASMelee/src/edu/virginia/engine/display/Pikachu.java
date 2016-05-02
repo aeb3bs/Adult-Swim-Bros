@@ -157,8 +157,8 @@ public class Pikachu extends Character {
 			LightningTower lightning_tower = new LightningTower("lightning_tower", false, this);
 			lightning_tower.owner = this;
 			
-			lightning_tower.setScaleX(.25);
-			lightning_tower.setScaleY(lightning_tower.getScaleY()*-1);
+			lightning_tower.setScaleX(.4);
+			lightning_tower.setScaleY(lightning_tower.getScaleY()*-1*2.0);
 			
 			int yoffset = (int) (this.getUnscaledHeight()*this.getScaleY());
 			int xoffset = (int) (this.getUnscaledWidth()*this.getScaleX());
