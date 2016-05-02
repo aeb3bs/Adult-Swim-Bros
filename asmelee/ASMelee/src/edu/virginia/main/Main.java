@@ -18,19 +18,22 @@ import edu.virginia.engine.display.Character;
 import edu.virginia.engine.display.CharacterSelect;
 import edu.virginia.engine.display.Coin;
 import edu.virginia.engine.display.DisplayObject;
+import edu.virginia.engine.display.FamilyGuyStage;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.GameOverPanel;
 import edu.virginia.engine.display.Goku;
-import edu.virginia.engine.display.Human;
+import edu.virginia.engine.display.GokuStage;
 import edu.virginia.engine.display.Mario;
 import edu.virginia.engine.display.Naruto;
+import edu.virginia.engine.display.NarutoStage;
 import edu.virginia.engine.display.Peter;
 import edu.virginia.engine.display.Pikachu;
+import edu.virginia.engine.display.PokemonStage;
 import edu.virginia.engine.display.SoundManager;
 import edu.virginia.engine.display.Stage;
+import edu.virginia.engine.display.StarWarsStage;
 import edu.virginia.engine.display.Stewie;
 import edu.virginia.engine.display.Trooper;
-import edu.virginia.engine.display.StarWarsStage;
 import edu.virginia.engine.events.CharacterCollisionEvent;
 import edu.virginia.engine.events.CharacterCollisionManager;
 import edu.virginia.engine.events.CharacterDeathEvent;
@@ -169,6 +172,20 @@ public class Main extends Game{
 			break;
 		case "Star Wars":
 			myStage = new StarWarsStage();
+			break;
+		case "Pokemon":
+			myStage = new PokemonStage();
+			player1.setPosition(new Point(300,260));
+			player2.setPosition(new Point(600,260));
+			break;
+		case "Naruto":
+			myStage = new NarutoStage();
+			break;
+		case "Goku":
+			myStage = new GokuStage();
+			break;
+		case "FamilyGuy":
+			myStage = new FamilyGuyStage();
 			break;
 		}
 		myStage.setUp();

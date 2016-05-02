@@ -152,7 +152,7 @@ public class Pikachu extends Character {
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{
 		super.update(pressedKeys, controllers);
-		if(this.currentFrame==11)
+		if(this.currentFrame==11 && this.specialing)
 		{
 			LightningTower lightning_tower = new LightningTower("lightning_tower", false, this);
 			lightning_tower.owner = this;
