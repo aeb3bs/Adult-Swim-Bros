@@ -24,6 +24,9 @@ public class Pikachu extends Character {
 		myControllerIndex = 0;
 		specialCooldown = 100;
 		
+		//running
+				this.animRestart[2]=true;
+		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();
 		BufferedImage d1 = DisplayObject.readImage("pikachu_walking_1.png");
 		images.add(d1);

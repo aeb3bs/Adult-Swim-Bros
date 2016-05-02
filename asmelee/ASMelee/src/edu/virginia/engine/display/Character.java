@@ -31,6 +31,7 @@ public abstract class Character extends PhysicsSprite {
 	public double defaultScaleX = 1;
 	public double defaultScaleY = 1;
 	public boolean alive = true;
+	public boolean animRestart[] = {false,false,false,false,false,false,false};
 	
 	
 	public Character(String id, boolean onlineSprite) {
@@ -63,9 +64,14 @@ public abstract class Character extends PhysicsSprite {
 		this.hitting = false;
 		this.shooting = false;
 		this.specialing = false;
-		this.setStartIndex(0);
-		this.setCurrentFrame(0);
-		this.setEndIndex(0);
+		if(animRestart[getAnimationMode()]) {
+			this.setCurrentFrame(this.getStartIndex());
+		}
+		else {
+			this.setStartIndex(0);
+			this.setCurrentFrame(0);
+			this.setEndIndex(0);
+		}
 		BufferedImage image = this.getImage();
 		this.setImage(image);
 		this.setAnimationMode(0);
@@ -201,7 +207,7 @@ public abstract class Character extends PhysicsSprite {
 			String space = KeyEvent.getKeyText(KeyEvent.VK_SPACE);
 
 			String enter = KeyEvent.getKeyText(KeyEvent.VK_ENTER);
-			String shift = KeyEvent.getKeyText(KeyEvent.VK_SHIFT);
+			String shift = KeyEvent.getKeyText(KeyEvent.VK_BACK_SLASH);
 			
 			if(key.equals(keyd))
 			{	
