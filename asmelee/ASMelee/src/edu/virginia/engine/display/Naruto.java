@@ -31,6 +31,9 @@ public class Naruto extends Character{
 		this.setScaleX(this.defaultScaleX);
 		this.setScaleY(this.defaultScaleY);
 		
+		//running
+		this.animRestart[2]=true;
+		
 		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();
 		BufferedImage d1 = DisplayObject.readImage("NarutoStanding.png");
@@ -137,7 +140,7 @@ public class Naruto extends Character{
 	{
 		if(this.getAnimationMode()!=mode)
 		{
-			//this.resetAnimation();
+			this.resetAnimation();
 			//System.out.println(this.endIndex);
 			switch(mode){
 				//walking
@@ -196,6 +199,34 @@ public class Naruto extends Character{
 		Stack<String>keysPressed = new Stack<String>();
 		for(int index=0; index<pressedKeys.size();index++)
 			keysPressed.push(pressedKeys.get(index));
+		
+		GamePad player1 = null;
+		try{
+		player1 = controllers.get(myControllerIndex);
+		}catch( Exception e)
+		{}
+		if(player1 != null)
+		{//handles gamepad input
+			if(player1.isButtonPressed(player1.BUTTON_SQUARE) && shooting){
+				
+				rCool -= 1;
+				if (rCool == 0){
+					new RangedAttack(this);
+					rCool = rangedPrep;
+					shooting = false;
+				}
+			}
+
+			if(player1.isButtonPressed(player1.BUTTON_TRIANGLE) && specialing) {
+				sCool -= 1;
+				if (sCool == 0){
+					new RangedAttack(this);
+					this.stopSpecial = true;
+					sCool = specialPrep;
+					specialing = false;
+				}
+			}				
+		}
 
 		
 		if (pressedKeys.isEmpty() && !specialing){
@@ -204,7 +235,7 @@ public class Naruto extends Character{
 		}
 		while(!keysPressed.empty()){
 			String key = keysPressed.pop();
-			String shift = KeyEvent.getKeyText(KeyEvent.VK_SHIFT);
+			String shift = KeyEvent.getKeyText(KeyEvent.VK_BACK_SLASH);
 			String space = KeyEvent.getKeyText(KeyEvent.VK_SPACE);
 			if (key.equals(shift) && shooting){
 				rCool -= 1;

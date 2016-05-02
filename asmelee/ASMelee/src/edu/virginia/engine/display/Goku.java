@@ -29,14 +29,18 @@ public class Goku extends Character{
 		this.setScaleX(this.defaultScaleX);
 		this.setScaleY(this.defaultScaleY);
 		
+		//running
+		this.animRestart[2]=true;
+		
 		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();
-		BufferedImage d1 = DisplayObject.readImage("gokuDash.png");
+		BufferedImage d1 = DisplayObject.readImage("gokuStanding.png");
 		images.add(d1);
 		BufferedImage d2 = DisplayObject.readImage("gokuDash.png");
 		images.add(d2);
-		BufferedImage d3 = DisplayObject.readImage("gokuStanding.png");
+		BufferedImage d3 = DisplayObject.readImage("gokuDash.png");
 		images.add(d3);
+		
 		BufferedImage d4 = DisplayObject.readImage("gokuMelee1.png");
 		images.add(d4);
 		BufferedImage d5 = DisplayObject.readImage("gokuMelee2.png");
@@ -111,21 +115,22 @@ public class Goku extends Character{
 	{
 		if(this.getAnimationMode()!=mode)
 		{
-			//this.resetAnimation();
+			this.resetAnimation();
 			//System.out.println(this.endIndex);
 			switch(mode){
 				//walking
 				case 1: this.setLatency(10);
 						this.setSpeed(1.5);
-						this.setEndIndex(3);
+						this.setEndIndex(0);
 						break;
 				//running
-				case 2: this.setLatency(50);
+				case 2: this.setLatency(1);
 						this.setSpeed(3);
-						this.setCurrentFrame(0);
-						this.setStartIndex(0);
-						this.setEndIndex(1);
-						this.hitting = false;
+						this.setCurrentFrame(1);
+						this.setStartIndex(1);
+						this.setEndIndex(2);
+						//this.hitting = false;
+						//this.specialing = false;
 						break;
 				//jumping
 				case 3: this.setVelocity_y(-300);
@@ -176,10 +181,10 @@ public class Goku extends Character{
 		for(int index=0; index<pressedKeys.size();index++)
 			keysPressed.push(pressedKeys.get(index));
 		
-		if (pressedKeys.isEmpty() && !specialing){
+		/*if (pressedKeys.isEmpty() && !specialing){
 			this.setCurrentFrame(2);
 			this.setImage(images.get(2));
-		}
+		}*/
 		/*if (shooting){
 			rCool -= 1;
 			if (rCool == 0){
@@ -188,9 +193,29 @@ public class Goku extends Character{
 				shooting = false;
 			}
 		}*/
+		
+		GamePad player1 = null;
+		try{
+		player1 = controllers.get(myControllerIndex);
+		}catch( Exception e)
+		{}
+		if(player1 != null)
+		{//handles gamepad input
+			if(player1.isButtonPressed(player1.BUTTON_SQUARE) && shooting){
+				
+				rCool -= 1;
+				if (rCool == 0){
+					new RangedAttack(this);
+					rCool = bombPrep;
+					shooting = false;
+				}
+			}
+		
+		}
+		
 		while(!keysPressed.empty()){
 			String key = keysPressed.pop();
-			String shift = KeyEvent.getKeyText(KeyEvent.VK_SHIFT);
+			String shift = KeyEvent.getKeyText(KeyEvent.VK_BACK_SLASH);
 			if (key.equals(shift) && shooting){
 				rCool -= 1;
 				if (rCool == 0){
@@ -212,7 +237,7 @@ public class Goku extends Character{
 			this.setPosition(preSpecialPosition);	
 		}
 			super.resetAnimation();
-			this.setCurrentFrame(2);
+			//this.setCurrentFrame(2);
 		
 
 	}
