@@ -14,7 +14,7 @@ import edu.virginia.main.Main;
 public class CharacterSelect extends JPanel implements ActionListener{
 
 	String[] characters = {"Pikachu", "Peter", "Stewie", "Trooper", "Naruto", "Goku"};
-	String[] stages = {"Mario World", "Star Wars"};
+	String[] stages = {"Mario World", "Star Wars", "Pokemon"};
 	JButton p1Select[] = new JButton[characters.length];
 	JButton p2Select[] = new JButton[characters.length];
 	JButton stageSelect[] = new JButton[stages.length];
