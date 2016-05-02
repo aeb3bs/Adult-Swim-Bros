@@ -28,8 +28,8 @@ public class HitboxSelector extends JFrame implements ActionListener{
 	public static void main(String[] args)
 	{
 		Scanner sc =new Scanner(System.in);
-		fname = "resources\\" + sc.nextLine();
-		//fname = "resources\\stewie_melee_1.png";
+		//fname = "resources\\" + sc.nextLine();
+		fname = "resources\\mario_background_1.png";
 		img = null;
 		try {
 		    img = ImageIO.read(new File(fname));
@@ -39,11 +39,11 @@ public class HitboxSelector extends JFrame implements ActionListener{
 	}
 	public HitboxSelector()
 	{
-		ImageIcon icon = new ImageIcon(img.getScaledInstance(img.getWidth()*3, img.getHeight()*3, 0));
+		//img.set
+		ImageIcon icon = new ImageIcon(img.getScaledInstance(1000, 1000, 0));
 		//img.getsc
 		  JLabel label = new JLabel(icon);
 		  
-		  this.add(label);
 		  this.setDefaultCloseOperation
 		         (JFrame.EXIT_ON_CLOSE);
 		  JButton button = new JButton();
@@ -53,8 +53,9 @@ public class HitboxSelector extends JFrame implements ActionListener{
 		  paintSurface.add(button);
 		  button.setVisible(true);
 		  this.add(button, BorderLayout.SOUTH);
+		  this.add(label,0);
 		  this.pack();
-		  this.setSize(500,500);
+		  this.setSize(1000,1000);
 		  this.add(paintSurface, BorderLayout.CENTER);
 		  this.setVisible(true);
 	}

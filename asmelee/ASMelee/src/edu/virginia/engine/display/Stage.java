@@ -34,28 +34,35 @@ public class Stage extends DisplayObjectContainer{
 		Platform p6 = new Platform("Platform6");
 		Platform p7 = new Platform("Platform7");
 		Platform p8 = new Platform("Platform8");
+		Platform p9 = new Platform("Platform9");
 		Platform ground = new Platform("Ground");
 
-		p1.setPosition(new Point(15,240));
-		p2.setPosition(new Point(275,180));
-		p3.setPosition(new Point(15,120));
-		p4.setPosition(new Point(275,60));
+		p1.setPosition(new Point(75,300));
+		p1.setScaleX(4);
+		p2.setPosition(new Point(200,180));
+		p3.setPosition(new Point(575,180));
+		p4.setPosition(new Point(800,440));
+		p5.setPosition(new Point(75,440));
 		
-		p1.setPosition(new Point(15,240));
-		p2.setPosition(new Point(275,180));
-		p3.setPosition(new Point(15,120));
-		p4.setPosition(new Point(275,60));
+		p6.setPosition(new Point(650,570));
+		p7.setPosition(new Point(300,570));
+		//p8.setPosition(new Point(100,700));
+		//p9.setPosition(new Point(475,700));
 
-		ground.setPosition(new Point(0,325));
+		ground.setPosition(new Point(0,675));
 
-		ground.setScaleX(2.5);
-		ground.setVisible(true);
+		ground.setScaleX(5);
+		ground.setVisible(false);
 		//ground.setDefaultHitbox();
 		
 		platforms.add(p1);
 		platforms.add(p2);
 		platforms.add(p3);
 		platforms.add(p4);
+		platforms.add(p5);
+		platforms.add(p6);
+		platforms.add(p7);
+		//platforms.add(p8);
 		platforms.add(ground);
 		
 		for(Platform p:platforms)

@@ -18,40 +18,52 @@ public class StarWarsStage extends Stage{
 		ArrayList<Platform>platforms = new ArrayList<Platform>();
 		
 		Platform p1 = new Platform("Platform1");
-		p1.setPosition(new Point(20,80));
+		p1.setPosition(new Point(75,135));
 		p1.setVisible(false);
-		p1.setScaleX(.7);
+		p1.setScaleX(1.2);
 		
 		Platform p2= new Platform("Platform2");
-		p2.setPosition(new Point(85,240));
+		p2.setPosition(new Point(180,375));
 		p2.setVisible(false);
-		p2.setScaleX(.7);
+		p2.setScaleX(1.2);
 		
 		Platform p3= new Platform("Platform2");
-		p3.setPosition(new Point(260,165));
+		p3.setPosition(new Point(685,460));
 		p3.setVisible(false);
 		p3.setScaleX(.3);
 		
 		Platform p4= new Platform("Platform2");
-		p4.setPosition(new Point(400,220));
+		p4.setPosition(new Point(840,350));
 		p4.setVisible(false);
 		p4.setScaleX(.3);
 		
 		Platform p5= new Platform("Platform2");
-		p5.setPosition(new Point(330,285));
+		p5.setPosition(new Point(840,590));
 		p5.setVisible(false);
 		p5.setScaleX(.3);
 		
+		Platform p6= new Platform("Platform2");
+		p6.setPosition(new Point(555,505));
+		p6.setVisible(false);
+		p6.setScaleX(.3);
+		
+		Platform p7= new Platform("Platform2");
+		p7.setPosition(new Point(555,265));
+		p7.setVisible(false);
+		p7.setScaleX(.3);
+		
 		Platform ground = new Platform("Ground");
-		ground.setPosition(new Point(0,400));
+		ground.setPosition(new Point(0,650));
 		ground.setVisible(false);
-		ground.setScaleX(2.5);
+		ground.setScaleX(5);
 		
 		platforms.add(p1);
 		platforms.add(p2);
 		platforms.add(p3);
 		platforms.add(p4);
 		platforms.add(p5);
+		platforms.add(p6);
+		platforms.add(p7);
 		platforms.add(ground);
 		
 		for(Platform p:platforms)
