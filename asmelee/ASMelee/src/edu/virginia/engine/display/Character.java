@@ -105,11 +105,13 @@ public abstract class Character extends PhysicsSprite {
 				else {
 					
 				}
+				System.out.println(this.getPosition().getY());
 				if (this.healthbar.actualHealth > 0){
 					this.healthbar.greenHealthBar.setScaleX(this.healthbar.actualHealth/100);
 					this.healthbar.redHealthBar.setScaleX(this.healthbar.visibleHealth/100);
 				}
-				else {
+				else if(this.healthbar.actualHealth <= 0 || this.getPosition().getY()>1000)
+				{
 					// pure bug avoidance: setScaleX cannot be set to 0
 					this.healthbar.greenHealthBar.setScaleX(.01);
 					this.healthbar.redHealthBar.setScaleX(.01);
