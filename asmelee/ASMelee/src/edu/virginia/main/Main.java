@@ -75,6 +75,7 @@ public class Main extends Game{
 	SpecialStewieCollisionManager mySpecialStewieCollisionManager = new SpecialStewieCollisionManager();
 	SpecialTrooperCollisionManager mySpecialTrooperCollisionManager = new SpecialTrooperCollisionManager();
 	Stage myStage = new Stage();
+	Character player1 = null,player2 = null;
 	
 	/* 
 	 * platforms now in stage class
@@ -95,7 +96,7 @@ public class Main extends Game{
 	public void addPlayers(String char1, String char2, String stage)
 	{
 
-		Character player1 = null,player2 = null;
+		//Character player1 = null,player2 = null;
 		switch(char1)
 		{
 		case "Stewie":
@@ -224,7 +225,10 @@ public class Main extends Game{
 		{
 			this.removeAll();
 			//Do something here to show game is over
-			exitGame(winner);
+			if(player1.getId().equals(winner))
+				exitGame("Player 1");
+			else
+				exitGame("Player 2");
 		}
 		//if ash is near coin, throw event
 		if(mario1 != null && coin1 != null)
