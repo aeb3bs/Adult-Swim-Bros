@@ -182,7 +182,7 @@ public class Trooper extends Character {
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{
 		super.update(pressedKeys, controllers);
-		if(this.currentFrame==19)
+		if(this.currentFrame==19 && this.specialing)
 		{
 			LightningTower lightning_tower = new LightningTower("lightning_tower", false, this);
 			lightning_tower.owner = this;

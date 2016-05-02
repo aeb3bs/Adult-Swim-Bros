@@ -18,6 +18,7 @@ import edu.virginia.engine.display.Character;
 import edu.virginia.engine.display.CharacterSelect;
 import edu.virginia.engine.display.Coin;
 import edu.virginia.engine.display.DisplayObject;
+import edu.virginia.engine.display.FamilyGuyStage;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.GameOverPanel;
 import edu.virginia.engine.display.Goku;
@@ -182,6 +183,9 @@ public class Main extends Game{
 			break;
 		case "Goku":
 			myStage = new GokuStage();
+			break;
+		case "FamilyGuy":
+			myStage = new FamilyGuyStage();
 			break;
 		}
 		myStage.setUp();

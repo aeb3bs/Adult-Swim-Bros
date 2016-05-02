@@ -18,10 +18,10 @@ import edu.virginia.main.Main;
 public class CharacterSelect extends JPanel implements ActionListener{
 
 	String[] characters = {"Pikachu", "Peter", "Stewie", "Trooper", "Naruto", "Goku"};
-	String[] stages = {"Mario World", "Star Wars", "Pokemon", "Goku", "Naruto"};
+	String[] stages = {"Mario World", "Star Wars", "Pokemon", "Goku", "Naruto", "FamilyGuy"};
 	String[] charFileNames = {"pikachu_walking_1.png", "peter_griffin_walking_1.png", "stewie_walking_1.png","clone_trooper_walking_1.png",
 								"NarutoStanding.png", "gokuStanding.png"};
-	String[] stageFileNames = {"mario_background_1.png", "star_wars_background.jpg", "pokemon_background.jpg", "GokuStage.jpg", "NarutoStage.png"};
+	String[] stageFileNames = {"mario_background_1.png", "star_wars_background.jpg", "pokemon_background.jpg", "GokuStage.jpg", "NarutoStage.png", "familyguy_background.jpg"};
 	JButton p1Select[] = new JButton[characters.length];
 	JButton p2Select[] = new JButton[characters.length];
 	JButton stageSelect[] = new JButton[stages.length];

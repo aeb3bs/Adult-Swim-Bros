@@ -17,7 +17,7 @@ public class PokemonStage extends Stage{
 		background = new DisplayObjectContainer("background","pokemon_background.jpg");
 		ArrayList<Platform>platforms = new ArrayList<Platform>();
 		
-		Platform p1 = new Platform("Platform1");
+		Platform p1 = new Platform("Ground");
 		p1.setPosition(new Point(160,375));
 		p1.setVisible(false);
 		p1.setScaleX(3.1);
