@@ -32,6 +32,7 @@ public abstract class Character extends PhysicsSprite {
 	public double defaultScaleY = 1;
 	public boolean alive = true;
 	public boolean animRestart[] = {false,false,false,false,false,false,false};
+	public boolean anyControllerButton = false;
 	
 	
 	public Character(String id, boolean onlineSprite) {
@@ -169,27 +170,42 @@ public abstract class Character extends PhysicsSprite {
 		
 		if(player1 != null)
 		{//handles gamepad input
-			if(player1.isButtonPressed(player1.BUTTON_SQUARE))
+			anyControllerButton = false;
+			if(player1.isButtonPressed(player1.BUTTON_SQUARE)){
 				if(rCurCool <=0){
 					rangedAttack();
 					rCurCool = rangedCooldown;
 				}
-			if(player1.isButtonPressed(player1.BUTTON_CIRCLE))
+
+				anyControllerButton =true;
+			}
+			if(player1.isButtonPressed(player1.BUTTON_CIRCLE)) {
 				if(mCurCool <=0){
 					meleeAttack();
 					mCurCool = meleeCooldown;
 				}
-			if(player1.isButtonPressed(player1.BUTTON_TRIANGLE))
-				if(sCurCool <=0){
+				anyControllerButton =true;
+			}
+			if(player1.isButtonPressed(player1.BUTTON_TRIANGLE)) {
+				if(sCurCool <=0&& !stopSpecial){
 					specialAttack();
 					sCurCool = specialCooldown;
 				}
-			if(player1.isButtonPressed(player1.BUTTON_CROSS))
+
+				anyControllerButton =true;
+			}
+			if(player1.isButtonPressed(player1.BUTTON_CROSS)){
 				jump();
-			if(player1.getLeftStickXAxis() > moveThreshold)
+				anyControllerButton =true;
+			}
+			if(player1.getLeftStickXAxis() > moveThreshold){
 				move(false);
-			if(player1.getLeftStickXAxis() < -moveThreshold)
+				anyControllerButton =true;
+			}
+			if(player1.getLeftStickXAxis() < -moveThreshold){
 				move(true);
+				anyControllerButton =true;
+			}
 				
 		}
 		while(!keysPressed.empty() && myControllerIndex == -1)

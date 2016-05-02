@@ -53,11 +53,12 @@ public class RangedAttack extends AnimatedSprite{
 		}
 		else if(myCharacter instanceof Goku){
 			this.setImage("gokuProjectile.png");
+			damage = 15;
 			//while(this.getCurrentFrame() < 13); // don't throw ranged until end of animation
 		}
 		else if(myCharacter instanceof Naruto && myCharacter.shooting){
 			this.setImage("NarutoProjectile.png");
-			xSpeed = 2;
+			xSpeed = 3;
 		}
 		else if((myCharacter instanceof Naruto && myCharacter.specialing)){
 			this.setImage("NarutoBall1.png");

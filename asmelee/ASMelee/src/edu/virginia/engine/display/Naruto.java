@@ -157,6 +157,7 @@ public class Naruto extends Character{
 						this.setStartIndex(1);
 						this.setEndIndex(6);
 						this.hitting = false;
+						this.specialing = false;
 						break;
 				//jumping
 				case 3: this.setVelocity_y(-300);
@@ -215,6 +216,8 @@ public class Naruto extends Character{
 					rCool = rangedPrep;
 					shooting = false;
 				}
+
+				anyControllerButton =true;
 			}
 
 			if(player1.isButtonPressed(player1.BUTTON_TRIANGLE) && specialing) {
@@ -225,15 +228,18 @@ public class Naruto extends Character{
 					sCool = specialPrep;
 					specialing = false;
 				}
-			}				
+				anyControllerButton =true;
+			}
+			
+			
 		}
 
 		
-		if (pressedKeys.isEmpty() && !specialing){
+		if (!specialing && ((!anyControllerButton && myControllerIndex != -1) || (pressedKeys.isEmpty() &&  myControllerIndex == -1))){
 			this.setCurrentFrame(0);
 			this.setImage(images.get(0));
 		}
-		while(!keysPressed.empty()){
+		while(!keysPressed.empty() && myControllerIndex == -1){
 			String key = keysPressed.pop();
 			String shift = KeyEvent.getKeyText(KeyEvent.VK_BACK_SLASH);
 			String space = KeyEvent.getKeyText(KeyEvent.VK_SPACE);
