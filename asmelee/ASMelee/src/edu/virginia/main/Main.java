@@ -21,8 +21,10 @@ import edu.virginia.engine.display.DisplayObject;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.GameOverPanel;
 import edu.virginia.engine.display.Goku;
+import edu.virginia.engine.display.GokuStage;
 import edu.virginia.engine.display.Mario;
 import edu.virginia.engine.display.Naruto;
+import edu.virginia.engine.display.NarutoStage;
 import edu.virginia.engine.display.Peter;
 import edu.virginia.engine.display.Pikachu;
 import edu.virginia.engine.display.PokemonStage;
@@ -172,6 +174,14 @@ public class Main extends Game{
 			break;
 		case "Pokemon":
 			myStage = new PokemonStage();
+			player1.setPosition(new Point(300,260));
+			player2.setPosition(new Point(600,260));
+			break;
+		case "Naruto":
+			myStage = new NarutoStage();
+			break;
+		case "Goku":
+			myStage = new GokuStage();
 			break;
 		}
 		myStage.setUp();
