@@ -62,14 +62,14 @@ public class CharacterCollisionManager implements IEventListener {
 				{
 					if(direction == 0)
 					{
-						newX = originalX + 500;
+						newX = originalX + 1000;
 					}
 					if(direction == 1)
 					{
-						newX = originalX - 500;
+						newX = originalX - 1000;
 					}
 					
-					newY = originalY - 500;
+					newY = originalY - 1000;
 					
 					/*
 					 * Clear any other tweens acting upon object

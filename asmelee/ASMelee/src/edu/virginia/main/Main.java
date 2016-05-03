@@ -75,7 +75,7 @@ public class Main extends Game{
 	SpecialStewieCollisionManager mySpecialStewieCollisionManager = new SpecialStewieCollisionManager();
 	SpecialTrooperCollisionManager mySpecialTrooperCollisionManager = new SpecialTrooperCollisionManager();
 	Stage myStage = new Stage();
-	Character player1 = null,player2 = null;
+	Character player1 = null,player2 = null,player3 = null;
 	
 	/* 
 	 * platforms now in stage class
@@ -93,7 +93,7 @@ public class Main extends Game{
 	public Main(JFrame gameFrame, String char1, String char2, String stage) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
 		super(gameFrame, "Lab Two Test Game", GAME_WIDTH, GAME_HEIGHT);
 	}
-	public void addPlayers(String char1, String char2, String stage)
+	public void addPlayers(String char1, String char2, String char3, String stage)
 	{
 
 		//Character player1 = null,player2 = null;
@@ -140,6 +140,27 @@ public class Main extends Game{
 			player2 = new Naruto("naruto", false);
 			break;
 		}
+		switch(char3)
+		{
+		case "Stewie":
+			player3 = new Stewie("stewie",false);
+			break;
+		case "Peter":
+			player3 = new Peter("peter",false);
+			break;
+		case "Trooper":
+			player3 = new Trooper("trooper",false);
+			break;
+		case "Pikachu":
+			player3 = new Pikachu("pikachu",false);
+			break;
+		case "Goku":
+			player3 = new Goku("goku",false);
+			break;
+		case "Naruto":
+			player3 = new Naruto("naruto", false);
+			break;
+		}
 		
 		player1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		player1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
@@ -165,6 +186,18 @@ public class Main extends Game{
 		player2.setPosition(new Point(100,0));
 		player2.setScaleX(player2.defaultScaleX);
 		player2.setScaleY(player2.defaultScaleY);
+		
+		player3.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
+		player3.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
+		player3.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
+		player3.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
+		player3.addEventListener(mySpecialTrooperCollisionManager, SpecialTrooperCollisionEvent.SPECIALTROOPER);
+		player3.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
+		player3.myControllerIndex = 1;
+		player3.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
+		player3.setPosition(new Point(100,0));
+		player3.setScaleX(player3.defaultScaleX);
+		player3.setScaleY(player3.defaultScaleY);
 
 		switch(stage)
 		{
@@ -194,6 +227,7 @@ public class Main extends Game{
 		this.addChild(myStage);
 		this.addChild(player1);
 		this.addChild(player2);
+		this.addChild(player3);
 		
 //		sm = new SoundManager();
 //		sm.LoadMusic("Theme Song", "mario_theme_song.wav");

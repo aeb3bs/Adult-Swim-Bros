@@ -94,7 +94,8 @@ public abstract class Character extends PhysicsSprite {
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{	
 		super.update(pressedKeys,controllers);	
-		
+		if(!this.alive)
+			return;
 		if(this.healthbar != null)
 		{
 			Double actualHealth = this.healthbar.getActualHealth();

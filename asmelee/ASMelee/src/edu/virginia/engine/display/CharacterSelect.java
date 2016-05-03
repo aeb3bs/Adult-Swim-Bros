@@ -24,11 +24,12 @@ public class CharacterSelect extends JPanel implements ActionListener{
 	String[] stageFileNames = {"mario_background_1.png", "star_wars_background.jpg", "pokemon_background.jpg", "GokuStage.jpg", "NarutoStage.png", "familyguy_background.jpg"};
 	JButton p1Select[] = new JButton[characters.length];
 	JButton p2Select[] = new JButton[characters.length];
+	JButton p3Select[] = new JButton[characters.length];
 	JButton stageSelect[] = new JButton[stages.length];
 	JButton startButton;
-	JTextField p1Selection,p2Selection,stageSelection;
-	JTextField p1Choices,p2Choices,stageChoices;
-	String player1 = "Peter", player2 = "Stewie",stage = "Mario World";
+	JTextField p1Selection,p2Selection,p3Selection,stageSelection;
+	JTextField p1Choices,p2Choices,p3Choices,stageChoices;
+	String player1 = "Peter", player2 = "Stewie",player3 = "Stewie",stage = "Mario World";
 	Main myGame;
 	public CharacterSelect(Main game, int width, int height)
 	{
@@ -66,6 +67,19 @@ public class CharacterSelect extends JPanel implements ActionListener{
 			add(p2Select[a]);
 		}
         p2Selection = new JTextField("Player 2 choice");
+        
+        p3Choices = new JTextField("Player 3:");
+        add(p3Choices);
+       
+        for(int a=0;a<characters.length;a++)
+		{
+        	ImageIcon water = new ImageIcon("resources/"+charFileNames[a]);
+			p3Select[a] = new JButton(water);
+			p3Select[a].setText(characters[a]);
+			p3Select[a].addActionListener(this);
+			add(p3Select[a]);
+		}
+        p3Selection = new JTextField("Player 3 choice");
 
         stageChoices = new JTextField("Stage:");
         add(stageChoices);
@@ -101,6 +115,7 @@ public class CharacterSelect extends JPanel implements ActionListener{
         add(startButton);
         add(p1Selection);
         add(p2Selection);
+        add(p3Selection);
         add(stageSelection);
         
         /*
@@ -134,6 +149,13 @@ public class CharacterSelect extends JPanel implements ActionListener{
 				p2Selection.setText(player2);
 			}
 		}
+		for(JButton b: p3Select){
+			if(e.getSource() == b)
+			{
+				player3 = b.getText();
+				p3Selection.setText(player3);
+			}
+		}
 		for(JButton b: stageSelect){
 			if(e.getSource() == b)
 			{
@@ -145,7 +167,7 @@ public class CharacterSelect extends JPanel implements ActionListener{
 		if(e.getSource() == startButton)
 		{
 			CardLayout a = (CardLayout) this.getParent().getLayout();
-			myGame.addPlayers(player1,player2,stage);
+			myGame.addPlayers(player1,player2,player3,stage);
 			myGame.start();
 			a.next(this.getParent());
 		}
