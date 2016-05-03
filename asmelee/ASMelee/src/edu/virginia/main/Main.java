@@ -165,6 +165,10 @@ public class Main extends Game{
 		player2.setPosition(new Point(100,0));
 		player2.setScaleX(player2.defaultScaleX);
 		player2.setScaleY(player2.defaultScaleY);
+		
+//		sm = new SoundManager();
+//		sm.LoadMusic("TheSong", "mario_theme_song.wav");
+//		sm.PlayMusic("TheSong", true);
 
 		switch(stage)
 		{
@@ -195,10 +199,7 @@ public class Main extends Game{
 		this.addChild(player1);
 		this.addChild(player2);
 		
-//		sm = new SoundManager();
-//		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
-//		sm.LoadMusic("Victory Song", "mario_victory.wav");
-//		sm.PlayMusic("Theme Song", true);
+
 		
 
 	}
