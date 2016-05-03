@@ -38,7 +38,7 @@ public class RangedAttack extends AnimatedSprite{
 		else if(myCharacter instanceof Trooper)
 		{
 			this.setImage("laser_missile.png");
-			xoffset += 30;
+			xoffset += 25;
 		}
 		else if(myCharacter instanceof Pikachu)
 		{
