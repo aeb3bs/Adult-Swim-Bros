@@ -1,19 +1,14 @@
 package edu.virginia.engine.events;
 
-import java.awt.Point;
-
-import edu.virginia.engine.display.Mario;
-import edu.virginia.engine.display.PhysicsSprite;
-import edu.virginia.engine.display.Pikachu;
-import edu.virginia.engine.display.Stewie;
-import edu.virginia.main.Main;
 import edu.virginia.engine.display.Character;
 import edu.virginia.engine.display.Goku;
+import edu.virginia.engine.display.Stewie;
+import edu.virginia.engine.display.Trooper;
 import edu.virginia.engine.tweening.Tween;
 import edu.virginia.engine.tweening.TweenJuggler;
 import edu.virginia.engine.tweening.TweenTransitions;
-import edu.virginia.engine.tweening.TweenableParam;
 import edu.virginia.engine.tweening.TweenTransitions.transitiontype;
+import edu.virginia.engine.tweening.TweenableParam;
 
 public class CharacterCollisionManager implements IEventListener {
 	@Override
@@ -55,7 +50,13 @@ public class CharacterCollisionManager implements IEventListener {
 					
 					linearTween.animate(TweenableParam.POSITIONX, originalX, newX, 500);
 					//System.out.println("Mario health is: " + (other.healthbar.getActualHealth()-5));
-					other.healthbar.setActualHealth(other.healthbar.getActualHealth()-5);
+					double damage = 5;
+					if(event.getSource() instanceof Trooper)
+						damage = 4;
+					if(event.getSource() instanceof Stewie)
+						damage = 2;
+					other.healthbar.setActualHealth(other.healthbar.getActualHealth()-damage);
+					
 				}
 				else
 				{

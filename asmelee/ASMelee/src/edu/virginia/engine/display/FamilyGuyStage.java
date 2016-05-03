@@ -18,7 +18,7 @@ public class FamilyGuyStage extends Stage{
 		ArrayList<Platform>platforms = new ArrayList<Platform>();
 		
 		Platform p1 = new Platform("Ground");
-		p1.setPosition(new Point(0,690));
+		p1.setPosition(new Point(0,610));
 		p1.setVisible(false);
 		p1.setScaleX(5.0);
 		

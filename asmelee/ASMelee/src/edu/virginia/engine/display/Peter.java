@@ -14,6 +14,7 @@ import edu.virginia.main.Main;
 public class Peter extends Character {
 	boolean specialingdown;
 	boolean specialingup;
+	double prevHealth;
 	public Peter(String id, boolean onlineSprite) {
 		super(id, onlineSprite);
 		this.setCurrentFrame(0);
@@ -147,6 +148,7 @@ public class Peter extends Character {
 	{
 		if(this.currentFrame == 21 && specialingdown)
 		{
+			prevHealth = this.healthbar.actualHealth;
 			specialingup = true;
 			specialingdown = false;
 			this.setLatency(this.getLatency());
@@ -209,6 +211,7 @@ public class Peter extends Character {
 					this.getUnscaledHeight()*this.getScaleY()*.75)));//keeps peter from flying through floors
 			this.resetAnimation();
 			this.specialing = false;
+			this.healthbar.actualHealth = prevHealth;
 		}
 		else if(specialingup)
 		{
