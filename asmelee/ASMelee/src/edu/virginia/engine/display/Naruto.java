@@ -254,8 +254,11 @@ public class Naruto extends Character{
 			else if (key.equals(space) && specialing){
 				sCool -= 1;
 				if (sCool == 0){
-					new RangedAttack(this);
-					this.stopSpecial = true;
+					new NarutoSpecialAttack(this);
+					specialCount++;
+					if (specialCount == 3){
+						this.stopSpecial = true;
+					}
 					sCool = specialPrep;
 					specialing = false;
 				}

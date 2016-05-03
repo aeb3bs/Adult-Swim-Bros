@@ -33,7 +33,7 @@ public abstract class Character extends PhysicsSprite {
 	public boolean alive = true;
 	public boolean animRestart[] = {false,false,false,false,false,false,false};
 	public boolean anyControllerButton = false;
-	
+	public int specialCount = 0;
 	
 	public Character(String id, boolean onlineSprite) {
 		super(id, onlineSprite);
