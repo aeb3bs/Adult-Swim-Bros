@@ -131,8 +131,8 @@ public class DisplayObject extends EventDispatcher {
 		return alpha;
 	}
 
-	public void setAlpha(float alpha) {
-		this.alpha = alpha;
+	public void setAlpha(double d) {
+		this.alpha = (float) d;
 	}
 	
 	

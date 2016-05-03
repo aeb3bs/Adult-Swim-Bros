@@ -3,6 +3,7 @@ package edu.virginia.engine.display;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Stack;
 
 import javax.print.attribute.standard.Media;
 import javax.sound.sampled.AudioInputStream;
@@ -56,5 +57,10 @@ public class SoundManager {
 		{
 			clip.close();
 		}
+	}
+	public void StopAllMusic()
+	{
+		for(String s: clips.keySet())
+			StopMusic(s);
 	}
 }

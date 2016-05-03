@@ -7,13 +7,20 @@ public class LightningTower extends Sprite {
 	public int ticks;
 	public LightningTower(String id, boolean onlineSprite, Character owner) {
 		super(id, onlineSprite);
-		if(owner instanceof Trooper)
-			this.setImage("lightning_tower.png");
-		if(owner instanceof Pikachu)
-			this.setImage("pikachu_lightningtower.png");
-		// TODO Auto-generated constructor stub
 		damage = 3;
 		knockback = 10;
 		ticks = 3;
+		if(owner instanceof Trooper) {
+			this.setImage("lightning_tower.png");
+			damage = 3;
+			knockback = 50;
+		}
+		if(owner instanceof Pikachu) {
+			this.setImage("pikachu_lightningtower.png");
+			damage = 6;
+			knockback = 30;
+		}
+		// TODO Auto-generated constructor stub
+		
 	}
 }

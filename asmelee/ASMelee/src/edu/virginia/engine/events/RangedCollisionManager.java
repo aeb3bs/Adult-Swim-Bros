@@ -8,6 +8,7 @@ import edu.virginia.engine.display.RangedAttack;
 import edu.virginia.engine.display.Stewie;
 import edu.virginia.main.Main;
 import edu.virginia.engine.display.Character;
+import edu.virginia.engine.display.Goku;
 import edu.virginia.engine.tweening.Tween;
 import edu.virginia.engine.tweening.TweenJuggler;
 import edu.virginia.engine.tweening.TweenTransitions;
@@ -25,6 +26,12 @@ public class RangedCollisionManager implements IEventListener {
 			 RangedAttack ra= ce.rangedAttack;
 			if(other.equals(ra.myCharacter))
 				return;
+			
+			if(other.specialing && other instanceof Goku)
+			{
+				ra.destroy(null);
+				return;
+			}
 
 			//System.out.println("event continued ");
 			/*

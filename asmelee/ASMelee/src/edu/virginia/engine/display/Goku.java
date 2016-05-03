@@ -23,11 +23,12 @@ public class Goku extends Character{
 		this.hitting = false;
 		this.shooting = false;
 		myControllerIndex = -1;
-		specialCooldown = 100;
+		specialCooldown = 200;
 		this.defaultScaleX = 1.2;
 		this.defaultScaleY = 1.2;
 		this.setScaleX(this.defaultScaleX);
 		this.setScaleY(this.defaultScaleY);
+		this.rangedCooldown = 110;
 		
 		//running
 		this.animRestart[2]=true;
@@ -213,7 +214,7 @@ public class Goku extends Character{
 		
 		}
 		
-		while(!keysPressed.empty()){
+		while(!keysPressed.empty() && this.myControllerIndex == -1){
 			String key = keysPressed.pop();
 			String shift = KeyEvent.getKeyText(KeyEvent.VK_BACK_SLASH);
 			if (key.equals(shift) && shooting){

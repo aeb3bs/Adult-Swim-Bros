@@ -30,7 +30,7 @@ public class Naruto extends Character{
 		this.defaultScaleY = 1;
 		this.setScaleX(this.defaultScaleX);
 		this.setScaleY(this.defaultScaleY);
-		
+		meleeDamage = 4;
 		//running
 		this.animRestart[2]=true;
 		
@@ -223,8 +223,11 @@ public class Naruto extends Character{
 			if(player1.isButtonPressed(player1.BUTTON_TRIANGLE) && specialing) {
 				sCool -= 1;
 				if (sCool == 0){
-					new RangedAttack(this);
-					this.stopSpecial = true;
+					new NarutoSpecialAttack(this);
+					specialCount++;
+					if (specialCount == 3){
+						this.stopSpecial = true;
+					}
 					sCool = specialPrep;
 					specialing = false;
 				}
@@ -254,8 +257,11 @@ public class Naruto extends Character{
 			else if (key.equals(space) && specialing){
 				sCool -= 1;
 				if (sCool == 0){
-					new RangedAttack(this);
-					this.stopSpecial = true;
+					new NarutoSpecialAttack(this);
+					specialCount++;
+					if (specialCount == 3){
+						this.stopSpecial = true;
+					}
 					sCool = specialPrep;
 					specialing = false;
 				}

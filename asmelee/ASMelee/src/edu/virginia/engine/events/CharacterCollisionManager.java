@@ -55,21 +55,21 @@ public class CharacterCollisionManager implements IEventListener {
 						damage = 4;
 					if(event.getSource() instanceof Stewie)
 						damage = 2;
-					other.healthbar.setActualHealth(other.healthbar.getActualHealth()-damage);
+					other.healthbar.setActualHealth(other.healthbar.getActualHealth()-c.meleeDamage);
 					
 				}
 				else
 				{
 					if(direction == 0)
 					{
-						newX = originalX + 500;
+						newX = originalX + 5000;
 					}
 					if(direction == 1)
 					{
-						newX = originalX - 500;
+						newX = originalX - 5000;
 					}
 					
-					newY = originalY - 500;
+					newY = originalY - 5000;
 					
 					/*
 					 * Clear any other tweens acting upon object
@@ -77,8 +77,8 @@ public class CharacterCollisionManager implements IEventListener {
 					TweenJuggler.getInstance().clearTweens(other);
 					
 					Tween deathTween = new Tween(other, new TweenTransitions(transitiontype.lineartrans), "LinearTween");
-					deathTween.animate(TweenableParam.POSITIONX, originalX, newX, 1500);
-					deathTween.animate(TweenableParam.POSITIONY, originalY, newY, 1500);
+					deathTween.animate(TweenableParam.POSITIONX, originalX, newX, 4000);
+					deathTween.animate(TweenableParam.POSITIONY, originalY, newY, 4000);
 				}
 			}
 			else if(c.specialing && c instanceof Goku){

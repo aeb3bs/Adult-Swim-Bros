@@ -25,6 +25,7 @@ public class Trooper extends Character {
 		this.defaultScaleY = .35;
 		myControllerIndex = 0;
 		specialCooldown = 100;
+		meleeDamage = 4;
 		
 		ArrayList<BufferedImage>images = new ArrayList<BufferedImage>();
 		BufferedImage d1 = DisplayObject.readImage("clone_trooper_walking_1.png");

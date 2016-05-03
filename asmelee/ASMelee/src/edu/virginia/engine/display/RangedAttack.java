@@ -24,6 +24,7 @@ public class RangedAttack extends AnimatedSprite{
 		knockback = 50;
 
 		int xoffset =(int)(c.getUnscaledWidth()*c.getScaleX());
+		int yoffset = 10;
 		
 
 		if(myCharacter instanceof Peter)
@@ -63,7 +64,8 @@ public class RangedAttack extends AnimatedSprite{
 		else if((myCharacter instanceof Naruto && myCharacter.specialing)){
 			this.setImage("NarutoBall1.png");
 			xSpeed = 0;
-			damage = 10;
+			damage = 15;
+			yoffset = -20;
 		}
 		else
 		{
@@ -76,7 +78,7 @@ public class RangedAttack extends AnimatedSprite{
 			//xoffset*=2;
 		}
 		System.out.println(c.getScaleX() + " "+ xoffset);
-		this.setPosition(new Point((int)c.getGlobalPosition().x+xoffset,(int)c.getGlobalPosition().y+10));
+		this.setPosition(new Point((int)c.getGlobalPosition().x+xoffset,(int)c.getGlobalPosition().y+yoffset));
 	}
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{
@@ -84,6 +86,16 @@ public class RangedAttack extends AnimatedSprite{
 		Point p=new Point();
 		p.setLocation(position.getX()+xSpeed, position.getY()+ySpeed);
 		this.setPosition(p);
+		
+		if(this.myCharacter instanceof Peter)
+		{
+			this.setScaleX(this.getScaleX()+.006);
+			this.setScaleY(this.getScaleX()+.006);
+			if(this.getAlpha() <= 0.01)
+				this.destroy(null);
+			if (this.visible)
+				this.setAlpha(this.getAlpha()-.004);
+		}
 		//System.out.println("updated");
 	}
 	public void destroy(DisplayObject o)
@@ -94,9 +106,9 @@ public class RangedAttack extends AnimatedSprite{
 		{
 			Character otherChar=(Character)o;
 			otherChar.healthbar.decreaseHealth(damage);
-			if(myCharacter instanceof Naruto) { // Naruto can use special again
-				myCharacter.stopSpecial = false;
-			}
+			//if(myCharacter instanceof Naruto) { // Naruto can use special again
+				//myCharacter.stopSpecial = false;
+			//}
 		}
 	}
 	public void setDamage(int dam)

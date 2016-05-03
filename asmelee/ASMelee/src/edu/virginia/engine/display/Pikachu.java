@@ -23,6 +23,7 @@ public class Pikachu extends Character {
 		this.shooting = false;
 		myControllerIndex = 0;
 		specialCooldown = 100;
+		meleeDamage = 3;
 		
 		//running
 				this.animRestart[2]=true;

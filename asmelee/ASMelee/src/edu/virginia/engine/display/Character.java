@@ -19,6 +19,7 @@ public abstract class Character extends PhysicsSprite {
 	boolean faceLeft;
 	int animationMode;
 	public HealthBar healthbar;
+	public boolean fallThrough = false;
 	protected double moveThreshold = .5;
 	public int myControllerIndex = -1;
 	protected int rangedCooldown = 80;
@@ -33,7 +34,9 @@ public abstract class Character extends PhysicsSprite {
 	public boolean alive = true;
 	public boolean animRestart[] = {false,false,false,false,false,false,false};
 	public boolean anyControllerButton = false;
-	
+	public int specialCount = 0;
+	public int meleeDamage = 5;
+	boolean specialingFlag = false;
 	
 	public Character(String id, boolean onlineSprite) {
 		super(id, onlineSprite);
@@ -93,7 +96,8 @@ public abstract class Character extends PhysicsSprite {
 	public void update(ArrayList<String> pressedKeys,ArrayList<GamePad> controllers)
 	{	
 		super.update(pressedKeys,controllers);	
-		
+		if(!this.alive)
+			return;
 		if(this.healthbar != null)
 		{
 			Double actualHealth = this.healthbar.getActualHealth();
@@ -112,7 +116,7 @@ public abstract class Character extends PhysicsSprite {
 				else {
 					
 				}
-				System.out.println();
+				//System.out.println();
 				if (this.healthbar.actualHealth > 0 && this.getPosition().getY() < 1000){
 					this.healthbar.greenHealthBar.setScaleX(this.healthbar.actualHealth/100);
 					this.healthbar.redHealthBar.setScaleX(this.healthbar.visibleHealth/100);
@@ -159,10 +163,16 @@ public abstract class Character extends PhysicsSprite {
 		//holds them in place for special attack andupdates with time
 		if(specialing)
 		{
-			updateSpecial(specialCooldown - sCurCool);
+			specialingFlag = updateSpecial(specialCooldown - sCurCool);
 			return;
 		}
-		
+		//just for Stewie
+		else if(specialingFlag)
+		{
+			specialingFlag = updateSpecial(200);
+			
+		}
+		this.fallThrough = false;
 		
 		Stack<String>keysPressed = new Stack<String>();
 		for(int index=0; index<pressedKeys.size();index++)
@@ -176,7 +186,6 @@ public abstract class Character extends PhysicsSprite {
 					rangedAttack();
 					rCurCool = rangedCooldown;
 				}
-
 				anyControllerButton =true;
 			}
 			if(player1.isButtonPressed(player1.BUTTON_CIRCLE)) {
@@ -191,7 +200,6 @@ public abstract class Character extends PhysicsSprite {
 					specialAttack();
 					sCurCool = specialCooldown;
 				}
-
 				anyControllerButton =true;
 			}
 			if(player1.isButtonPressed(player1.BUTTON_CROSS)){
@@ -205,6 +213,9 @@ public abstract class Character extends PhysicsSprite {
 			if(player1.getLeftStickXAxis() < -moveThreshold){
 				move(true);
 				anyControllerButton =true;
+			}
+			if(player1.getLeftStickYAxis() > moveThreshold){
+				this.fallThrough = true;
 			}
 				
 		}
@@ -247,6 +258,10 @@ public abstract class Character extends PhysicsSprite {
 			{
 				jump();
 			}
+			else if(key.equals(keys))
+			{
+				this.fallThrough = true;
+			}
 			else if(key.equals(enter))
 			{
 				if(mCurCool <=0){
@@ -271,9 +286,10 @@ public abstract class Character extends PhysicsSprite {
 			}
 			else if(key.equals(down))
 			{
+				
 				if(Main.debugMode)
 				{
-					this.setPosition(new Point(this.getPosition().x,this.getPosition().y+1));
+					this.setPosition(new Point(this.getPosition().x,this.getPosition().y+20));
 				}
 			}
 
@@ -285,9 +301,9 @@ public abstract class Character extends PhysicsSprite {
 	public abstract void meleeAttack();
 	public abstract void specialAttack();
 	//not needed, but if special is time dependent is useful
-	public void updateSpecial(int framesPassed)
+	public boolean updateSpecial(int framesPassed)
 	{
-		
+		return false;
 	}
 	public void jump()
 	{
