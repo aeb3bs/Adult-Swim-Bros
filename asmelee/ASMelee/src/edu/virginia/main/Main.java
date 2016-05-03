@@ -261,7 +261,7 @@ public class Main extends Game{
 //		for(DisplayObject o: Main.getAllchildren())
 //			if(o.getHitbox()!=null)
 //				g.drawRect(o.getHitboxGlobal().x, o.getHitboxGlobal().y, o.getHitbox().width, o.getHitbox().height);
-		this.drawBoundingBoxes(g);
+		//this.drawBoundingBoxes(g);
 	}
 
 	/**

@@ -23,7 +23,7 @@ public class FamilyGuyStage extends Stage{
 		p1.setScaleX(5.0);
 		
 		Platform p2= new Platform("Platform1");
-		p2.setPosition(new Point(750,490));
+		p2.setPosition(new Point(750,480));
 		p2.setVisible(false);
 		p2.setScaleX(.95);
 		
