@@ -19,6 +19,7 @@ public abstract class Character extends PhysicsSprite {
 	boolean faceLeft;
 	int animationMode;
 	public HealthBar healthbar;
+	public boolean fallThrough = false;
 	protected double moveThreshold = .5;
 	public int myControllerIndex = -1;
 	protected int rangedCooldown = 80;
@@ -162,7 +163,7 @@ public abstract class Character extends PhysicsSprite {
 			updateSpecial(specialCooldown - sCurCool);
 			return;
 		}
-
+		this.fallThrough = false;
 		
 		Stack<String>keysPressed = new Stack<String>();
 		for(int index=0; index<pressedKeys.size();index++)
@@ -176,7 +177,6 @@ public abstract class Character extends PhysicsSprite {
 					rangedAttack();
 					rCurCool = rangedCooldown;
 				}
-
 				anyControllerButton =true;
 			}
 			if(player1.isButtonPressed(player1.BUTTON_CIRCLE)) {
@@ -191,7 +191,6 @@ public abstract class Character extends PhysicsSprite {
 					specialAttack();
 					sCurCool = specialCooldown;
 				}
-
 				anyControllerButton =true;
 			}
 			if(player1.isButtonPressed(player1.BUTTON_CROSS)){
@@ -205,6 +204,9 @@ public abstract class Character extends PhysicsSprite {
 			if(player1.getLeftStickXAxis() < -moveThreshold){
 				move(true);
 				anyControllerButton =true;
+			}
+			if(player1.getLeftStickYAxis() > moveThreshold){
+				this.fallThrough = true;
 			}
 				
 		}
@@ -247,6 +249,10 @@ public abstract class Character extends PhysicsSprite {
 			{
 				jump();
 			}
+			else if(key.equals(keys))
+			{
+				this.fallThrough = true;
+			}
 			else if(key.equals(enter))
 			{
 				if(mCurCool <=0){
@@ -271,9 +277,10 @@ public abstract class Character extends PhysicsSprite {
 			}
 			else if(key.equals(down))
 			{
+				
 				if(Main.debugMode)
 				{
-					this.setPosition(new Point(this.getPosition().x,this.getPosition().y+1));
+					this.setPosition(new Point(this.getPosition().x,this.getPosition().y+20));
 				}
 			}
 
