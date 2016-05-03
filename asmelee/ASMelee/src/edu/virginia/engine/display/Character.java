@@ -35,6 +35,8 @@ public abstract class Character extends PhysicsSprite {
 	public boolean animRestart[] = {false,false,false,false,false,false,false};
 	public boolean anyControllerButton = false;
 	public int specialCount = 0;
+	public int meleeDamage = 5;
+	boolean specialingFlag = false;
 	
 	public Character(String id, boolean onlineSprite) {
 		super(id, onlineSprite);
@@ -114,7 +116,7 @@ public abstract class Character extends PhysicsSprite {
 				else {
 					
 				}
-				System.out.println();
+				//System.out.println();
 				if (this.healthbar.actualHealth > 0 && this.getPosition().getY() < 1000){
 					this.healthbar.greenHealthBar.setScaleX(this.healthbar.actualHealth/100);
 					this.healthbar.redHealthBar.setScaleX(this.healthbar.visibleHealth/100);
@@ -161,8 +163,14 @@ public abstract class Character extends PhysicsSprite {
 		//holds them in place for special attack andupdates with time
 		if(specialing)
 		{
-			updateSpecial(specialCooldown - sCurCool);
+			specialingFlag = updateSpecial(specialCooldown - sCurCool);
 			return;
+		}
+		//just for Stewie
+		else if(specialingFlag)
+		{
+			specialingFlag = updateSpecial(200);
+			
 		}
 		this.fallThrough = false;
 		
@@ -293,9 +301,9 @@ public abstract class Character extends PhysicsSprite {
 	public abstract void meleeAttack();
 	public abstract void specialAttack();
 	//not needed, but if special is time dependent is useful
-	public void updateSpecial(int framesPassed)
+	public boolean updateSpecial(int framesPassed)
 	{
-		
+		return false;
 	}
 	public void jump()
 	{

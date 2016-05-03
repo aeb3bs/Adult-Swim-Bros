@@ -30,7 +30,7 @@ public class Naruto extends Character{
 		this.defaultScaleY = 1;
 		this.setScaleX(this.defaultScaleX);
 		this.setScaleY(this.defaultScaleY);
-		
+		meleeDamage = 4;
 		//running
 		this.animRestart[2]=true;
 		

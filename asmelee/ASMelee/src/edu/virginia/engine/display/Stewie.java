@@ -26,6 +26,7 @@ public class Stewie extends Character {
 		specialCooldown = 100;
 		this.defaultScaleX = .5;
 		this.defaultScaleY = .5;
+		meleeDamage = 2;
 		
 		laser = new Laser("laser", "StewieLaser.png", false); // used for Special
 		laser.owner = this;
@@ -141,7 +142,7 @@ public class Stewie extends Character {
 			this.animate(6);
 		}
 	}
-	public void updateSpecial(int time)
+	public boolean updateSpecial(int time)
 	{
 		System.out.println(time);
 		if(time == 3)
@@ -157,10 +158,11 @@ public class Stewie extends Character {
 			//laser.setDefaultHitbox();
 			laser.setVisible(true);
 		}
-		else if(time == 50)
+		else if(time >= 50)
 		{
 			this.removeChild(laser);
 			laser.setVisible(false);
+			return false;
 		}
 		else {
 			//if(this.getScaleX()>0)
@@ -172,6 +174,7 @@ public class Stewie extends Character {
 			}
 			//System.out.println(laser.hitbox.x + " " +laser.hitbox.width);
 		}
+		return true;
 		
 	}
 	/*

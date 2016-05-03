@@ -28,7 +28,7 @@ public class Goku extends Character{
 		this.defaultScaleY = 1.2;
 		this.setScaleX(this.defaultScaleX);
 		this.setScaleY(this.defaultScaleY);
-		
+		this.rangedCooldown = 110;
 		
 		//running
 		this.animRestart[2]=true;

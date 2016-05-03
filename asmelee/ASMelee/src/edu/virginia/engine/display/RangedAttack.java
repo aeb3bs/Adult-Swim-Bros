@@ -64,7 +64,7 @@ public class RangedAttack extends AnimatedSprite{
 		else if((myCharacter instanceof Naruto && myCharacter.specialing)){
 			this.setImage("NarutoBall1.png");
 			xSpeed = 0;
-			damage = 10;
+			damage = 15;
 			yoffset = -20;
 		}
 		else
@@ -86,6 +86,16 @@ public class RangedAttack extends AnimatedSprite{
 		Point p=new Point();
 		p.setLocation(position.getX()+xSpeed, position.getY()+ySpeed);
 		this.setPosition(p);
+		
+		if(this.myCharacter instanceof Peter)
+		{
+			this.setScaleX(this.getScaleX()+.006);
+			this.setScaleY(this.getScaleX()+.006);
+			if(this.getAlpha() <= 0.01)
+				this.destroy(null);
+			if (this.visible)
+				this.setAlpha(this.getAlpha()-.004);
+		}
 		//System.out.println("updated");
 	}
 	public void destroy(DisplayObject o)

@@ -76,6 +76,7 @@ public class Main extends Game{
 	SpecialTrooperCollisionManager mySpecialTrooperCollisionManager = new SpecialTrooperCollisionManager();
 	Stage myStage = new Stage();
 	Character player1 = null,player2 = null,player3 = null;
+	String musicForStage = "";
 	
 	/* 
 	 * platforms now in stage class
@@ -140,27 +141,28 @@ public class Main extends Game{
 			player2 = new Naruto("naruto", false);
 			break;
 		}
-		switch(char3)
-		{
-		case "Stewie":
-			player3 = new Stewie("stewie",false);
-			break;
-		case "Peter":
-			player3 = new Peter("peter",false);
-			break;
-		case "Trooper":
-			player3 = new Trooper("trooper",false);
-			break;
-		case "Pikachu":
-			player3 = new Pikachu("pikachu",false);
-			break;
-		case "Goku":
-			player3 = new Goku("goku",false);
-			break;
-		case "Naruto":
-			player3 = new Naruto("naruto", false);
-			break;
-		}
+		if(char3!=null)
+			switch(char3)
+			{
+			case "Stewie":
+				player3 = new Stewie("stewie",false);
+				break;
+			case "Peter":
+				player3 = new Peter("peter",false);
+				break;
+			case "Trooper":
+				player3 = new Trooper("trooper",false);
+				break;
+			case "Pikachu":
+				player3 = new Pikachu("pikachu",false);
+				break;
+			case "Goku":
+				player3 = new Goku("goku",false);
+				break;
+			case "Naruto":
+				player3 = new Naruto("naruto", false);
+				break;
+			}
 		
 		player1.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
 		player1.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
@@ -170,7 +172,7 @@ public class Main extends Game{
 		player1.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
 		player1.myControllerIndex = 0;
 		player1.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
-		player1.setPosition(new Point(100,0));
+		player1.setPosition(new Point(200,0));
 		player1.setScaleX(player1.defaultScaleX);
 		player1.setScaleY(player1.defaultScaleY);
 
@@ -181,45 +183,54 @@ public class Main extends Game{
 		player2.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
 		player2.addEventListener(mySpecialTrooperCollisionManager, SpecialTrooperCollisionEvent.SPECIALTROOPER);
 		player2.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
-		player2.myControllerIndex = -1;
+		player2.myControllerIndex = 1;
 		player2.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
-		player2.setPosition(new Point(100,0));
+		player2.setPosition(new Point(400,0));
 		player2.setScaleX(player2.defaultScaleX);
 		player2.setScaleY(player2.defaultScaleY);
 		
-		player3.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
-		player3.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
-		player3.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
-		player3.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
-		player3.addEventListener(mySpecialTrooperCollisionManager, SpecialTrooperCollisionEvent.SPECIALTROOPER);
-		player3.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
-		player3.myControllerIndex = 1;
-		player3.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
-		player3.setPosition(new Point(100,0));
-		player3.setScaleX(player3.defaultScaleX);
-		player3.setScaleY(player3.defaultScaleY);
+		if(char3 != null)
+		{
+			player3.addEventListener(myPlatformManager, PlatformCollisionEvent.COLLISION);
+			player3.addEventListener(myCharacterCollisionManager, CharacterCollisionEvent.MELEE);
+			player3.addEventListener(myRangedCollisionManager, RangedCollisionEvent.RANGED);
+			player3.addEventListener(mySpecialStewieCollisionManager, SpecialStewieCollisionEvent.SPECIALSTEWIE);
+			player3.addEventListener(mySpecialTrooperCollisionManager, SpecialTrooperCollisionEvent.SPECIALTROOPER);
+			player3.addEventListener(myCharacterDeathManager, CharacterDeathEvent.DEATH);
+			player3.myControllerIndex = -1;
+			player3.setPivotPoint(new Point(player1.getUnscaledWidth()/2,0));
+			player3.setPosition(new Point(600,0));
+			player3.setScaleX(player3.defaultScaleX);
+			player3.setScaleY(player3.defaultScaleY);
+		}
 
 		switch(stage)
 		{
 		case "Mario World":
 			myStage = new Stage();
+			musicForStage = "mario_theme_song.wav";
 			break;
 		case "Star Wars":
 			myStage = new StarWarsStage();
+			musicForStage = "";
 			break;
 		case "Pokemon":
 			myStage = new PokemonStage();
 			player1.setPosition(new Point(300,260));
 			player2.setPosition(new Point(600,260));
+			musicForStage = "";
 			break;
 		case "Naruto":
 			myStage = new NarutoStage();
+			musicForStage = "";
 			break;
 		case "Goku":
 			myStage = new GokuStage();
+			musicForStage = "";
 			break;
 		case "FamilyGuy":
 			myStage = new FamilyGuyStage();
+			musicForStage = "";
 			break;
 		}
 		myStage.setUp();
@@ -227,12 +238,20 @@ public class Main extends Game{
 		this.addChild(myStage);
 		this.addChild(player1);
 		this.addChild(player2);
-		this.addChild(player3);
+		if(char3!=null)
+			this.addChild(player3);
 		
-//		sm = new SoundManager();
-//		sm.LoadMusic("Theme Song", "mario_theme_song.wav");
+		sm = new SoundManager();
+		try {
+			if(!musicForStage.equals("")){
+				sm.LoadMusic("Theme Song", musicForStage);
+				sm.PlayMusic("Theme Song", true);
+			}
+		} catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		sm.LoadMusic("Victory Song", "mario_victory.wav");
-//		sm.PlayMusic("Theme Song", true);
 		
 
 	}

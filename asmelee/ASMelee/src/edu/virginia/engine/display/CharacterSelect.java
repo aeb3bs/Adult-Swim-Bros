@@ -29,7 +29,7 @@ public class CharacterSelect extends JPanel implements ActionListener{
 	JButton startButton;
 	JTextField p1Selection,p2Selection,p3Selection,stageSelection;
 	JTextField p1Choices,p2Choices,p3Choices,stageChoices;
-	String player1 = "Peter", player2 = "Stewie",player3 = "Stewie",stage = "Mario World";
+	String player1 = "Peter", player2 = "Stewie",player3 = null,stage = "Mario World";
 	Main myGame;
 	public CharacterSelect(Main game, int width, int height)
 	{

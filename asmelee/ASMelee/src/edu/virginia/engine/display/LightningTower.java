@@ -18,7 +18,7 @@ public class LightningTower extends Sprite {
 		if(owner instanceof Pikachu) {
 			this.setImage("pikachu_lightningtower.png");
 			damage = 6;
-			knockback = 10;
+			knockback = 30;
 		}
 		// TODO Auto-generated constructor stub
 		
